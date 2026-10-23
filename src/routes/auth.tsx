@@ -20,6 +20,17 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
+// O login com Google usa o serviço do Lovable (@lovable.dev/cloud-auth-js), que só
+// funciona quando o app roda num domínio do Lovable. Em localhost, na Vercel ou em
+// domínio próprio o botão não tem como funcionar — então nem é exibido.
+// Para ter Google de verdade fora do Lovable, configure o OAuth nativo no Supabase
+// (passo a passo em MIGRACAO-SUPABASE.md, seção "Login com Google").
+function googleAvailable(): boolean {
+  if (typeof window === "undefined") return false;
+  const host = window.location.hostname;
+  return host.endsWith(".lovable.app") || host.endsWith(".lovable.dev");
+}
+
 function AuthPage() {
   const navigate = useNavigate();
   const [mode, setMode] = useState<"in" | "up">("in");
@@ -27,6 +38,7 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
+  const [showGoogle] = useState(googleAvailable);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -54,7 +66,9 @@ function AuthPage() {
     });
     setBusy(false);
     if (r.error) {
-      return toast.error("Login com Google indisponível neste projeto. Use e-mail e senha.");
+      return toast.error(
+        "Login com Google indisponível neste projeto. Use e-mail e senha para entrar.",
+      );
     }
     if (r.redirected) return;
     navigate({ to: "/admin" });
@@ -91,18 +105,23 @@ function AuthPage() {
             <Button disabled={busy} className="h-12 w-full">
               {mode === "in" ? "Entrar" : "Cadastrar"}
             </Button>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={google}
-              disabled={busy}
-              className="h-12 w-full"
-            >
-              Continuar com Google
-            </Button>
-            <p className="text-center text-xs text-muted-foreground">
-              O login com Google pode estar indisponível. Nesse caso, use e-mail e senha.
-            </p>
+            {showGoogle ? (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={google}
+                disabled={busy}
+                className="h-12 w-full"
+              >
+                Continuar com Google
+              </Button>
+            ) : (
+              <p className="text-center text-xs text-muted-foreground">
+                {mode === "in"
+                  ? "Entre com o e-mail e a senha da sua conta."
+                  : "Escolha um e-mail e uma senha para criar sua conta."}
+              </p>
+            )}
           </form>
         )}
         <button

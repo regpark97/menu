@@ -130,19 +130,25 @@ Reinicie o servidor (`Ctrl+C` e `npm run dev`) — o Vite injeta as `VITE_*` no 
 
 ## Passo 6 — Criar seu usuário (vira Super Admin)
 
-1. Abra `http://localhost:8082/auth` e clique em **Cadastre-se**.
+1. Abra `http://localhost:8080/auth` e clique em **Cadastre-se**.
 2. Use e-mail + senha (mínimo 6 caracteres).
 3. Confirme o e-mail (verifique a caixa de entrada).
 4. Faça login → o gatilho `handle_new_user` promove automaticamente o
-   **primeiro usuário a Super Admin e dono do café de demonstração**.
+   **primeiro usuário cadastrado a Super Admin**.
 
 > ⚠️ Enquanto você não confirmar o e-mail, o usuário não existe em `auth.users`
 > e o gatilho não dispara.
+>
+> ℹ️ O gatilho também tenta vincular esse primeiro usuário ao café de
+> demonstração (`slug='francisco-coffee'`), mas essa linha não faz mais nada:
+> os dados de demonstração foram removidos do banco. O que importa — o papel
+> de **Super Admin** — continua sendo concedido normalmente.
 
 ## Passo 7 — Validar
 
-- [ ] A página inicial (`/`) lista o café e os pratos
+- [ ] A página inicial (`/`) abre sem erro (banco vazio = lista vazia, normal)
 - [ ] `/admin` abre com você logado
+- [ ] Você cria o cliente em `/super-admin` (abas **Clientes** e **Tags NFC**)
 - [ ] "Adicionar prato" grava e recarrega mantendo o dado
 - [ ] Upload de foto de um prato funciona (o bug foi corrigido)
 - [ ] Uma tag NFC abre o cardápio certo
@@ -154,14 +160,43 @@ Reinicie o servidor (`Ctrl+C` e `npm run dev`) — o Vite injeta as `VITE_*` no 
 ### Login com Google
 
 O botão **"Continuar com Google"** usa o serviço de autenticação do Lovable
-(`@lovable.dev/cloud-auth-js`), que só funciona com o banco do Lovable. Depois da
-migração ele **para de funcionar**. Como o banco não tinha nenhum usuário, ninguém
-depende dele. Opções:
+(`@lovable.dev/cloud-auth-js`), que **só funciona em domínios do Lovable**. Depois
+da migração (e do deploy na Vercel) ele **não funciona**. Como o banco não tinha
+nenhum usuário, ninguém depende dele.
 
-1. **Remover o botão** (recomendado agora) — deixamos só e-mail + senha;
-2. **Manter com aviso** — o botão aparece mas mostra um aviso amigável;
-3. **Reativar depois** — criar credenciais no Google Cloud Console e configurar
-   o provedor Google no seu Supabase. Dá trabalho, mas é possível.
+**Estado atual:** o botão **não é exibido** fora de domínios do Lovable
+(`*.lovable.app` / `*.lovable.dev`). Em `localhost`, na Vercel ou em domínio
+próprio aparece apenas o formulário de e-mail + senha — sem botão quebrado e sem
+risco de alguém clicar em algo que não funciona.
+
+**Se quiser reativar com Google de verdade** (OAuth nativo do Supabase):
+
+1. **Google Cloud Console** → _APIs e serviços_ → _Credenciais_ →
+   _Criar credenciais_ → **ID do cliente OAuth** (tipo _Aplicativo da Web_).
+2. Em **URIs de redirecionamento autorizados**, cole o callback do Supabase:
+   ```
+   https://SEU-PROJECT-ID.supabase.co/auth/v1/callback
+   ```
+3. Copie **Client ID** e **Client Secret**.
+4. **Supabase** → _Authentication_ → _Providers_ → **Google** → ative e cole as
+   duas chaves. Salve.
+5. No código, substitua a chamada do Lovable pela do Supabase em
+   `src/routes/auth.tsx`:
+   ```ts
+   await supabase.auth.signInWithOAuth({
+     provider: "google",
+     options: { redirectTo: window.location.origin + "/admin" },
+   });
+   ```
+   Depois remova o `disabled` e o aviso do botão.
+6. Confirme que o domínio está nos **Redirect URLs** do Supabase (Passo 9).
+
+Em vez de reativar o OAuth nativo, uma alternativa mais simples é **remover o
+botão de vez**: apague a função `googleAvailable()`, o estado `showGoogle` e o
+bloco `google()` do `src/routes/auth.tsx`.
+
+> O arquivo `src/integrations/lovable/index.ts` pode então ser removido junto com
+> a dependência `@lovable.dev/cloud-auth-js` — mas nada quebra se ficar.
 
 ### O que continua funcionando sem mudanças
 
