@@ -130,28 +130,92 @@ Reinicie o servidor (`Ctrl+C` e `npm run dev`) — o Vite injeta as `VITE_*` no 
 
 ## Passo 6 — Criar seu usuário (vira Super Admin)
 
+> ⚠️ **Antes de rodar isto, aplique `supabase/hardening.sql`** (veja a seção
+> "🔒 Segurança" logo abaixo). Sem ele, qualquer pessoa que se cadastrar
+> pode se promover a Super Admin.
+
 1. Abra `http://localhost:8080/auth` e clique em **Cadastre-se**.
 2. Use e-mail + senha (mínimo 6 caracteres).
 3. Confirme o e-mail (verifique a caixa de entrada).
-4. Faça login → o gatilho `handle_new_user` promove automaticamente o
-   **primeiro usuário cadastrado a Super Admin**.
+4. Faça login. Como o cadastro público **não** concede mais Super Admin,
+   promova-se à mão no **Supabase → SQL Editor**:
 
-> ⚠️ Enquanto você não confirmar o e-mail, o usuário não existe em `auth.users`
-> e o gatilho não dispara.
->
-> ℹ️ O gatilho também tenta vincular esse primeiro usuário ao café de
-> demonstração (`slug='francisco-coffee'`), mas essa linha não faz mais nada:
-> os dados de demonstração foram removidos do banco. O que importa — o papel
-> de **Super Admin** — continua sendo concedido normalmente.
+   ```sql
+   insert into public.user_roles (user_id, role)
+   select id, 'super_admin' from auth.users where email = 'seu-email@exemplo.com'
+   on conflict do nothing;
+   ```
 
-## Passo 7 — Validar
+5. Recarregue o site — a aba **Super Admin** aparece no cabeçalho.
+
+> ℹ️ Enquanto você não confirmar o e-mail, o usuário não existe em `auth.users`
+> e o `insert` acima não encontra ninguém.
+
+---
+
+## 🔒 Segurança (rodar uma vez, é obrigatório)
+
+Dois arquivos em `supabase/`, nesta ordem, no **Supabase → SQL Editor**:
+
+| Ordem | Arquivo | O que faz |
+| ----- | ------- | --------- |
+| 1 | `supabase/hardening.sql` | Fecha o furo que deixava qualquer usuário logado se promover a Super Admin; todo cadastro novo entra como `user`. |
+| 2 | `supabase/rpc-user-lookup.sql` | Cria `user_id_by_email()`, a função que permite vincular o dono pelo e-mail no `/super-admin`. |
+
+**Por que era um furo:** `user_roles` tinha RLS ligado e `GRANT` para
+`authenticated`, mas nenhuma policy de `INSERT`. No Postgres isso significa
+**liberado**, não bloqueado — então qualquer conta logada podia fazer
+`insert into user_roles (user_id, role) values (meu_id, 'super_admin')`.
+Além disso, o gatilho `handle_new_user` promovia o primeiro usuário cadastrado
+a Super Admin.
+
+Depois de aplicar o `hardening.sql`, para dar Super Admin a alguém use o bloco
+comentado no fim do próprio arquivo (e há também um `select` de conferência).
+
+---
+
+### 👤 Como o cliente ganha acesso (Modelo A: você cria a conta dele)
+
+O cadastro em `/auth` é **aberto** — qualquer pessoa pode criar conta. Mas uma
+conta nova **não vê painel nenhum**: ela precisa estar vinculada a um
+estabelecimento (`tenants.owner_user_id`). O fluxo é:
+
+1. **Você cria o estabelecimento** em `/super-admin → Clientes`, informando no
+   campo **"E-mail do dono"** o e-mail do seu cliente.
+   - Se ele **já tiver** conta, o vínculo acontece na hora e o toast confirma
+     *"Estabelecimento criado e vinculado a …"*.
+2. Se ele **ainda não tiver** conta, aparece um aviso. Peça para ele se
+   cadastrar em `/auth` com **esse mesmo e-mail** e, depois, use
+   **"Vincular dono"** no cartão do cliente — basta digitar o e-mail, sem
+   caçar UUID nenhum.
+3. Pronto: ele entra em `/admin` e cai no painel dele.
+
+Detalhes úteis:
+
+- **"Trocar dono"** transfere o painel para outra conta (útil quando o
+  funcionário sai).
+- **"Desvincular"** devolve o estabelecimento ao estado "sem dono" — ninguém
+  acessa o painel, mas o cardápio público continua no ar.
+- Um cliente **pode** se cadastrar sozinho em `/auth` (você passa o link), mas
+  ele só vê "nenhum estabelecimento vinculado" até você fazer o passo 1 ou 2.
+  Isso é intencional: é o que impede um estranho de sequestrar o painel de
+  quem já é cliente.
+- **Modo suporte:** em `/super-admin`, o botão *"Acessar Painel do Cliente"*
+  abre `/admin?tenant=<id>` com uma faixa amarela — você mexe no cardápio sem
+  precisar da senha do cliente.
+
+---
+
+## Passo 8 — Validar
 
 - [ ] A página inicial (`/`) abre sem erro (banco vazio = lista vazia, normal)
 - [ ] `/admin` abre com você logado
 - [ ] Você cria o cliente em `/super-admin` (abas **Clientes** e **Tags NFC**)
+- [ ] No cartão do cliente, "Vincular dono" encontra a conta pelo e-mail
 - [ ] "Adicionar prato" grava e recarrega mantendo o dado
 - [ ] Upload de foto de um prato funciona (o bug foi corrigido)
 - [ ] Uma tag NFC abre o cardápio certo
+
 
 ---
 
@@ -234,7 +298,7 @@ Cadastre as 6 abaixo em **Production + Preview + Development**:
 >
 > `NITRO_PRESET=vercel` já vem do `vercel.json` — não precisa cadastrar.
 
-### Passo 8 — Publicar (GitHub + Vercel)
+### Passo 9 — Publicar (GitHub + Vercel)
 
 ```powershell
 git init
@@ -248,7 +312,7 @@ git push -u origin main
 Depois: **vercel.com/new → Import Git Repository** → escolha o repositório →
 cole as 6 variáveis → **Deploy**. Sai um link `https://sipflow-xxx.vercel.app`.
 
-### Passo 9 — Liberar o domínio no Supabase (obrigatório)
+### Passo 10 — Liberar o domínio no Supabase (obrigatório)
 
 Supabase → **Authentication → URL Configuration**:
 
@@ -257,7 +321,7 @@ Supabase → **Authentication → URL Configuration**:
 
 Sem isso o login/confirmação de e-mail vai para o domínio errado.
 
-### Passo 10 — Testar no celular (NFC)
+### Passo 11 — Testar no celular (NFC)
 
 ```
 https://sipflow-xxx.vercel.app/t/tag-001
@@ -283,9 +347,11 @@ npm run deploy:vercel  # npx vercel --prod (exige login) — alternativa ao Git
 | ---------------------------------- | -------------------------------- | --------------------------------------------- |
 | Build gera `.output/` (Cloudflare) | `NITRO_PRESET` não aplicado      | Confirme o `vercel.json` no repositório       |
 | Tela `500` no SSR em produção      | Env vars faltando na Vercel      | Cadastre as 6 (inclusive sem prefixo `VITE_`) |
-| Login redireciona para URL errada  | Site URL não configurada         | Passo 9 acima                                 |
+| Login redireciona para URL errada  | Site URL não configurada         | Passo 10 acima                                |
 | Rota `/t/xxx` dá 404 em produção   | `routes` apagados                | Recrie as tags no `/super-admin`              |
 | Botão Google não funciona          | Usa `@lovable.dev/cloud-auth-js` | Configure OAuth nativo do Supabase            |
+| "Vincular dono" dá erro de função  | `rpc-user-lookup.sql` não rodado | Rode `supabase/rpc-user-lookup.sql`           |
+| Cliente logado não vê painel       | Conta sem vínculo no tenant      | "Vincular dono" no `/super-admin → Clientes`  |
 
 ---
 
