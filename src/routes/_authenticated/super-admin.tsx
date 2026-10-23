@@ -3,13 +3,24 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 import QRCode from "qrcode";
-import { Copy, QrCode, LogIn, Check, X } from "lucide-react";
+import { Copy, QrCode, LogIn, Check, X, Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { AppHeader, useIsSuperAdmin } from "@/components/AppHeader";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { resolveMedia } from "@/lib/format";
 
 export const Route = createFileRoute("/_authenticated/super-admin")({
@@ -149,7 +160,8 @@ function Tenants({ list, refetch }: { list: Tables<"tenants">[]; refetch: () => 
       <p className="text-xs text-muted-foreground">
         Se informar o e-mail do dono e ele já tiver conta, o painel dele é liberado na hora. Se
         ainda não tiver, peça para ele criar a conta em <span className="text-gold">/auth</span> com
-        esse mesmo e-mail e depois cole o ID no cartão do cliente abaixo.
+        esse mesmo e-mail e use <span className="text-gold">Vincular dono</span> no cartão dele
+        abaixo.
       </p>
       {list.map((t) => (
         <TenantRow key={t.id} t={t} refetch={refetch} />
@@ -167,6 +179,7 @@ function TenantRow({ t, refetch }: { t: Tables<"tenants">; refetch: () => void }
   });
   const [ownerEmail, setOwnerEmail] = useState("");
   const [linking, setLinking] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   async function save() {
     const { error } = await supabase.from("tenants").update(v).eq("id", t.id);
@@ -207,6 +220,33 @@ function TenantRow({ t, refetch }: { t: Tables<"tenants">; refetch: () => void }
     const { error } = await supabase.from("tenants").update({ owner_user_id: null }).eq("id", t.id);
     if (error) return toast.error(error.message);
     toast.success("Dono desvinculado");
+    refetch();
+  }
+
+  /**
+   * Exclui o estabelecimento. Só o Super Admin consegue (policy `super delete tenant`).
+   * Pratos, categorias e telemetria saem junto por cascade; as tags NFC apenas
+   * ficam "sem dono" (on delete set null) e continuam disponíveis para reuso.
+   */
+  async function remove() {
+    setDeleting(true);
+
+    // 1) Solta as tags NFC — sem isto elas apontariam para um cliente inexistente.
+    const { error: tagError } = await supabase
+      .from("nfc_tags")
+      .update({ tenant_id: null })
+      .eq("tenant_id", t.id);
+    if (tagError) {
+      setDeleting(false);
+      return toast.error(`Falha ao liberar as tags NFC: ${tagError.message}`);
+    }
+
+    // 2) Apaga o cliente. O banco cuida do resto (cascade).
+    const { error } = await supabase.from("tenants").delete().eq("id", t.id);
+    setDeleting(false);
+    if (error) return toast.error(error.message);
+
+    toast.success(`${t.name} foi excluído. Pratos, categorias e histórico removidos.`);
     refetch();
   }
 
@@ -291,7 +331,53 @@ function TenantRow({ t, refetch }: { t: Tables<"tenants">; refetch: () => void }
           </Button>
         )}
       </div>
-      <div className="mt-3 flex justify-end">
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button
+              variant="ghost"
+              disabled={deleting}
+              className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+            >
+              <Trash2 className="mr-1 h-4 w-4" />
+              {deleting ? "Excluindo…" : "Excluir cliente"}
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Excluir {t.name}?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Esta ação não pode ser desfeita. Serão apagados:
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <ul className="ml-5 list-disc space-y-1 text-sm text-muted-foreground">
+              <li>
+                o cardápio <span className="font-mono text-xs">/c/{t.slug}</span> sai do ar;
+              </li>
+              <li>todas as categorias, pratos, fotos e histórico de acessos;</li>
+              <li>
+                as tags NFC ficam <span className="text-foreground">livres para reuso</span> — não
+                são apagadas.
+              </li>
+            </ul>
+            {t.owner_user_id && (
+              <p className="rounded-lg border border-warning/40 bg-warning/10 p-2 text-sm text-foreground">
+                ⚠️ Este cliente tem dono vinculado: a pessoa perde o acesso ao painel imediatamente.
+                Se for só um cliente inadimplente, prefira marcar como{" "}
+                <span className="text-foreground">Inativo</span> e salvar.
+              </p>
+            )}
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={remove}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                Excluir definitivamente
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
         <Button variant="outline" onClick={save}>
           Salvar
         </Button>
