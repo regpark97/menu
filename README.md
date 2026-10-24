@@ -1,5 +1,20 @@
 # Sipflow Tabletales
 
+> ## 📚 Antes de mexer: leia a documentação
+>
+> | Documento | Para que serve |
+> | --- | --- |
+> | **[`HANDOFF.md`](./HANDOFF.md)** | 👈 **comece por aqui** — credenciais, o que já foi feito, o que falta fazer (transferência de PC) |
+> | [`docs/OPERACAO.md`](./docs/OPERACAO.md) | O dia a dia: criar cliente, vincular dono, tags NFC, diagnóstico |
+> | [`docs/DEPLOY.md`](./docs/DEPLOY.md) | Vercel, variáveis de ambiente, deploy travado |
+> | [`docs/SUPABASE.md`](./docs/SUPABASE.md) | Schema, RLS, funções e segurança do banco |
+> | [`docs/HISTORICO.md`](./docs/HISTORICO.md) | Linha do tempo: o que foi feito, quando e por quê |
+> | [`MIGRACAO-SUPABASE.md`](./MIGRACAO-SUPABASE.md) | Guia original da migração de banco |
+>
+> ⚠️ **Regras críticas:** commits devem ser do autor
+> `regpark97 <lilomitofwdase@gmail.com>` (senão a Vercel bloqueia o deploy);
+> nunca comite o `.env`; nunca force-push em `main` (projeto ligado ao Lovable).
+
 Quero construir um micro-SaaS completo chamado "SipFlow Clone" — uma plataforma de cardápio interativo vertical (estilo TikTok/Reels) ativado por NFC/QR Code na mesa, com Customer Hub (Wi-Fi e Google Reviews), coleta de telemetria comportamental (tempo de atenção por prato) e gestão híbrida (Super Admin + Área do Loista com moderação de mídia).
 
 
