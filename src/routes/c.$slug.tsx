@@ -1,7 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, ChevronRight, Heart, Wifi, Copy, Check, X, Plus, ChevronLeft } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  ChevronRight,
+  Heart,
+  Wifi,
+  Copy,
+  Check,
+  X,
+  Plus,
+  ChevronLeft,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMoney, resolveMedia, type ModifierGroup } from "@/lib/format";
 import { initTelemetry, track } from "@/lib/telemetry";
@@ -11,12 +22,17 @@ type Product = Tables<"products">;
 
 export const Route = createFileRoute("/c/$slug")({
   ssr: false,
-  validateSearch: (s: Record<string, unknown>): { t?: string | undefined } => ({ t: s["t"] != null ? String(s["t"]) : undefined }),
+  validateSearch: (s: Record<string, unknown>): { t?: string | undefined } => ({
+    t: s["t"] != null ? String(s["t"]) : undefined,
+  }),
   head: () => ({
     meta: [
-      { title: "Cardápio — SipFlow" },
-      { name: "description", content: "Descubra o cardápio em tela cheia, conecte-se ao Wi-Fi e avalie a casa." },
-      { property: "og:title", content: "Cardápio interativo — SipFlow" },
+      { title: "Cardápio — Bupin" },
+      {
+        name: "description",
+        content: "Descubra o cardápio em tela cheia, conecte-se ao Wi-Fi e avalie a casa.",
+      },
+      { property: "og:title", content: "Cardápio interativo — Bupin" },
       { property: "og:description", content: "Explore pratos e bebidas em um feed vertical." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -33,11 +49,21 @@ function CustomerPage() {
   const { data, isLoading } = useQuery({
     queryKey: ["menu", slug],
     queryFn: async () => {
-      const { data: tenant } = await supabase.from("tenants").select("*").eq("slug", slug).eq("active", true).maybeSingle();
+      const { data: tenant } = await supabase
+        .from("tenants")
+        .select("*")
+        .eq("slug", slug)
+        .eq("active", true)
+        .maybeSingle();
       if (!tenant) return null;
       const [cats, prods] = await Promise.all([
         supabase.from("categories").select("*").eq("tenant_id", tenant.id).order("sort_order"),
-        supabase.from("products").select("*").eq("tenant_id", tenant.id).eq("is_available", true).order("sort_order"),
+        supabase
+          .from("products")
+          .select("*")
+          .eq("tenant_id", tenant.id)
+          .eq("is_available", true)
+          .order("sort_order"),
       ]);
       return { tenant, categories: cats.data ?? [], products: prods.data ?? [] };
     },
@@ -47,8 +73,18 @@ function CustomerPage() {
     if (data?.tenant) initTelemetry({ tenantId: data.tenant.id, tableRef: t ?? null });
   }, [data?.tenant, t]);
 
-  if (isLoading) return <div className="flex h-dvh items-center justify-center"><div className="h-8 w-8 animate-spin rounded-full border-2 border-gold border-t-transparent" /></div>;
-  if (!data) return <div className="flex h-dvh items-center justify-center px-6 text-center text-muted-foreground">Estabelecimento não encontrado.</div>;
+  if (isLoading)
+    return (
+      <div className="flex h-dvh items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-gold border-t-transparent" />
+      </div>
+    );
+  if (!data)
+    return (
+      <div className="flex h-dvh items-center justify-center px-6 text-center text-muted-foreground">
+        Estabelecimento não encontrado.
+      </div>
+    );
 
   return screen === "hub" ? (
     <Hub tenant={data.tenant} table={t} onExplore={() => setScreen("feed")} />
@@ -57,7 +93,15 @@ function CustomerPage() {
   );
 }
 
-function Hub({ tenant, table, onExplore }: { tenant: Tables<"tenants">; table?: string | undefined; onExplore: () => void }) {
+function Hub({
+  tenant,
+  table,
+  onExplore,
+}: {
+  tenant: Tables<"tenants">;
+  table?: string | undefined;
+  onExplore: () => void;
+}) {
   const [wifiOpen, setWifiOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const bg = resolveMedia(tenant.bg_image_url);
@@ -66,22 +110,38 @@ function Hub({ tenant, table, onExplore }: { tenant: Tables<"tenants">; table?: 
   return (
     <main className="relative h-dvh overflow-hidden">
       {isVideo ? (
-        <video src={bg} autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover" />
+        <video
+          src={bg}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+        />
       ) : (
         <img src={bg} alt="" className="absolute inset-0 h-full w-full object-cover" />
       )}
       <div className="absolute inset-0 bg-hero-scrim" />
       <div className="relative flex h-full flex-col px-6 pb-10 pt-6">
         {table && (
-          <div className="mx-auto glass rounded-full px-4 py-1.5 text-xs uppercase tracking-[0.25em]">Mesa {table}</div>
+          <div className="mx-auto glass rounded-full px-4 py-1.5 text-xs uppercase tracking-[0.25em]">
+            Mesa {table}
+          </div>
         )}
         <div className="flex flex-1 flex-col items-center justify-center text-center">
-          {tenant.logo_url && <img src={tenant.logo_url} alt={tenant.name} className="h-24 w-24 object-contain" />}
+          {tenant.logo_url && (
+            <img src={tenant.logo_url} alt={tenant.name} className="h-24 w-24 object-contain" />
+          )}
           <h1 className="mt-4 text-5xl leading-none">{tenant.name}</h1>
-          {tenant.tagline && <p className="mt-4 max-w-xs text-sm text-muted-foreground">{tenant.tagline}</p>}
+          {tenant.tagline && (
+            <p className="mt-4 max-w-xs text-sm text-muted-foreground">{tenant.tagline}</p>
+          )}
         </div>
         <div className="space-y-3">
-          <button onClick={onExplore} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary font-semibold text-primary-foreground active:scale-[0.98]">
+          <button
+            onClick={onExplore}
+            className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary font-semibold text-primary-foreground active:scale-[0.98]"
+          >
             Explorar Cardápio <ArrowRight className="h-5 w-5" />
           </button>
           {tenant.google_review_url && (
@@ -97,7 +157,10 @@ function Hub({ tenant, table, onExplore }: { tenant: Tables<"tenants">; table?: 
           )}
           {tenant.wifi_ssid && (
             <button
-              onClick={() => { track("wifi_open"); setWifiOpen(true); }}
+              onClick={() => {
+                track("wifi_open");
+                setWifiOpen(true);
+              }}
               className="glass flex h-14 w-full items-center justify-center gap-2 rounded-2xl font-medium active:scale-[0.98]"
             >
               Conectar ao Wi-Fi <ChevronRight className="h-5 w-5" />
@@ -108,12 +171,20 @@ function Hub({ tenant, table, onExplore }: { tenant: Tables<"tenants">; table?: 
 
       <Sheet open={wifiOpen} onClose={() => setWifiOpen(false)}>
         <div className="flex items-center gap-3">
-          <div className="glass flex h-11 w-11 items-center justify-center rounded-full"><Wifi className="h-5 w-5 text-gold" /></div>
+          <div className="glass flex h-11 w-11 items-center justify-center rounded-full">
+            <Wifi className="h-5 w-5 text-gold" />
+          </div>
           <h2 className="text-3xl">Wi-Fi da casa</h2>
         </div>
         <dl className="mt-6 space-y-3">
-          <div className="rounded-xl bg-secondary p-4"><dt className="text-xs text-muted-foreground">Rede</dt><dd className="mt-1 font-semibold">{tenant.wifi_ssid}</dd></div>
-          <div className="rounded-xl bg-secondary p-4"><dt className="text-xs text-muted-foreground">Senha</dt><dd className="mt-1 font-mono font-semibold">{tenant.wifi_password}</dd></div>
+          <div className="rounded-xl bg-secondary p-4">
+            <dt className="text-xs text-muted-foreground">Rede</dt>
+            <dd className="mt-1 font-semibold">{tenant.wifi_ssid}</dd>
+          </div>
+          <div className="rounded-xl bg-secondary p-4">
+            <dt className="text-xs text-muted-foreground">Senha</dt>
+            <dd className="mt-1 font-mono font-semibold">{tenant.wifi_password}</dd>
+          </div>
         </dl>
         <button
           onClick={async () => {
@@ -123,34 +194,74 @@ function Hub({ tenant, table, onExplore }: { tenant: Tables<"tenants">; table?: 
           }}
           className={`mt-5 flex h-14 w-full items-center justify-center gap-2 rounded-2xl font-semibold transition ${copied ? "bg-success text-success-foreground" : "bg-primary text-primary-foreground"}`}
         >
-          {copied ? <><Check className="h-5 w-5" /> Senha copiada</> : <><Copy className="h-5 w-5" /> Copiar Senha</>}
+          {copied ? (
+            <>
+              <Check className="h-5 w-5" /> Senha copiada
+            </>
+          ) : (
+            <>
+              <Copy className="h-5 w-5" /> Copiar Senha
+            </>
+          )}
         </button>
       </Sheet>
     </main>
   );
 }
 
-function Sheet({ open, onClose, children }: { open: boolean; onClose: () => void; children: React.ReactNode }) {
+function Sheet({
+  open,
+  onClose,
+  children,
+}: {
+  open: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
   return (
-    <div className={`fixed inset-0 z-50 transition ${open ? "pointer-events-auto" : "pointer-events-none"}`}>
-      <div onClick={onClose} className={`absolute inset-0 bg-scrim transition-opacity duration-300 ${open ? "opacity-70" : "opacity-0"}`} />
-      <div className={`absolute inset-x-0 bottom-0 max-h-[85dvh] overflow-y-auto rounded-t-3xl border-t border-glass-border bg-card px-6 pb-8 pt-3 transition-transform duration-300 ease-out ${open ? "translate-y-0" : "translate-y-full"}`}>
+    <div
+      className={`fixed inset-0 z-50 transition ${open ? "pointer-events-auto" : "pointer-events-none"}`}
+    >
+      <div
+        onClick={onClose}
+        className={`absolute inset-0 bg-scrim transition-opacity duration-300 ${open ? "opacity-70" : "opacity-0"}`}
+      />
+      <div
+        className={`absolute inset-x-0 bottom-0 max-h-[85dvh] overflow-y-auto rounded-t-3xl border-t border-glass-border bg-card px-6 pb-8 pt-3 transition-transform duration-300 ease-out ${open ? "translate-y-0" : "translate-y-full"}`}
+      >
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-muted" />
-        <button onClick={onClose} className="absolute right-4 top-4 rounded-full p-2 text-muted-foreground" aria-label="Fechar"><X className="h-5 w-5" /></button>
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 rounded-full p-2 text-muted-foreground"
+          aria-label="Fechar"
+        >
+          <X className="h-5 w-5" />
+        </button>
         {children}
       </div>
     </div>
   );
 }
 
-function Feed({ categories, products, onBack }: { categories: Tables<"categories">[]; products: Product[]; onBack: () => void }) {
+function Feed({
+  categories,
+  products,
+  onBack,
+}: {
+  categories: Tables<"categories">[];
+  products: Product[];
+  onBack: () => void;
+}) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeCat, setActiveCat] = useState<string | null>(products[0]?.category_id ?? null);
   const [customizing, setCustomizing] = useState<Product | null>(null);
   const [favs, setFavs] = useState<Set<string>>(new Set());
   const lastIndex = useRef(0);
 
-  const usedCats = useMemo(() => categories.filter((c) => products.some((p) => p.category_id === c.id)), [categories, products]);
+  const usedCats = useMemo(
+    () => categories.filter((c) => products.some((p) => p.category_id === c.id)),
+    [categories, products],
+  );
 
   function jumpTo(catId: string) {
     const idx = products.findIndex((p) => p.category_id === catId);
@@ -161,7 +272,10 @@ function Feed({ categories, products, onBack }: { categories: Tables<"categories
 
   function onFocus(p: Product, index: number) {
     if (index !== lastIndex.current) {
-      track("swipe", { product_id: p.id, metadata: { direction: index > lastIndex.current ? "down" : "up" } });
+      track("swipe", {
+        product_id: p.id,
+        metadata: { direction: index > lastIndex.current ? "down" : "up" },
+      });
       lastIndex.current = index;
     }
     setActiveCat(p.category_id);
@@ -171,7 +285,13 @@ function Feed({ categories, products, onBack }: { categories: Tables<"categories
     <main className="relative h-dvh">
       <header className="pointer-events-none absolute inset-x-0 top-0 z-20 bg-top-scrim pb-8 pt-4">
         <div className="pointer-events-auto flex items-center gap-2 px-4">
-          <button onClick={onBack} className="glass flex h-9 w-9 shrink-0 items-center justify-center rounded-full" aria-label="Voltar"><ChevronLeft className="h-5 w-5" /></button>
+          <button
+            onClick={onBack}
+            className="glass flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+            aria-label="Voltar"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
           <nav className="no-scrollbar flex gap-2 overflow-x-auto">
             {usedCats.map((c) => (
               <button
@@ -196,13 +316,23 @@ function Feed({ categories, products, onBack }: { categories: Tables<"categories
             onFav={() => {
               const next = new Set(favs);
               if (next.has(p.id)) next.delete(p.id);
-              else { next.add(p.id); track("favorite", { product_id: p.id, category_id: p.category_id }); }
+              else {
+                next.add(p.id);
+                track("favorite", { product_id: p.id, category_id: p.category_id });
+              }
               setFavs(next);
             }}
-            onCustomize={() => { track("customize_open", { product_id: p.id, category_id: p.category_id }); setCustomizing(p); }}
+            onCustomize={() => {
+              track("customize_open", { product_id: p.id, category_id: p.category_id });
+              setCustomizing(p);
+            }}
           />
         ))}
-        {products.length === 0 && <div className="flex h-dvh items-center justify-center text-muted-foreground">Cardápio em preparação.</div>}
+        {products.length === 0 && (
+          <div className="flex h-dvh items-center justify-center text-muted-foreground">
+            Cardápio em preparação.
+          </div>
+        )}
       </div>
 
       <CustomizeSheet product={customizing} onClose={() => setCustomizing(null)} />
@@ -210,7 +340,19 @@ function Feed({ categories, products, onBack }: { categories: Tables<"categories
   );
 }
 
-function ProductCard({ product, fav, onFav, onCustomize, onFocus }: { product: Product; fav: boolean; onFav: () => void; onCustomize: () => void; onFocus: () => void }) {
+function ProductCard({
+  product,
+  fav,
+  onFav,
+  onCustomize,
+  onFocus,
+}: {
+  product: Product;
+  fav: boolean;
+  onFav: () => void;
+  onCustomize: () => void;
+  onFocus: () => void;
+}) {
   const ref = useRef<HTMLElement>(null);
   const onFocusRef = useRef(onFocus);
   onFocusRef.current = onFocus;
@@ -224,7 +366,11 @@ function ProductCard({ product, fav, onFav, onCustomize, onFocus }: { product: P
     let inView = false;
     const end = () => {
       if (start != null) {
-        track("product_view", { product_id: product.id, category_id: product.category_id, duration_ms: performance.now() - start });
+        track("product_view", {
+          product_id: product.id,
+          category_id: product.category_id,
+          duration_ms: performance.now() - start,
+        });
         start = null;
       }
     };
@@ -244,34 +390,69 @@ function ProductCard({ product, fav, onFav, onCustomize, onFocus }: { product: P
     };
     io.observe(el);
     document.addEventListener("visibilitychange", onVis);
-    return () => { end(); io.disconnect(); document.removeEventListener("visibilitychange", onVis); };
+    return () => {
+      end();
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVis);
+    };
   }, [product.id, product.category_id]);
 
   const media = resolveMedia(product.media_url);
   return (
     <section ref={ref} className="relative h-dvh w-full snap-start snap-always overflow-hidden">
       {product.media_type === "video" ? (
-        <video src={media} autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover" />
+        <video
+          src={media}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+        />
       ) : (
-        <img src={media} alt={product.name} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+        <img
+          src={media}
+          alt={product.name}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
       )}
       <div className="absolute inset-0 bg-card-scrim" />
       <div className="absolute inset-x-0 bottom-0 flex items-end gap-4 px-5 pb-10">
         <div className="min-w-0 flex-1">
-          {product.is_featured && <span className="text-[10px] uppercase tracking-[0.3em] text-gold">Destaque da casa</span>}
+          {product.is_featured && (
+            <span className="text-[10px] uppercase tracking-[0.3em] text-gold">
+              Destaque da casa
+            </span>
+          )}
           <h2 className="mt-1 text-4xl leading-[1.05]">{product.name}</h2>
-          {product.description && <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{product.description}</p>}
+          {product.description && (
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              {product.description}
+            </p>
+          )}
           <div className="mt-5 flex flex-wrap items-center gap-2">
-            <span className="glass rounded-full px-4 py-2 text-sm font-semibold">{formatMoney(product.price_cents)}</span>
+            <span className="glass rounded-full px-4 py-2 text-sm font-semibold">
+              {formatMoney(product.price_cents)}
+            </span>
             {mods.length > 0 && (
-              <button onClick={onCustomize} className="flex items-center gap-1 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground active:scale-95">
+              <button
+                onClick={onCustomize}
+                className="flex items-center gap-1 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground active:scale-95"
+              >
                 Personalizar <Plus className="h-4 w-4" />
               </button>
             )}
           </div>
         </div>
-        <button onClick={onFav} aria-label="Favoritar" className="glass flex h-14 w-14 shrink-0 items-center justify-center rounded-full active:scale-90">
-          <Heart className={`h-6 w-6 transition ${fav ? "fill-destructive text-destructive" : ""}`} />
+        <button
+          onClick={onFav}
+          aria-label="Favoritar"
+          className="glass flex h-14 w-14 shrink-0 items-center justify-center rounded-full active:scale-90"
+        >
+          <Heart
+            className={`h-6 w-6 transition ${fav ? "fill-destructive text-destructive" : ""}`}
+          />
         </button>
       </div>
     </section>
@@ -281,9 +462,14 @@ function ProductCard({ product, fav, onFav, onCustomize, onFocus }: { product: P
 function CustomizeSheet({ product, onClose }: { product: Product | null; onClose: () => void }) {
   const [picked, setPicked] = useState<Record<string, number>>({});
   const [last, setLast] = useState<Product | null>(null);
-  useEffect(() => { if (product) { setLast(product); setPicked({}); } }, [product]);
+  useEffect(() => {
+    if (product) {
+      setLast(product);
+      setPicked({});
+    }
+  }, [product]);
   const p = product ?? last;
-  const mods = ((p?.modifiers as ModifierGroup[] | null) ?? []);
+  const mods = (p?.modifiers as ModifierGroup[] | null) ?? [];
   const total = (p?.price_cents ?? 0) + Object.values(picked).reduce((a, b) => a + b, 0);
 
   function toggle(group: string, name: string, price: number) {
@@ -292,7 +478,12 @@ function CustomizeSheet({ product, onClose }: { product: Product | null; onClose
     if (key in next) delete next[key];
     else {
       next[key] = price;
-      if (p) track("modifier_select", { product_id: p.id, category_id: p.category_id, metadata: { group, option: name, price_cents: price } });
+      if (p)
+        track("modifier_select", {
+          product_id: p.id,
+          category_id: p.category_id,
+          metadata: { group, option: name, price_cents: price },
+        });
     }
     setPicked(next);
   }
@@ -311,13 +502,22 @@ function CustomizeSheet({ product, onClose }: { product: Product | null; onClose
                   {g.options.map((o) => {
                     const on = `${g.group}::${o.name}` in picked;
                     return (
-                      <button key={o.name} onClick={() => toggle(g.group, o.name, o.price_cents)}
-                        className={`flex w-full items-center justify-between rounded-xl border px-4 py-3.5 text-left transition ${on ? "border-gold bg-accent" : "border-border bg-secondary"}`}>
+                      <button
+                        key={o.name}
+                        onClick={() => toggle(g.group, o.name, o.price_cents)}
+                        className={`flex w-full items-center justify-between rounded-xl border px-4 py-3.5 text-left transition ${on ? "border-gold bg-accent" : "border-border bg-secondary"}`}
+                      >
                         <span className="flex items-center gap-3">
-                          <span className={`flex h-5 w-5 items-center justify-center rounded-full border ${on ? "border-gold bg-gold text-primary-foreground" : "border-muted-foreground"}`}>{on && <Check className="h-3 w-3" />}</span>
+                          <span
+                            className={`flex h-5 w-5 items-center justify-center rounded-full border ${on ? "border-gold bg-gold text-primary-foreground" : "border-muted-foreground"}`}
+                          >
+                            {on && <Check className="h-3 w-3" />}
+                          </span>
                           {o.name}
                         </span>
-                        <span className="text-sm text-muted-foreground">+ {formatMoney(o.price_cents)}</span>
+                        <span className="text-sm text-muted-foreground">
+                          + {formatMoney(o.price_cents)}
+                        </span>
                       </button>
                     );
                   })}
@@ -329,7 +529,9 @@ function CustomizeSheet({ product, onClose }: { product: Product | null; onClose
             <span className="text-sm font-medium">Total</span>
             <span className="text-xl font-bold tabular-nums">{formatMoney(total)}</span>
           </div>
-          <p className="mt-3 text-center text-xs text-muted-foreground">Mostre ao atendente para fazer o pedido.</p>
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            Mostre ao atendente para fazer o pedido.
+          </p>
         </>
       )}
     </Sheet>

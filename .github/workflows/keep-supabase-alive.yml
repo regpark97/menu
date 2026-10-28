@@ -1,0 +1,28 @@
+name: Keep Supabase awake
+
+# O plano Free do Supabase pausa projetos após ~7 dias sem atividade.
+# Este workflow faz uma requisição diária ao destino da tag NFC, que executa
+# uma query real em `nfc_tags` — o suficiente para o Supabase registrar uso.
+
+on:
+  schedule:
+    # Todo dia às 09:17 UTC (06:17 BRT). Fora do pico, minuto "aleatório".
+    - cron: "17 9 * * *"
+  workflow_dispatch: # permite rodar manualmente pela aba Actions
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping NFC route (toca o Supabase)
+        run: |
+          set -euo pipefail
+          URL="https://menu-regpark97.vercel.app/t/tag-001"
+          echo "Pingando $URL"
+          code=$(curl -s -o /dev/null -w "%{http_code}" -L --max-time 30 "$URL" || echo "000")
+          echo "HTTP $code"
+          # 200 = ok. Não falhamos o job em códigos inesperados para não
+          # gerar e-mail de falha toda vez; só alertamos no log.
+          if [ "$code" != "200" ]; then
+            echo "::warning::Resposta inesperada ($code). Verifique o deploy e o Supabase."
+          fi

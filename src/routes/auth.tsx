@@ -9,9 +9,9 @@ import { Input } from "@/components/ui/input";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Entrar — SipFlow" },
-      { name: "description", content: "Acesse o painel do seu estabelecimento no SipFlow." },
-      { property: "og:title", content: "Entrar — SipFlow" },
+      { title: "Entrar — Bupin" },
+      { name: "description", content: "Acesse o painel do seu estabelecimento no Bupin." },
+      { property: "og:title", content: "Entrar — Bupin" },
       { property: "og:description", content: "Acesse o painel do seu estabelecimento." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -77,7 +77,7 @@ function AuthPage() {
   return (
     <main className="flex min-h-dvh items-center justify-center px-6">
       <div className="w-full max-w-sm">
-        <p className="text-xs uppercase tracking-[0.3em] text-gold">SipFlow</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-gold">Bupin</p>
         <h1 className="mt-3 text-4xl">{mode === "in" ? "Bem-vindo de volta" : "Criar conta"}</h1>
         {sent ? (
           <p className="mt-6 rounded-xl glass p-4 text-sm">

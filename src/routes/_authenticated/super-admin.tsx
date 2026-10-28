@@ -26,10 +26,10 @@ import { resolveMedia } from "@/lib/format";
 export const Route = createFileRoute("/_authenticated/super-admin")({
   head: () => ({
     meta: [
-      { title: "Super Admin — SipFlow" },
+      { title: "Super Admin — Bupin" },
       { name: "description", content: "Gestão de clientes, tags NFC e moderação de mídia." },
-      { property: "og:title", content: "Super Admin — SipFlow" },
-      { property: "og:description", content: "Painel mestre do SipFlow." },
+      { property: "og:title", content: "Super Admin — Bupin" },
+      { property: "og:description", content: "Painel mestre do Bupin." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -53,7 +53,7 @@ function SuperAdmin() {
       <main className="mx-auto max-w-5xl px-4 py-6">
         {isLoading ? null : !isSuper ? (
           <div className="glass rounded-2xl p-8 text-center text-muted-foreground">
-            Acesso restrito à equipe SipFlow.
+            Acesso restrito à equipe Bupin.
           </div>
         ) : (
           <Tabs defaultValue="tenants">

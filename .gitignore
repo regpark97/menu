@@ -41,3 +41,6 @@ dist-ssr
 
 .vercel
 .env*
+
+# Visual Studio (lixo local)
+.vs/

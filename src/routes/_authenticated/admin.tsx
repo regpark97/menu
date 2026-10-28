@@ -39,13 +39,13 @@ export const Route = createFileRoute("/_authenticated/admin")({
   }),
   head: () => ({
     meta: [
-      { title: "Painel do Restaurante â€” SipFlow" },
+      { title: "Painel do Restaurante — Bupin" },
       {
         name: "description",
-        content: "Gerencie cardÃ¡pio, fotos, Wi-Fi e mÃ©tricas de atenÃ§Ã£o.",
+        content: "Gerencie cardápio, fotos, Wi-Fi e métricas de atenção.",
       },
-      { property: "og:title", content: "Painel do Restaurante â€” SipFlow" },
-      { property: "og:description", content: "Gerencie seu cardÃ¡pio interativo." },
+      { property: "og:title", content: "Painel do Restaurante — Bupin" },
+      { property: "og:description", content: "Gerencie seu cardápio interativo." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -77,7 +77,7 @@ function AdminPage() {
         .maybeSingle();
       if (owned) return { tenant: owned, support: false };
       // 3) Super Admin sem tenant próprio: mostra o primeiro da lista, para não
-      //    ficar preso na tela vazia. A equipe SipFlow gerencia todos os clientes.
+      //    ficar preso na tela vazia. A equipe Bupin gerencia todos os clientes.
       const { data: isSuper } = await supabase
         .from("user_roles")
         .select("role")
@@ -103,13 +103,13 @@ function AdminPage() {
       <main className="mx-auto max-w-5xl px-4 py-6">
         {isLoading ? null : !tenant ? (
           <div className="glass rounded-2xl p-8 text-center text-muted-foreground">
-            Nenhum estabelecimento vinculado Ã sua conta ainda. Fale com o suporte SipFlow.
+            Nenhum estabelecimento vinculado à sua conta ainda. Fale com o suporte Bupin.
           </div>
         ) : (
           <>
             {isSupport && (
               <div className="mb-4 rounded-xl border border-warning/40 bg-warning/10 px-4 py-2 text-sm text-warning">
-                Modo suporte: vocÃª estÃ¡ vendo o painel de {tenant.name}.
+                Modo suporte: você está vendo o painel de {tenant.name}.
               </div>
             )}
             <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
@@ -130,14 +130,14 @@ function AdminPage() {
                   target="_blank"
                   className="flex items-center gap-1 text-sm text-gold"
                 >
-                  Ver cardÃ¡pio <ExternalLink className="h-4 w-4" />
+                  Ver cardápio <ExternalLink className="h-4 w-4" />
                 </Link>
               </div>
             </div>
             <Tabs defaultValue="menu">
               <TabsList className="mb-6">
-                <TabsTrigger value="menu">CardÃ¡pio RÃ¡pido</TabsTrigger>
-                <TabsTrigger value="metrics">InteligÃªncia & MÃ©tricas</TabsTrigger>
+                <TabsTrigger value="menu">Cardápio Rápido</TabsTrigger>
+                <TabsTrigger value="metrics">Inteligência & Métricas</TabsTrigger>
               </TabsList>
               <TabsContent value="menu" className="space-y-6">
                 <WifiCard tenant={tenant} />
@@ -158,7 +158,7 @@ function WifiCard({ tenant }: { tenant: Tables<"tenants"> }) {
   const [pwd, setPwd] = useState(tenant.wifi_password ?? "");
   const qc = useQueryClient();
   async function save() {
-    if (!pwd.trim()) return toast.error("A senha nÃ£o pode ficar vazia");
+    if (!pwd.trim()) return toast.error("A senha não pode ficar vazia");
     const { error } = await supabase
       .from("tenants")
       .update({ wifi_password: pwd.trim() })
@@ -213,7 +213,7 @@ function ProductsList({ tenantId }: { tenantId: string }) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between gap-3">
-        <h2 className="text-lg text-muted-foreground">Pratos do cardÃ¡pio</h2>
+        <h2 className="text-lg text-muted-foreground">Pratos do cardápio</h2>
         <Button onClick={() => setCreating(true)} className="gap-1.5">
           <Plus className="h-4 w-4" /> Adicionar prato
         </Button>
@@ -221,8 +221,8 @@ function ProductsList({ tenantId }: { tenantId: string }) {
 
       {products?.length === 0 && (
         <div className="glass rounded-2xl p-8 text-center text-muted-foreground">
-          VocÃª ainda nÃ£o tem pratos. Clique em <span className="text-gold">Adicionar prato</span>{" "}
-          para comeÃ§ar.
+          Você ainda não tem pratos. Clique em <span className="text-gold">Adicionar prato</span>{" "}
+          para começar.
         </div>
       )}
 
@@ -310,11 +310,11 @@ function NewProductDialog({
   }
 
   async function create() {
-    if (!nameOk) return toast.error("DÃª um nome para o prato");
+    if (!nameOk) return toast.error("Dê um nome para o prato");
     if (!categoryOk) return toast.error("Crie uma categoria antes de adicionar pratos");
-    if (price <= 0) return toast.error("O preÃ§o precisa ser maior que zero");
+    if (price <= 0) return toast.error("O preço precisa ser maior que zero");
     if (desc.length > DESCRIPTION_LIMIT)
-      return toast.error(`A descriÃ§Ã£o deve ter atÃ© ${DESCRIPTION_LIMIT} caracteres`);
+      return toast.error(`A descrição deve ter até ${DESCRIPTION_LIMIT} caracteres`);
     setSaving(true);
     const { error } = await supabase.from("products").insert({
       tenant_id: tenantId,
@@ -331,7 +331,7 @@ function NewProductDialog({
     });
     setSaving(false);
     if (error) return toast.error(error.message);
-    toast.success(`${name.trim()} adicionado ao cardÃ¡pio`);
+    toast.success(`${name.trim()} adicionado ao cardápio`);
     onOpenChange(false);
     onCreated();
   }
@@ -342,7 +342,7 @@ function NewProductDialog({
         <DialogHeader>
           <DialogTitle>Adicionar prato</DialogTitle>
           <DialogDescription>
-            Depois de criar, vocÃª pode subir a foto e ajustar os detalhes na lista.
+            Depois de criar, você pode subir a foto e ajustar os detalhes na lista.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-3">
@@ -437,7 +437,7 @@ function NewProductDialog({
           </div>
 
           <div>
-            <label className="text-xs text-muted-foreground">PreÃ§o</label>
+            <label className="text-xs text-muted-foreground">Preço</label>
             <Input
               inputMode="numeric"
               value={formatMoney(price)}
@@ -449,7 +449,7 @@ function NewProductDialog({
 
           <div>
             <div className="flex justify-between text-xs text-muted-foreground">
-              <label>DescriÃ§Ã£o (opcional)</label>
+              <label>Descrição (opcional)</label>
               <span className={desc.length >= DESCRIPTION_LIMIT ? "text-warning" : ""}>
                 {desc.length}/{DESCRIPTION_LIMIT}
               </span>
@@ -469,7 +469,7 @@ function NewProductDialog({
             Cancelar
           </Button>
           <Button onClick={create} disabled={!canSave} className="gap-1.5">
-            <Plus className="h-4 w-4" /> {saving ? "Adicionandoâ€¦" : "Adicionar"}
+            <Plus className="h-4 w-4" /> {saving ? "Adicionando…" : "Adicionar"}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -500,19 +500,19 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
       setAvailable(!v);
       return toast.error(error.message);
     }
-    toast.success(v ? `${product.name} disponÃ­vel` : `${product.name} marcado como esgotado`);
+    toast.success(v ? `${product.name} disponível` : `${product.name} marcado como esgotado`);
   }
 
   async function save() {
-    if (!name.trim()) return toast.error("O nome do prato nÃ£o pode ficar vazio");
-    if (price <= 0) return toast.error("O preÃ§o precisa ser maior que zero");
+    if (!name.trim()) return toast.error("O nome do prato não pode ficar vazio");
+    if (price <= 0) return toast.error("O preço precisa ser maior que zero");
     if (desc.length > DESCRIPTION_LIMIT) return;
     const { error } = await supabase
       .from("products")
       .update({ name: name.trim(), price_cents: price, description: desc })
       .eq("id", product.id);
     if (error) return toast.error(error.message);
-    toast.success("AlteraÃ§Ãµes salvas");
+    toast.success("Alterações salvas");
     onChange();
   }
 
@@ -527,7 +527,7 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
         .eq("id", product.id);
       if (error) throw error;
       toast.success(
-        "Sua nova foto foi enviada e entrarÃ¡ no ar assim que nossa equipe validar o enquadramento.",
+        "Sua nova foto foi enviada e entrará no ar assim que nossa equipe validar o enquadramento.",
         { duration: 6000 },
       );
       onChange();
@@ -572,7 +572,7 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
               <span
                 className={`text-xs font-semibold ${available ? "text-success" : "text-destructive"}`}
               >
-                {available ? "DisponÃ­vel" : "Esgotado"}
+                {available ? "Disponível" : "Esgotado"}
               </span>
               <Switch
                 checked={available}
@@ -583,19 +583,19 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
           </div>
           {product.moderation_status === "pending" && (
             <p className="mt-2 flex items-center gap-1.5 text-xs text-warning">
-              <Clock className="h-3.5 w-3.5" /> Nova mÃ­dia em anÃ¡lise pela equipe
+              <Clock className="h-3.5 w-3.5" /> Nova mídia em análise pela equipe
             </p>
           )}
           {product.moderation_status === "rejected" && (
             <p className="mt-2 text-xs text-destructive">
-              A Ãºltima mÃ­dia enviada nÃ£o foi aprovada. Tente outra com melhor enquadramento.
+              A última mídia enviada não foi aprovada. Tente outra com melhor enquadramento.
             </p>
           )}
         </div>
       </div>
       <div className="mt-4 grid gap-3 sm:grid-cols-[160px_1fr]">
         <div>
-          <label className="text-xs text-muted-foreground">PreÃ§o</label>
+          <label className="text-xs text-muted-foreground">Preço</label>
           <Input
             inputMode="numeric"
             value={formatMoney(price)}
@@ -605,7 +605,7 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
         </div>
         <div>
           <div className="flex justify-between text-xs text-muted-foreground">
-            <label>DescriÃ§Ã£o</label>
+            <label>Descrição</label>
             <span className={desc.length >= DESCRIPTION_LIMIT ? "text-warning" : ""}>
               {desc.length}/{DESCRIPTION_LIMIT}
             </span>
@@ -621,7 +621,7 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
       </div>
       <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
         <label className="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-secondary">
-          <Upload className="h-4 w-4" /> {uploading ? "Enviandoâ€¦" : "Nova foto ou vÃ­deo"}
+          <Upload className="h-4 w-4" /> {uploading ? "Enviando…" : "Nova foto ou vídeo"}
           <input
             type="file"
             accept="image/*,video/*"
@@ -665,7 +665,7 @@ function Metrics({ tenantId }: { tenantId: string }) {
       const rows = (intel.data ?? [])
         .map((r) => ({
           ...r,
-          name: names.get(r.product_id) ?? "â€”",
+          name: names.get(r.product_id) ?? "—",
           avg: Number(r.avg_attention_s ?? 0),
         }))
         .sort((a, b) => b.avg - a.avg);
@@ -676,8 +676,8 @@ function Metrics({ tenantId }: { tenantId: string }) {
     ? data.rows.reduce((a, r) => a + r.avg, 0) / data.rows.length
     : 0;
   const cards = [
-    { label: "SessÃµes abertas", value: data?.sessions, icon: Users },
-    { label: "VisualizaÃ§Ãµes de pratos", value: data?.views, icon: Eye },
+    { label: "Sessões abertas", value: data?.sessions, icon: Users },
+    { label: "Visualizações de pratos", value: data?.views, icon: Eye },
     { label: "Cliques no Google Review", value: data?.reviews, icon: Star },
     { label: "Aberturas de Wi-Fi", value: data?.wifi, icon: Wifi },
   ];
@@ -698,7 +698,7 @@ function Metrics({ tenantId }: { tenantId: string }) {
         {cards.map((c) => (
           <div key={c.label} className="rounded-2xl border border-border bg-card p-4">
             <c.icon className="h-4 w-4 text-gold" />
-            <p className="mt-3 text-3xl font-semibold tabular-nums">{c.value ?? "â€“"}</p>
+            <p className="mt-3 text-3xl font-semibold tabular-nums">{c.value ?? "–"}</p>
             <p className="text-xs text-muted-foreground">{c.label}</p>
           </div>
         ))}
@@ -708,10 +708,10 @@ function Metrics({ tenantId }: { tenantId: string }) {
           <thead className="text-left text-xs text-muted-foreground">
             <tr className="border-b border-border">
               <th className="p-3">Produto</th>
-              <th className="p-3">AtenÃ§Ã£o mÃ©dia</th>
+              <th className="p-3">Atenção média</th>
               <th className="p-3">Views</th>
               <th className="p-3">Favoritos</th>
-              <th className="p-3">PersonalizaÃ§Ãµes</th>
+              <th className="p-3">Personalizações</th>
             </tr>
           </thead>
           <tbody>
@@ -737,15 +737,14 @@ function Metrics({ tenantId }: { tenantId: string }) {
             {data && !data.rows.length && (
               <tr>
                 <td colSpan={5} className="p-6 text-center text-muted-foreground">
-                  Sem dados no perÃ­odo.
+                  Sem dados no período.
                 </td>
               </tr>
             )}
           </tbody>
         </table>
         <p className="border-t border-border p-3 text-xs text-muted-foreground">
-          Em verde: pratos com atenÃ§Ã£o acima da mÃ©dia â€” boas oportunidades de destaque e
-          margem.
+          Em verde: pratos com atenção acima da média — boas oportunidades de destaque e margem.
         </p>
       </div>
     </div>

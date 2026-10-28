@@ -6,9 +6,9 @@ export const Route = createFileRoute("/t/$tag")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Abrindo cardápio… — SipFlow" },
+      { title: "Abrindo cardápio… — Bupin" },
       { name: "description", content: "Redirecionando para o cardápio da sua mesa." },
-      { property: "og:title", content: "Cardápio da mesa — SipFlow" },
+      { property: "og:title", content: "Cardápio da mesa — Bupin" },
       { property: "og:description", content: "Toque no cartão NFC e descubra o cardápio." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -37,14 +37,21 @@ function TagRedirect() {
       }
       const slug = (data.tenants as { slug: string } | null)?.slug;
       if (!slug) return setError(true);
-      navigate({ to: "/c/$slug", params: { slug }, search: { t: data.table_label ?? undefined }, replace: true });
+      navigate({
+        to: "/c/$slug",
+        params: { slug },
+        search: { t: data.table_label ?? undefined },
+        replace: true,
+      });
     })();
   }, [tag, navigate]);
 
   return (
     <main className="flex min-h-dvh items-center justify-center px-6 text-center">
       {error ? (
-        <p className="text-muted-foreground">Este cartão ainda não está ativo. Chame um atendente.</p>
+        <p className="text-muted-foreground">
+          Este cartão ainda não está ativo. Chame um atendente.
+        </p>
       ) : (
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-gold border-t-transparent" />
       )}

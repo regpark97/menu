@@ -4,13 +4,13 @@ import { Nfc, LayoutDashboard, ShieldCheck, ArrowRight } from "lucide-react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SipFlow — Cardápio vertical ativado por NFC" },
+      { title: "Bupin — Cardápio vertical ativado por NFC" },
       {
         name: "description",
         content:
           "Encoste o celular na mesa e descubra o cardápio em vídeo. Wi-Fi, Google Reviews e inteligência de atenção por prato.",
       },
-      { property: "og:title", content: "SipFlow — Cardápio vertical ativado por NFC" },
+      { property: "og:title", content: "Bupin — Cardápio vertical ativado por NFC" },
       {
         property: "og:description",
         content:
@@ -54,7 +54,7 @@ function Index() {
       />
       <div className="absolute inset-0 bg-hero-scrim" />
       <div className="relative mx-auto flex min-h-dvh max-w-3xl flex-col justify-end px-6 pb-16 pt-24">
-        <p className="text-xs uppercase tracking-[0.3em] text-gold">SipFlow</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-gold">Bupin</p>
         <h1 className="mt-4 text-5xl leading-[1.05] sm:text-7xl">O cardápio que se assiste.</h1>
         <p className="mt-4 max-w-md text-muted-foreground">
           Encoste o celular na mesa: Wi-Fi, avaliação no Google e um feed vertical de pratos — com

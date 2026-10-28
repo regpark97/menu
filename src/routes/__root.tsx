@@ -80,10 +80,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SipFlow — Cardápio interativo por NFC" },
-      { name: "description", content: "Cardápio vertical estilo Reels ativado por NFC/QR na mesa, com Wi-Fi, Google Reviews e métricas de atenção." },
-      { property: "og:title", content: "SipFlow — Cardápio interativo por NFC" },
-      { property: "og:description", content: "Cardápio vertical estilo Reels ativado por NFC/QR na mesa." },
+      { title: "Bupin — Cardápio interativo por NFC" },
+      {
+        name: "description",
+        content:
+          "Cardápio vertical estilo Reels ativado por NFC/QR na mesa, com Wi-Fi, Google Reviews e métricas de atenção.",
+      },
+      { property: "og:title", content: "Bupin — Cardápio interativo por NFC" },
+      {
+        property: "og:description",
+        content: "Cardápio vertical estilo Reels ativado por NFC/QR na mesa.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
