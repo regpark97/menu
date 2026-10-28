@@ -33,7 +33,7 @@
 | ------------------------- | ------------------------------------------------------ |
 | **Repositório GitHub**    | `https://github.com/regpark97/menu.git`                |
 | **Branch de produção**    | `main`                                                 |
-| **URL de produção**       | `https://menu-regpark97.vercel.app`                    |
+| **URL de produção**       | `https://bupin-app.vercel.app`                    |
 | **Supabase Project ID**   | `ulxndzniyeyracujqmlu`                                 |
 | **Supabase Dashboard**    | `https://supabase.com/dashboard/project/ulxndzniyeyracujqmlu` |
 | **Vercel Project**        | `menu` (projectId `prj_N2PbiTjI5ZwsMu45ZjRZp7DjqhGP`)  |
@@ -194,9 +194,9 @@ Supabase → Authentication → URL Configuration
 
 | Campo             | Valor                                    |
 | ----------------- | ---------------------------------------- |
-| **Site URL**      | `https://menu-regpark97.vercel.app`      |
-| **Redirect URLs** | `https://menu-regpark97.vercel.app/**`   |
-|                   | `https://menu-regpark97.vercel.app/auth` |
+| **Site URL**      | `https://bupin-app.vercel.app`      |
+| **Redirect URLs** | `https://bupin-app.vercel.app/**`   |
+|                   | `https://bupin-app.vercel.app/auth` |
 
 Sem isso, o link de confirmação de e-mail do novo cliente aponta para o **lugar errado**
 (ou para `localhost`), e a pessoa não consegue ativar a conta.
@@ -319,7 +319,7 @@ Vercel detecta o push (integração Git)
       ↓
 Build automático (npm run build) — ~26s
       ↓
-https://menu-regpark97.vercel.app  ✅
+https://bupin-app.vercel.app  ✅
 ```
 
 **Não é preciso rodar `vercel --prod`.** O deploy automático está funcionando.

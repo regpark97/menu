@@ -46,7 +46,7 @@ O vínculo acontece **sozinho**, sem passo manual.
 
 ```
 PASSO 1 — A pessoa se cadastra
-   Ela abre  https://menu-regpark97.vercel.app/auth
+   Ela abre  https://bupin-app.vercel.app/auth
    (peça para usar uma janela anônima, para não misturar com a sua sessão)
    → Cria conta com o e-mail real e uma senha
    → Recebe um e-mail de confirmação
@@ -109,7 +109,7 @@ O que acontece:
      • custom_redirect_url → deixe VAZIO para ir ao cardápio padrão
 
 2. Grave na tag física o texto:
-     https://menu-regpark97.vercel.app/t/tag-002
+     https://bupin-app.vercel.app/t/tag-002
 
 3. Teste encostando o celular na tag
 ```
@@ -181,7 +181,7 @@ Cliente senta na mesa
    ↓
 Encosta o celular na tag NFC (ou lê o QR)
    ↓
-Abre: https://menu-regpark97.vercel.app/t/tag-002
+Abre: https://bupin-app.vercel.app/t/tag-002
    ↓
 [servidor] busca a tag pelo tag_code
    ├─ tag não existe / inactive / sem tenant  →  "Este cartão ainda não está ativo"
@@ -228,7 +228,7 @@ detalhes. Por isso, **sempre teste a tag nova** antes de entregar.
 
 5. O que está gravado na tag física?
      Leia com um app de NFC (NFC Tools / TagInfo)
-     Esperado: https://menu-regpark97.vercel.app/t/<tag_code>
+     Esperado: https://bupin-app.vercel.app/t/<tag_code>
      ❌ Outra URL / vazio  → regrave
 
 6. A tag veio do projeto antigo?
@@ -306,7 +306,7 @@ where r.role = 'super_admin';
 
 | Acesso             | Onde                                                                  |
 | ------------------ | --------------------------------------------------------------------- |
-| Site (produção)    | `https://menu-regpark97.vercel.app`                                    |
+| Site (produção)    | `https://bupin-app.vercel.app`                                    |
 | Painel da equipe   | `/super-admin`                                                         |
 | Painel do dono     | `/admin`                                                               |
 | Supabase           | https://supabase.com/dashboard/project/ulxndzniyeyracujqmlu            |

@@ -8,7 +8,7 @@
 
 ```
 ┌──────────────┐   push    ┌────────────┐   build    ┌─────────────────────────┐
-│  GitHub      │ ────────► │  Vercel    │ ─────────► │  menu-regpark97         │
+│  GitHub      │ ────────► │  Vercel    │ ─────────► │  bupin-app         │
 │  regpark97/  │           │  projeto   │            │  .vercel.app            │
 │  menu        │           │  "menu"    │            └───────────┬─────────────┘
 └──────────────┘           └────────────┘                        │
@@ -29,11 +29,11 @@
 | Vercel projeto | `menu`                                               |
 | Vercel projId  | `prj_N2PbiTjI5ZwsMu45ZjRZp7DjqhGP`                   |
 | Vercel orgId   | `team_g6f4ZR3TiKUhzKG5MNXNoW3B`                     |
-| URL produção   | `https://menu-regpark97.vercel.app`                  |
+| URL produção   | `https://bupin-app.vercel.app`                  |
 | Supabase proj  | `ulxndzniyeyracujqmlu`                               |
 
 > ⚠️ **Cuidado com URL parecida:** `menu-tau-bice.vercel.app` pertence a um projeto
-> **abandonado do Lovable**. Não confunda. A URL correta é a `menu-regpark97`.
+> **abandonado do Lovable**. Não confunda. A URL correta é a `bupin-app`.
 
 ---
 
@@ -159,7 +159,7 @@ curl.exe -s -X PATCH `
 
 ```powershell
 foreach ($p in '/','/auth','/super-admin','/t/tag-001') {
-  $code = curl.exe -s -o NUL -w '%{http_code}' "https://menu-regpark97.vercel.app$p"
+  $code = curl.exe -s -o NUL -w '%{http_code}' "https://bupin-app.vercel.app$p"
   "$p -> $code"
 }
 ```
@@ -264,9 +264,9 @@ Supabase → Authentication → URL Configuration
 
 | Campo             | Valor                                    |
 | ----------------- | ---------------------------------------- |
-| **Site URL**      | `https://menu-regpark97.vercel.app`      |
-| **Redirect URLs** | `https://menu-regpark97.vercel.app/**`   |
-|                   | `https://menu-regpark97.vercel.app/auth` |
+| **Site URL**      | `https://bupin-app.vercel.app`      |
+| **Redirect URLs** | `https://bupin-app.vercel.app/**`   |
+|                   | `https://bupin-app.vercel.app/auth` |
 
 **Sem isso:** o e-mail de confirmação de cadastro manda o usuário para `localhost` (ou
 para uma URL antiga do Lovable), a conta nunca é confirmada e o login falha com
@@ -288,23 +288,23 @@ A senha do Postgres foi exposta. **Resetar.**
 ```powershell
 # Páginas públicas (devem dar 200 sem pedir login)
 foreach ($p in '/','/auth','/super-admin','/t/tag-001') {
-  $code = curl.exe -s -o NUL -w '%{http_code}' "https://menu-regpark97.vercel.app$p"
+  $code = curl.exe -s -o NUL -w '%{http_code}' "https://bupin-app.vercel.app$p"
   "$p -> $code"
 }
 ```
 
 | URL                                             | Esperado                            |
 | ----------------------------------------------- | ----------------------------------- |
-| `https://menu-regpark97.vercel.app/`            | Landing page                        |
-| `https://menu-regpark97.vercel.app/auth`        | Tela de login/cadastro              |
-| `https://menu-regpark97.vercel.app/super-admin` | Redireciona p/ login se não logado  |
-| `https://menu-regpark97.vercel.app/t/tag-001`   | Cardápio do café demo               |
-| `https://menu-regpark97.vercel.app/c/francisco-porto` | Cardápio por slug             |
+| `https://bupin-app.vercel.app/`            | Landing page                        |
+| `https://bupin-app.vercel.app/auth`        | Tela de login/cadastro              |
+| `https://bupin-app.vercel.app/super-admin` | Redireciona p/ login se não logado  |
+| `https://bupin-app.vercel.app/t/tag-001`   | Cardápio do café demo               |
+| `https://bupin-app.vercel.app/c/francisco-porto` | Cardápio por slug             |
 
 ### Testar no celular com NFC
 
 ```
-https://menu-regpark97.vercel.app/t/<tag_code>
+https://bupin-app.vercel.app/t/<tag_code>
 ```
 
 Esse é o valor a **gravar na tag NFC**. Vantagens sobre testar em rede local:

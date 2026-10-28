@@ -17,7 +17,7 @@ jobs:
       - name: Ping NFC route (toca o Supabase)
         run: |
           set -euo pipefail
-          URL="https://menu-regpark97.vercel.app/t/tag-001"
+          URL="https://bupin-app.vercel.app/t/tag-001"
           echo "Pingando $URL"
           code=$(curl -s -o /dev/null -w "%{http_code}" -L --max-time 30 "$URL" || echo "000")
           echo "HTTP $code"
