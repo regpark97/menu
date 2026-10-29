@@ -521,11 +521,24 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
     setUploading(true);
     try {
       const m = await uploadMedia(f, `${product.tenant_id}/${product.id}`);
-      const { error } = await supabase
+      // Seta 'pending' explicitamente (não dependemos só do trigger do banco).
+      // O trigger continua no banco como trava de segurança contra auto-publicação.
+      const { data: updated, error } = await supabase
         .from("products")
-        .update({ pending_media_url: m.url, pending_media_type: m.type })
-        .eq("id", product.id);
+        .update({
+          pending_media_url: m.url,
+          pending_media_type: m.type,
+          moderation_status: "pending",
+        })
+        .eq("id", product.id)
+        .select("moderation_status")
+        .single();
       if (error) throw error;
+      if (updated?.moderation_status !== "pending") {
+        throw new Error(
+          "A foto subiu, mas não entrou na fila de aprovação. Avise o suporte (trigger de moderação ausente no banco).",
+        );
+      }
       toast.success(
         "Sua nova foto foi enviada e entrará no ar assim que nossa equipe validar o enquadramento.",
         { duration: 6000 },
