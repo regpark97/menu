@@ -14,7 +14,13 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { formatMoney, resolveMedia, type ModifierGroup } from "@/lib/format";
+import {
+  formatMoney,
+  resolveMedia,
+  parseGallery,
+  productPhotos,
+  type ModifierGroup,
+} from "@/lib/format";
 import { initTelemetry, track } from "@/lib/telemetry";
 import type { Tables } from "@/integrations/supabase/types";
 
@@ -397,25 +403,55 @@ function ProductCard({
     };
   }, [product.id, product.category_id]);
 
-  const media = resolveMedia(product.media_url);
+  const photos = productPhotos(
+    product.media_url,
+    product.media_type,
+    parseGallery(product.media_gallery),
+  );
+  const [photoIdx, setPhotoIdx] = useState(0);
   return (
     <section ref={ref} className="relative h-dvh w-full snap-start snap-always overflow-hidden">
-      {product.media_type === "video" ? (
-        <video
-          src={media}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      ) : (
-        <img
-          src={media}
-          alt={product.name}
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+      {photos.length > 0 && (
+        <div
+          className="no-scrollbar absolute inset-0 flex snap-x snap-mandatory overflow-x-scroll"
+          onScroll={(e) => {
+            const el = e.currentTarget;
+            const idx = Math.round(el.scrollLeft / el.clientWidth);
+            if (idx !== photoIdx) setPhotoIdx(idx);
+          }}
+        >
+          {photos.map((ph, i) => (
+            <div key={`${ph.url}-${i}`} className="relative h-full w-full shrink-0 snap-center">
+              {ph.type === "video" ? (
+                <video
+                  src={resolveMedia(ph.url)}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <img
+                  src={resolveMedia(ph.url)}
+                  alt={product.name}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      {photos.length > 1 && (
+        <div className="pointer-events-none absolute inset-x-0 top-4 z-10 flex justify-center gap-1.5">
+          {photos.map((_, i) => (
+            <span
+              key={i}
+              className={`h-1.5 rounded-full transition-all ${i === photoIdx ? "w-4 bg-white" : "w-1.5 bg-white/50"}`}
+            />
+          ))}
+        </div>
       )}
       <div className="absolute inset-0 bg-card-scrim" />
       <div className="absolute inset-x-0 bottom-0 flex items-end gap-4 px-5 pb-10">

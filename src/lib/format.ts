@@ -20,3 +20,31 @@ export function resolveMedia(url: string | null | undefined) {
 }
 
 export type ModifierGroup = { group: string; options: { name: string; price_cents: number }[] };
+
+export type GalleryItem = { url: string; type: "image" | "video" };
+
+/** Normaliza o jsonb media_gallery (desconhecido) para uma lista tipada e segura. */
+export function parseGallery(raw: unknown): GalleryItem[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((x): x is Record<string, unknown> => !!x && typeof x === "object")
+    .map((x) => ({
+      url: typeof x["url"] === "string" ? x["url"] : "",
+      type: x["type"] === "video" ? ("video" as const) : ("image" as const),
+    }))
+    .filter((x) => x.url.length > 0);
+}
+
+/** Fotos para exibir no feed do cliente: capa (media_url) + galeria, sem duplicatas. */
+export function productPhotos(
+  mediaUrl: string | null,
+  mediaType: string,
+  gallery: GalleryItem[],
+): GalleryItem[] {
+  const list: GalleryItem[] = [];
+  if (mediaUrl) list.push({ url: mediaUrl, type: mediaType === "video" ? "video" : "image" });
+  for (const g of gallery) {
+    if (!list.some((x) => x.url === g.url)) list.push(g);
+  }
+  return list;
+}

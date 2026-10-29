@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 import QRCode from "qrcode";
@@ -21,7 +21,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { resolveMedia } from "@/lib/format";
+import { resolveMedia, parseGallery } from "@/lib/format";
 
 export const Route = createFileRoute("/_authenticated/super-admin")({
   head: () => ({
@@ -528,6 +528,7 @@ function TagRow({ tag, tenants }: { tag: Tables<"nfc_tags">; tenants: Tables<"te
 }
 
 function Moderation() {
+  const qc = useQueryClient();
   const { data, refetch } = useQuery({
     queryKey: ["moderation"],
     queryFn: async () =>
@@ -538,20 +539,33 @@ function Moderation() {
           .eq("moderation_status", "pending")
       ).data ?? [],
   });
+  /** Aprova/recusa e mantém o badge e a contagem do cabeçalho sincronizados. */
+  function afterDecide() {
+    refetch();
+    qc.invalidateQueries({ queryKey: ["pending-moderation-count"] });
+  }
   async function decide(p: Tables<"products">, approve: boolean) {
+    // Aprovar publica a capa pendente E a galeria pendente; recusar descarta ambas.
     const patch = approve
       ? {
-          media_url: p.pending_media_url,
+          media_url: p.pending_media_url ?? p.media_url,
           media_type: p.pending_media_type ?? "image",
+          media_gallery: p.pending_media_gallery ?? [],
           pending_media_url: null,
           pending_media_type: null,
+          pending_media_gallery: [],
           moderation_status: "approved",
         }
-      : { pending_media_url: null, pending_media_type: null, moderation_status: "rejected" };
+      : {
+          pending_media_url: null,
+          pending_media_type: null,
+          pending_media_gallery: [],
+          moderation_status: "rejected",
+        };
     const { error } = await supabase.from("products").update(patch).eq("id", p.id);
     if (error) return toast.error(error.message);
     toast.success(approve ? "Publicado no cardápio" : "Mídia recusada");
-    refetch();
+    afterDecide();
   }
   if (data && !data.length)
     return (
@@ -570,7 +584,7 @@ function Moderation() {
           <div className="mt-3 grid grid-cols-2 gap-2">
             {[
               { l: "Foto atual", u: p.media_url, t: p.media_type },
-              { l: "Foto nova", u: p.pending_media_url, t: p.pending_media_type },
+              { l: "Foto nova (capa)", u: p.pending_media_url, t: p.pending_media_type },
             ].map((m) => (
               <figure key={m.l}>
                 <figcaption className="mb-1 text-xs text-muted-foreground">{m.l}</figcaption>
@@ -591,6 +605,30 @@ function Moderation() {
               </figure>
             ))}
           </div>
+          {parseGallery(p.pending_media_gallery).length > 0 && (
+            <div className="mt-3">
+              <p className="mb-1 text-xs text-muted-foreground">Galeria nova</p>
+              <div className="flex flex-wrap gap-2">
+                {parseGallery(p.pending_media_gallery).map((g) => (
+                  <div key={g.url} className="h-16 w-16 overflow-hidden rounded-lg bg-secondary">
+                    {g.type === "video" ? (
+                      <video
+                        src={resolveMedia(g.url)}
+                        muted
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <img
+                        src={resolveMedia(g.url)}
+                        alt=""
+                        className="h-full w-full object-cover"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           <div className="mt-3 grid grid-cols-2 gap-2">
             <Button variant="outline" onClick={() => decide(p, false)}>
               <X className="h-4 w-4" /> Recusar

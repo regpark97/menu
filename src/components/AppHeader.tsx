@@ -19,8 +19,25 @@ export function useIsSuperAdmin() {
   });
 }
 
+/** Quantas fotos estão aguardando aprovação (para o badge do Super Admin). */
+export function usePendingModerationCount(enabled: boolean) {
+  return useQuery({
+    queryKey: ["pending-moderation-count"],
+    enabled,
+    refetchInterval: 60_000,
+    queryFn: async () => {
+      const { count } = await supabase
+        .from("products")
+        .select("id", { count: "exact", head: true })
+        .eq("moderation_status", "pending");
+      return count ?? 0;
+    },
+  });
+}
+
 export function AppHeader({ title }: { title: string }) {
   const { data: isSuper } = useIsSuperAdmin();
+  const { data: pendingCount } = usePendingModerationCount(!!isSuper);
   const qc = useQueryClient();
   const navigate = useNavigate();
   async function signOut() {
@@ -47,10 +64,18 @@ export function AppHeader({ title }: { title: string }) {
           {isSuper && (
             <Link
               to="/super-admin"
-              className="rounded-lg px-3 py-1.5 text-muted-foreground hover:bg-secondary"
+              className="relative rounded-lg px-3 py-1.5 text-muted-foreground hover:bg-secondary"
               activeProps={{ className: "text-foreground bg-secondary" }}
             >
               Super Admin
+              {!!pendingCount && pendingCount > 0 && (
+                <span
+                  className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-bold leading-none text-destructive-foreground"
+                  aria-label={`${pendingCount} foto(s) aguardando aprovação`}
+                >
+                  {pendingCount > 99 ? "99+" : pendingCount}
+                </span>
+              )}
             </Link>
           )}
           <button
