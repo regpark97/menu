@@ -165,32 +165,70 @@ function AdminPage() {
 }
 
 function WifiCard({ tenant }: { tenant: Tables<"tenants"> }) {
+  const [ssid, setSsid] = useState(tenant.wifi_ssid ?? "");
   const [pwd, setPwd] = useState(tenant.wifi_password ?? "");
+  const [maps, setMaps] = useState(tenant.google_review_url ?? "");
   const qc = useQueryClient();
   async function save() {
-    if (!pwd.trim()) return toast.error("A senha não pode ficar vazia");
     const { error } = await supabase
       .from("tenants")
-      .update({ wifi_password: pwd.trim() })
+      .update({
+        wifi_ssid: ssid.trim() || null,
+        wifi_password: pwd.trim() || null,
+        google_review_url: maps.trim() || null,
+      })
       .eq("id", tenant.id);
     if (error) return toast.error(error.message);
-    toast.success("Senha do Wi-Fi atualizada");
+    toast.success("Wi-Fi e Google atualizados");
     qc.invalidateQueries({ queryKey: ["my-tenant"] });
   }
   return (
-    <section className="glass flex flex-wrap items-end gap-3 rounded-2xl p-4">
-      <Wifi className="mb-3 h-5 w-5 text-gold" />
-      <div className="min-w-48 flex-1">
-        <label className="text-xs text-muted-foreground">Senha do Wi-Fi ({tenant.wifi_ssid})</label>
-        <Input value={pwd} onChange={(e) => setPwd(e.target.value)} className="mt-1 h-11" />
+    <section className="glass space-y-3 rounded-2xl p-4">
+      <div className="flex items-center gap-2">
+        <Wifi className="h-5 w-5 text-gold" />
+        <h2 className="text-lg text-muted-foreground">Wi-Fi e Google</h2>
       </div>
-      <Button onClick={save} className="h-11">
-        Salvar
-      </Button>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div>
+          <label className="text-xs text-muted-foreground">Nome da rede (SSID)</label>
+          <Input
+            value={ssid}
+            onChange={(e) => setSsid(e.target.value)}
+            className="mt-1 h-11"
+            placeholder="Ex.: Cafe_Guest"
+          />
+        </div>
+        <div>
+          <label className="text-xs text-muted-foreground">Senha do Wi-Fi</label>
+          <Input
+            value={pwd}
+            onChange={(e) => setPwd(e.target.value)}
+            className="mt-1 h-11"
+            placeholder="Senha da rede"
+          />
+        </div>
+      </div>
+      <div>
+        <label className="text-xs text-muted-foreground">Link do Google (avaliações/maps)</label>
+        <Input
+          value={maps}
+          onChange={(e) => setMaps(e.target.value)}
+          className="mt-1 h-11"
+          placeholder="https://maps.google.com/..."
+        />
+      </div>
+      <div className="flex items-start justify-between gap-3">
+        <p className="text-xs text-muted-foreground">
+          Os botões de Wi-Fi e de avaliação no Google só aparecem no cardápio quando estes campos
+          estão preenchidos.
+        </p>
+        <Button onClick={save} className="h-11 shrink-0">
+          Salvar
+        </Button>
+      </div>
     </section>
   );
 }
-
 function ProductsList({ tenantId }: { tenantId: string }) {
   const qc = useQueryClient();
   const [creating, setCreating] = useState(false);
