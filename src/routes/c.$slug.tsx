@@ -14,6 +14,7 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { WaiterButton } from "@/components/WaiterButton";
 import {
   formatMoney,
   resolveMedia,
@@ -92,10 +93,19 @@ function CustomerPage() {
       </div>
     );
 
-  return screen === "hub" ? (
-    <Hub tenant={data.tenant} table={t} onExplore={() => setScreen("feed")} />
-  ) : (
-    <Feed categories={data.categories} products={data.products} onBack={() => setScreen("hub")} />
+  return (
+    <>
+      {screen === "hub" ? (
+        <Hub tenant={data.tenant} table={t} onExplore={() => setScreen("feed")} />
+      ) : (
+        <Feed
+          categories={data.categories}
+          products={data.products}
+          onBack={() => setScreen("hub")}
+        />
+      )}
+      <WaiterButton tenantId={data.tenant.id} table={t ?? undefined} />
+    </>
   );
 }
 

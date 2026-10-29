@@ -256,6 +256,44 @@ export type Database = {
         };
         Relationships: [];
       };
+      waiter_calls: {
+        Row: {
+          created_at: string;
+          done_at: string | null;
+          id: string;
+          kind: string;
+          status: string;
+          table_ref: string | null;
+          tenant_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          done_at?: string | null;
+          id?: string;
+          kind?: string;
+          status?: string;
+          table_ref?: string | null;
+          tenant_id: string;
+        };
+        Update: {
+          created_at?: string;
+          done_at?: string | null;
+          id?: string;
+          kind?: string;
+          status?: string;
+          table_ref?: string | null;
+          tenant_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "waiter_calls_tenant_id_fkey";
+            columns: ["tenant_id"];
+            isOneToOne: false;
+            referencedRelation: "tenants";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       user_roles: {
         Row: {
           id: string;
@@ -322,6 +360,7 @@ export type Database = {
           views: number;
         }[];
       };
+      call_waiter: { Args: { _tenant: string; _table: string; _kind?: string }; Returns: string };
       user_id_by_email: { Args: { _email: string }; Returns: string };
     };
     Enums: {

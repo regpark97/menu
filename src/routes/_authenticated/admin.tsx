@@ -42,6 +42,7 @@ import {
   type GalleryItem,
 } from "@/lib/format";
 import { uploadMedia } from "@/lib/media";
+import { WaiterCalls } from "@/components/WaiterCalls";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   validateSearch: (s: Record<string, unknown>): { tenant?: string | undefined } => ({
@@ -150,6 +151,7 @@ function AdminPage() {
                 <TabsTrigger value="metrics">Inteligência & Métricas</TabsTrigger>
               </TabsList>
               <TabsContent value="menu" className="space-y-6">
+                <WaiterCalls tenantId={tenant.id} />
                 <WifiCard tenant={tenant} />
                 <ProductsList tenantId={tenant.id} />
               </TabsContent>
