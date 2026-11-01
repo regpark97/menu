@@ -1,4 +1,4 @@
-# 🤝 HANDOFF — Continuação do Projeto SipFlow (troca de PC)
+# 🤝 HANDOFF — Continuação do Projeto Bupin (antes SipFlow)
 
 > **Documento principal de transferência.** Se você acabou de clonar este repositório
 > em outro computador, **leia este arquivo de cima a baixo** antes de tocar em qualquer coisa.
@@ -36,7 +36,7 @@
 | **URL de produção**       | `https://bupin-app.vercel.app`                    |
 | **Supabase Project ID**   | `ulxndzniyeyracujqmlu`                                 |
 | **Supabase Dashboard**    | `https://supabase.com/dashboard/project/ulxndzniyeyracujqmlu` |
-| **Vercel Project**        | `menu` (projectId `prj_N2PbiTjI5ZwsMu45ZjRZp7DjqhGP`)  |
+| **Vercel Project**        | `bupin` (antes `menu`; renomeado — URL `bupin-app`)    |
 | **Autor dos commits**     | `regpark97 <lilomitofwdase@gmail.com>` ⚠️ **obrigatório** |
 
 > ⚠️ **NUNCA** mude o autor dos commits. A Vercel **bloqueia o deploy** de commits
@@ -496,6 +496,54 @@ Copie isto e vá marcando:
 
 ---
 
+--
+
+## 12. 🆕 Histórico de features (SipFlow → Bupin)
+
+Registro das funcionalidades adicionadas depois da migração. Código já está em `main`.
+URL de produção única: **https://bupin-app.vercel.app** (projeto Vercel = `bupin`).
+
+### 12.1 Renomear SipFlow → Bupin
+- Substituído em todo o `src/` (AppHeader, títulos, rotas). `package.json` name = `bupin`.
+- Domínios antigos (`menu-regpark97`, `menu-tau-bice`) removidos; ficou só `bupin-app.vercel.app`.
+
+### 12.2 Moderação de fotos (já existia, endurecida)
+- Dono envia foto → vai para `pending_media_url` → Super Admin aprova em **Moderação**.
+- Trigger `guard_moderation()` no banco impede auto-publicação pelo dono.
+- Badge numérico vermelho no header (ao lado de Super Admin) com contagem pendente (`usePendingModerationCount`, polling 60s).
+
+### 12.3 Galeria de múltiplas fotos por produto — `0003_product_gallery.sql`
+- Novas colunas: `media_gallery` (jsonb) e `pending_media_gallery` (jsonb).
+- Dono: botões "Nova capa" e "Adicionar fotos" (múltiplas). Miniaturas pendentes removíveis.
+- Moderação: aprova capa + galeria juntas.
+- Cardápio público: **swipe horizontal** entre as fotos do prato, com bolinhas indicadoras.
+- Helpers em `src/lib/format.ts`: `parseGallery()` e `productPhotos()`.
+
+### 12.4 Wi-Fi + Google editáveis pelo dono
+- Card `WifiCard` no `/admin` virou "Wi-Fi e Google" com: SSID, senha e link do Google Maps.
+- Os botões "Conectar ao Wi-Fi" e "Avaliar no Google" do cardápio só aparecem quando estes campos estão preenchidos.
+
+### 12.5 Aparência da loja (logo + fundo) — pelo celular
+- Card `BrandingCard` no `/admin`: upload de **logo** e **imagem/vídeo de fundo** direto da galeria do celular.
+- Salva em `logo_url` / `bg_image_url` e reflete no cardápio na hora. Sem moderação (identidade da loja).
+
+### 12.6 "Chamar garçom" (bolinha flutuante) — `0004_waiter_calls.sql`
+- **Cliente**: bolinha no **canto superior direito** do cardápio, pulso suave. Menu com 3 opções:
+  Chamar garçom / Pedir a conta / Falar com o gerente. Envia a mesa (`table_ref`).
+- **Anti-spam**: RPC `call_waiter(_tenant, _table, _kind)` valida cooldown de 2 min por mesa (SECURITY DEFINER).
+- **Painel do dono**: card `WaiterCalls` na aba Cardápio Rápido — lista em **tempo real** (Supabase Realtime)
+  + polling de 15s de fallback, contador, tempo ("há X min") e botão "Atendido". Som opcional (bipe).
+- Tabela `waiter_calls` (tenant_id, table_ref, kind, status, created_at, done_at), RLS por tenant, realtime ligado.
+
+### 12.7 Restaurante demo recriado
+- "Francisco Coffee Shop" (slug `francisco-coffee`, id fixo `11111111-...`) foi recriado no banco com 3 categorias,
+  4 produtos, Wi-Fi (`Francisco_Guest`) e link do Google. Tags tag-001..004 vinculadas. Serve de vitrine/teste.
+- Script: `supabase/restore-demo-francisco.sql` (idempotente).
+
+### 12.8 Validações
+- `npx tsc --noEmit` = 0 erros; `npx vitest run` = 1 passed; `npx eslint` = 0 erros.
+
+---
 **Fim do handoff.** Bom trabalho no PC novo! 🚀
 
   `Authentication → Users` se ainda existir. Ela não tem estabelecimento, é lixo.
