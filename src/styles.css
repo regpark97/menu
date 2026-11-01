@@ -2,11 +2,19 @@
 @source "../src";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: "Madea Awellier";
+  src: url("/fonts/MADEAwelierPERSONALUSE-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-display: "Madea Awellier", "Cormorant Garamond", ui-serif, Georgia, serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
