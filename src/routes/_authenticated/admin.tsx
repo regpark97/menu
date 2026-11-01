@@ -15,6 +15,7 @@ import {
   Trash2,
   X,
   Images,
+  ImagePlus,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
@@ -153,6 +154,7 @@ function AdminPage() {
               <TabsContent value="menu" className="space-y-6">
                 <WaiterCalls tenantId={tenant.id} />
                 <WifiCard tenant={tenant} />
+                <BrandingCard tenant={tenant} />
                 <ProductsList tenantId={tenant.id} />
               </TabsContent>
               <TabsContent value="metrics">
@@ -228,6 +230,82 @@ function WifiCard({ tenant }: { tenant: Tables<"tenants"> }) {
           Salvar
         </Button>
       </div>
+    </section>
+  );
+}
+function BrandingCard({ tenant }: { tenant: Tables<"tenants"> }) {
+  const [logo, setLogo] = useState(tenant.logo_url ?? "");
+  const [bg, setBg] = useState(tenant.bg_image_url ?? "");
+  const [busy, setBusy] = useState<"logo" | "bg" | null>(null);
+  const qc = useQueryClient();
+
+  async function upload(kind: "logo" | "bg", f: File | undefined) {
+    if (!f) return;
+    setBusy(kind);
+    try {
+      const m = await uploadMedia(f, `${tenant.id}/${kind}`);
+      if (kind === "logo") setLogo(m.url);
+      else setBg(m.url);
+      // Salva direto para refletir no cardápio na hora.
+      const patch = kind === "logo" ? { logo_url: m.url } : { bg_image_url: m.url };
+      const { error } = await supabase.from("tenants").update(patch).eq("id", tenant.id);
+      if (error) throw error;
+      toast.success(kind === "logo" ? "Logo atualizada" : "Imagem de fundo atualizada");
+      qc.invalidateQueries({ queryKey: ["my-tenant"] });
+    } catch (e) {
+      toast.error((e as Error).message);
+    }
+    setBusy(null);
+  }
+
+  return (
+    <section className="glass space-y-3 rounded-2xl p-4">
+      <div className="flex items-center gap-2">
+        <ImagePlus className="h-5 w-5 text-gold" />
+        <h2 className="text-lg text-muted-foreground">Aparência da loja</h2>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-[auto_1fr]">
+        <div>
+          <label className="text-xs text-muted-foreground">Logo</label>
+          <div className="mt-1 flex items-center gap-3">
+            <div className="h-16 w-16 overflow-hidden rounded-full bg-secondary">
+              {logo && <img src={logo} alt="" className="h-full w-full object-cover" />}
+            </div>
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-secondary">
+              <Upload className="h-4 w-4" /> {busy === "logo" ? "Enviando…" : "Trocar logo"}
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                disabled={busy !== null}
+                onChange={(e) => upload("logo", e.target.files?.[0])}
+              />
+            </label>
+          </div>
+        </div>
+        <div>
+          <label className="text-xs text-muted-foreground">Imagem de fundo (tela inicial)</label>
+          <div className="mt-1 flex items-center gap-3">
+            <div className="h-16 w-24 overflow-hidden rounded-lg bg-secondary">
+              {bg && <img src={bg} alt="" className="h-full w-full object-cover" />}
+            </div>
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-secondary">
+              <Upload className="h-4 w-4" /> {busy === "bg" ? "Enviando…" : "Trocar fundo"}
+              <input
+                type="file"
+                accept="image/*,video/*"
+                className="hidden"
+                disabled={busy !== null}
+                onChange={(e) => upload("bg", e.target.files?.[0])}
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+      <p className="text-xs text-muted-foreground">
+        Escolha uma imagem da galeria do seu celular. A logo e o fundo aparecem na tela inicial do
+        cardápio.
+      </p>
     </section>
   );
 }

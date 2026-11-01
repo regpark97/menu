@@ -57,7 +57,7 @@ export function WaiterButton({
   }
 
   return (
-    <div className="fixed bottom-6 right-5 z-40 flex flex-col items-end gap-3">
+    <div className="fixed right-4 top-16 z-40 flex flex-col items-end gap-3">
       {open && (
         <div className="flex flex-col gap-2">
           {CALL_OPTIONS.map((o) => (
