@@ -40,8 +40,12 @@ import {
   parseMoneyInput,
   resolveMedia,
   parseGallery,
+  parseModifiers,
+  cleanModifiers,
   type GalleryItem,
+  type ModifierGroup,
 } from "@/lib/format";
+import { ModifiersEditor } from "@/components/ModifiersEditor";
 import { uploadMedia } from "@/lib/media";
 import { WaiterCalls } from "@/components/WaiterCalls";
 
@@ -395,6 +399,7 @@ function NewProductDialog({
   const [categoryId, setCategoryId] = useState("");
   const [price, setPrice] = useState(0);
   const [desc, setDesc] = useState("");
+  const [mods, setMods] = useState<ModifierGroup[]>([]);
   const [saving, setSaving] = useState(false);
   const [creatingCategory, setCreatingCategory] = useState(false);
   const [newCategory, setNewCategory] = useState("");
@@ -405,6 +410,7 @@ function NewProductDialog({
       setCategoryId(initialCategoryId ?? categories[0]?.id ?? "");
       setPrice(0);
       setDesc("");
+      setMods([]);
       setCreatingCategory(categories.length === 0 && !initialCategoryId);
       setNewCategory("");
     }
@@ -452,7 +458,7 @@ function NewProductDialog({
       price_cents: price,
       media_url: null,
       media_type: "image",
-      modifiers: [],
+      modifiers: cleanModifiers(mods),
       is_available: true,
       is_featured: false,
       sort_order: nextSortOrder,
@@ -592,6 +598,10 @@ function NewProductDialog({
           </div>
         </div>
 
+        <div className="mt-1">
+          <ModifiersEditor value={mods} onChange={setMods} />
+        </div>
+
         <DialogFooter>
           <Button variant="ghost" onClick={() => onOpenChange(false)}>
             Cancelar
@@ -612,6 +622,7 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
   const [desc, setDesc] = useState(product.description ?? "");
   const [uploading, setUploading] = useState(false);
   const [galleryUploading, setGalleryUploading] = useState(false);
+  const [mods, setMods] = useState<ModifierGroup[]>(() => parseModifiers(product.modifiers));
   const gallery = parseGallery(product.media_gallery);
   const pendingGallery = parseGallery(product.pending_media_gallery);
   useEffect(() => {
@@ -620,6 +631,9 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
   useEffect(() => {
     setName(product.name);
   }, [product.name]);
+  useEffect(() => {
+    setMods(parseModifiers(product.modifiers));
+  }, [product.modifiers]);
 
   async function toggle(v: boolean) {
     setAvailable(v);
@@ -640,7 +654,12 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
     if (desc.length > DESCRIPTION_LIMIT) return;
     const { error } = await supabase
       .from("products")
-      .update({ name: name.trim(), price_cents: price, description: desc })
+      .update({
+        name: name.trim(),
+        price_cents: price,
+        description: desc,
+        modifiers: cleanModifiers(mods),
+      })
       .eq("id", product.id);
     if (error) return toast.error(error.message);
     toast.success("Alterações salvas");
@@ -719,7 +738,10 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
   }
 
   const dirty =
-    name !== product.name || price !== product.price_cents || desc !== (product.description ?? "");
+    name !== product.name ||
+    price !== product.price_cents ||
+    desc !== (product.description ?? "") ||
+    JSON.stringify(cleanModifiers(mods)) !== JSON.stringify(parseModifiers(product.modifiers));
   return (
     <article
       className={`rounded-2xl border border-border bg-card p-4 transition ${available ? "" : "opacity-60"}`}
@@ -800,6 +822,8 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
           />
         </div>
       </div>
+      <ModifiersEditor value={mods} onChange={setMods} />
+
       {(gallery.length > 0 || pendingGallery.length > 0) && (
         <div className="mt-4">
           <p className="mb-2 flex items-center gap-1.5 text-xs text-muted-foreground">
