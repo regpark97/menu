@@ -7,89 +7,989 @@ endobj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
 endobj
 3 0 obj
-<< /Length 5528 >>
+<< /Length 1209 >>
 stream
-BT /F2 22 Tf 0.29 0.17 0.08 rg 56 751.89 Td (Guia de An\341lise de M\351tricas \227 Bupin) Tj ET
-0.42 0.26 0.14 RG 1 w 56 747.89 m 539.28 747.89 l S
-BT /F2 14 Tf 0.47 0.27 0.12 rg 56 715.39 Td (Como ler os n\372meros do seu painel e transformar dados em decis\365es) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 56 693.14 Td (A aba **An\341lise > M\351tricas** responde \340 pergunta central: os clientes olham o qu\352, e o que os faz agir? Este guia explica cada n\372mero e como us\341-lo no dia a dia do restaurante.) Tj ET
-BT /F2 14 Tf 0.47 0.27 0.12 rg 56 661.39 Td (1. Cards do topo \(volume e alcance\)) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 645.14 Td (\225 **Sess\365es abertas:** quantas vezes algu\351m abriu o card\341pio \(uma visita\). \311 a sua audi\352ncia. Se cair, verifique os cart\365es NFC/QR das mesas.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 629.14 Td (\225 **Visualiza\347\365es de pratos:** quantos pratos foram vistos no feed. Views \367 Sess\365es = quantos pratos cada pessoa v\352 em m\351dia. Quanto maior, mais engajado.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 613.14 Td (\225 **Cliques no Google Review:** quantos tocaram em "Avaliar no Google". \311 a prova social, o que voc\352 quer no Google Maps.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 597.14 Td (\225 **Aberturas de Wi-Fi:** quantos abriram a senha do Wi-Fi. Indica cliente confort\341vel, que fica mais tempo e consome mais.) Tj ET
-BT /F2 14 Tf 0.47 0.27 0.12 rg 56 565.39 Td (2. Cards de qualidade e convers\343o \(os mais estrat\351gicos\)) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 549.14 Td (\225 **Aten\347\343o m\351dia:** tempo m\351dio em cada prato. 2-5s = passou r\341pido; 5-10s = interesse real; mais de 15s = forte inten\347\343o de compra.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 533.14 Td (\225 **Convers\343o p/ Google:** cliques no Google \367 sess\365es. 20% \351 excelente; abaixo de 5%, ningu\351m est\341 avaliando \227 reforce o convite na tela inicial.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 517.14 Td (\225 **Uso do Wi-Fi:** aberturas de Wi-Fi \367 sess\365es. Acima de 30%, o Wi-Fi \351 um atrativo forte. Muito baixo pode indicar rede dif\355cil ou senha errada.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 56 495.14 Td (**Regra de ouro:** volume \(topo\) mostra alcance; convers\343o \(base\) mostra experi\352ncia. 1000 sess\365es com 2% de Google valem menos que 200 sess\365es com 25%.) Tj ET
-BT /F2 14 Tf 0.47 0.27 0.12 rg 56 463.39 Td (3. Tabela por prato \(o cora\347\343o da an\341lise\)) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 56 447.14 Td (Cada linha \351 um prato, ordenado por aten\347\343o m\351dia \(o que chama mais olhar fica no topo\).) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 425.14 Td (\225 **Aten\347\343o m\351dia:** tempo m\351dio olhando o prato.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 409.14 Td (\225 **Interesse:** \(favoritos + personaliza\347\365es\) \367 views. Mede quantos que viram o prato realmente agiram.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 393.14 Td (\225 **Views:** quantas vezes o prato apareceu.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 377.14 Td (\225 **Sess\365es \(fase 2\):** sess\365es distintas que viram o prato \(funil\).) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 361.14 Td (\225 **Swipes \(fase 2\):** eventos de swipe at\351 o prato \(alcance/exposi\347\343o\).) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 345.14 Td (\225 **Favoritos:** quantos marcaram com o cora\347\343o.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 329.14 Td (\225 **Personaliza\347\365es:** quantos abriram os adicionais \(sinal forte de inten\347\343o de pedir\).) Tj ET
-BT /F2 14 Tf 0.47 0.27 0.12 rg 56 297.39 Td (4. Como cruzar as colunas) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 281.14 Td (\225 **Aten\347\343o alta + Interesse alto:** prato campe\343o. Destaque na abertura, melhores fotos, teste pre\347o/margem.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 265.14 Td (\225 **Aten\347\343o alta + Interesse baixo:** curiosidade sem a\347\343o. Reveja descri\347\343o/pre\347o; talvez pare\347a caro ou confuso.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 249.14 Td (\225 **Aten\347\343o baixa + Views altas:** passou batido. Foto/v\355deo fraco ou posi\347\343o ruim \227 regrave ou reordene.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 233.14 Td (\225 **Interesse baixo \(menos de 5%\) com muitas views:** prato "frio". Re-posicione ou foque margem em outro.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 217.14 Td (\225 **Muitas Personaliza\347\365es:** o cliente quer customizar. Garanta adicionais completos e com pre\347o \227 \351 receita f\341cil.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 201.14 Td (\225 **Muitos Favoritos:** prato queridinho da casa. Use na comunica\347\343o.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 56 179.14 Td (Onde est\343o os olhos, est\341 o dinheiro. Interesse acima de 15% \(verde\) \351 forte candidato a prato-vitrine.) Tj ET
-BT /F2 14 Tf 0.47 0.27 0.12 rg 56 147.39 Td (5. Painel "Por mesa" \(fase 2\)) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 131.14 Td (\225 **Sess\365es por mesa:** quantas visitas aquela mesa abriu.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 115.14 Td (\225 **Chamadas por mesa:** pedidos de gar\347om/conta/gerente. Muitas chamadas podem indicar fila de atendimento ou mesa que precisa de aten\347\343o.) Tj ET
-BT /F2 14 Tf 0.47 0.27 0.12 rg 56 83.39 Td (6. O filtro de per\355odo \(7 / 15 / 30 dias\)) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 67.14 Td (\225 **7 dias:** rea\347\343o a um evento recente \(mudou uma foto, fim de semana, novo prato\).) Tj ET
+1 0.99 0.98 rg 0 0 595.28 841.89 re f
+0.36 0.23 0.13 rg 0 353.59 595.28 488.3 re f
+0.78 0.55 0.27 rg 0 353.59 595.28 6 re f
+BT /F2 16 Tf 0.97 0.94 0.9 rg 54 751.89 Td (BUPIN) Tj ET
+BT /F2 40 Tf 1 1 1 rg 54 631.89 Td (Guia de) Tj ET
+BT /F2 40 Tf 1 1 1 rg 54 583.89 Td (M\351tricas) Tj ET
+BT /F1 13 Tf 0.97 0.94 0.9 rg 54 541.89 Td (Do n\372mero \340 decis\343o \227 leia seus dados) Tj ET
+1 1 1 rg 68 118 m 527.28 118 l 535.01 118 541.28 124.27 541.28 132 c 541.28 260 l 541.28 267.73 535.01 274 527.28 274 c 68 274 l 60.27 274 54 267.73 54 260 c 54 132 l 54 124.27 60.27 118 68 118 c f
+0.84 0.77 0.69 RG 0.8 w 68 119 m 527.28 119 l S
+0.78 0.55 0.27 rg 54 266 487.28 8 re f
+BT /F2 10 Tf 0.78 0.55 0.27 rg 76 218 Td (O que voc\352 vai encontrar) Tj ET
+BT /F2 13 Tf 0.26 0.16 0.09 rg 76 192 Td (Volume e alcance, convers\343o e) Tj ET
+BT /F2 13 Tf 0.26 0.16 0.09 rg 76 172 Td (interesse por prato, painel por mesa) Tj ET
+BT /F1 11 Tf 0.48 0.41 0.35 rg 76 148 Td (e um roteiro pr\341tico de 5 minutos por semana.) Tj ET
+0.84 0.77 0.69 RG 0.8 w 54 46 m 541.28 46 l S
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 54 32 Td (Bupin \227 o card\341pio que se assiste) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 519.18 32 Td (1 / 4) Tj ET
 endstream
 endobj
 4 0 obj
-<< /Type /Page /Parent 7 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
 endobj
 5 0 obj
-<< /Length 1926 >>
+<< /Length 19525 >>
 stream
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 771.14 Td (\225 **30 dias:** tend\352ncia real e est\341vel. Use para decis\365es de card\341pio e pre\347o.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 755.14 Td (\225 Compare o mesmo per\355odo entre si; se trocou uma foto, o antes/depois no 7 dias mostra o efeito.) Tj ET
-BT /F2 14 Tf 0.47 0.27 0.12 rg 56 723.39 Td (7. Roteiro r\341pido \(5 minutos por semana\)) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 56 707.14 Td (1. As sess\365es subiram ou ca\355ram? \(alcance f\355sico/QR\)) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 56 691.14 Td (2. Convers\343o p/ Google est\341 acima de 15%? Se n\343o, ajuste o convite.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 56 675.14 Td (3. Qual prato tem os 3 melhores \(aten\347\343o, interesse, personaliza\347\365es\)? Promova-o.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 56 659.14 Td (4. Ache o prato com mais views e menos interesse: troque a foto ou tire da frente.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 56 643.14 Td (5. Pratos com muitas personaliza\347\365es: confira se os adicionais est\343o completos = dinheiro na mesa.) Tj ET
-BT /F2 14 Tf 0.47 0.27 0.12 rg 56 611.39 Td (8. Observa\347\365es importantes) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 595.14 Td (\225 Os n\372meros s\363 ficam significativos com tr\341fego real \(clientes usando o NFC/QR\). Em ambiente de teste pode haver pouco ou nenhum dado.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 579.14 Td (\225 Cada m\351trica \351 cumulativa do per\355odo selecionado; n\343o some dias manualmente, o filtro j\341 faz isso.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 68 563.14 Td (\225 As colunas Sess\365es, Swipes e o painel Por mesa dependem da atualiza\347\343o do banco \(migration 0005\). Enquanto ela n\343o for aplicada, o painel mostra apenas as colunas cl\341ssicas.) Tj ET
-BT /F1 11 Tf 0.16 0.13 0.09 rg 56 541.14 Td (Bupin \227 o card\341pio que se assiste. Guia de m\351tricas, vers\343o 1.0.) Tj ET
+0.36 0.23 0.13 rg 0 801.89 595.28 40 re f
+BT /F2 12 Tf 0.97 0.94 0.9 rg 54 815.89 Td (BUPIN) Tj ET
+BT /F1 11 Tf 0.97 0.94 0.9 rg 391.28 815.89 Td (Guia de M\351tricas) Tj ET
+0.78 0.55 0.27 rg 54 741.89 5 40 re f
+BT /F2 9 Tf 0.78 0.55 0.27 rg 68 739.89 Td (GUIA PR\301TICO) Tj ET
+BT /F2 22 Tf 0.36 0.23 0.13 rg 68 713.89 Td (An\341lise de M\351tricas) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 54 687.89 Td (A) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 59.46 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 64.92 687.89 Td (aba) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 81.3 687.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 86.76 687.89 Td (An\341lise) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 122.04 687.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 127.77 687.89 Td (>) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 133.51 687.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 139.24 687.89 Td (M\351tricas) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 181.35 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 186.81 687.89 Td (responde) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 228.18 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 233.64 687.89 Td (\340) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 239.1 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 244.56 687.89 Td (pergunta) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 283.62 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 289.08 687.89 Td (central:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 323.52 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 328.98 687.89 Td (os) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 339.9 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 345.36 687.89 Td (clientes) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 382.11 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 387.57 687.89 Td (olham) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 415.92 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 421.38 687.89 Td (o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 426.84 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 432.3 687.89 Td (qu\352,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 451.83 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 457.29 687.89 Td (e) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 462.75 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 468.21 687.89 Td (o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 473.67 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 479.13 687.89 Td (que) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 495.51 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 500.97 687.89 Td (os) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 511.89 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 517.35 687.89 Td (faz) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 533.73 687.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 54 672.14 Td (agir?) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 76.68 672.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 82.14 672.14 Td (Este) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 101.67 672.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 107.13 672.14 Td (guia) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 126.66 672.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 132.12 672.14 Td (explica) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 165.72 672.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 171.18 672.14 Td (cada) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 193.02 672.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 198.48 672.14 Td (n\372mero) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 232.29 672.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 237.75 672.14 Td (e) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 243.21 672.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 248.67 672.14 Td (como) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 273.87 672.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 279.33 672.14 Td (transform\341-lo) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 344.43 672.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 349.89 672.14 Td (em) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 364.17 672.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 369.63 672.14 Td (decis\343o.) Tj ET
+0.36 0.23 0.13 rg 60 622.39 m 70 622.39 l 73.31 622.39 76 625.08 76 628.39 c 76 638.39 l 76 641.7 73.31 644.39 70 644.39 c 60 644.39 l 56.69 644.39 54 641.7 54 638.39 c 54 628.39 l 54 625.08 56.69 622.39 60 622.39 c f
+BT /F2 13 Tf 0.97 0.94 0.9 rg 60.91 628.39 Td (1) Tj ET
+BT /F2 14.5 Tf 0.26 0.16 0.09 rg 88 627.39 Td (Cards do topo \227 volume e alcance) Tj ET
+1 0.99 0.98 rg 64 546.39 m 281.64 546.39 l 287.16 546.39 291.64 550.87 291.64 556.39 c 291.64 598.39 l 291.64 603.91 287.16 608.39 281.64 608.39 c 64 608.39 l 58.48 608.39 54 603.91 54 598.39 c 54 556.39 l 54 550.87 58.48 546.39 64 546.39 c f
+0.84 0.77 0.69 RG 0.6 w 54 547.39 m 291.64 547.39 l S
+BT /F2 8.5 Tf 0.48 0.41 0.35 rg 66 592.39 Td (SESS\325ES ABERTAS) Tj ET
+BT /F2 15 Tf 0.36 0.23 0.13 rg 66 568.39 Td (? visitas) Tj ET
+BT /F1 7.5 Tf 0.48 0.41 0.35 rg 66 554.39 Td (sua audi\352ncia) Tj ET
+1 0.99 0.98 rg 313.64 546.39 m 531.28 546.39 l 536.8 546.39 541.28 550.87 541.28 556.39 c 541.28 598.39 l 541.28 603.91 536.8 608.39 531.28 608.39 c 313.64 608.39 l 308.12 608.39 303.64 603.91 303.64 598.39 c 303.64 556.39 l 303.64 550.87 308.12 546.39 313.64 546.39 c f
+0.84 0.77 0.69 RG 0.6 w 303.64 547.39 m 541.28 547.39 l S
+BT /F2 8.5 Tf 0.48 0.41 0.35 rg 315.64 592.39 Td (VIEWS \367 SESS\325ES) Tj ET
+BT /F2 15 Tf 0.36 0.23 0.13 rg 315.64 568.39 Td (engajamento) Tj ET
+BT /F1 7.5 Tf 0.48 0.41 0.35 rg 315.64 554.39 Td (pratos por visita) Tj ET
+1 0.99 0.98 rg 64 472.39 m 281.64 472.39 l 287.16 472.39 291.64 476.87 291.64 482.39 c 291.64 524.39 l 291.64 529.91 287.16 534.39 281.64 534.39 c 64 534.39 l 58.48 534.39 54 529.91 54 524.39 c 54 482.39 l 54 476.87 58.48 472.39 64 472.39 c f
+0.84 0.77 0.69 RG 0.6 w 54 473.39 m 291.64 473.39 l S
+BT /F2 8.5 Tf 0.48 0.41 0.35 rg 66 518.39 Td (GOOGLE REVIEW) Tj ET
+BT /F2 15 Tf 0.36 0.23 0.13 rg 66 494.39 Td (prova social) Tj ET
+BT /F1 7.5 Tf 0.48 0.41 0.35 rg 66 480.39 Td (quem avaliou) Tj ET
+1 0.99 0.98 rg 313.64 472.39 m 531.28 472.39 l 536.8 472.39 541.28 476.87 541.28 482.39 c 541.28 524.39 l 541.28 529.91 536.8 534.39 531.28 534.39 c 313.64 534.39 l 308.12 534.39 303.64 529.91 303.64 524.39 c 303.64 482.39 l 303.64 476.87 308.12 472.39 313.64 472.39 c f
+0.84 0.77 0.69 RG 0.6 w 303.64 473.39 m 541.28 473.39 l S
+BT /F2 8.5 Tf 0.48 0.41 0.35 rg 315.64 518.39 Td (WI-FI) Tj ET
+BT /F2 15 Tf 0.36 0.23 0.13 rg 315.64 494.39 Td (conforto) Tj ET
+BT /F1 7.5 Tf 0.48 0.41 0.35 rg 315.64 480.39 Td (fica mais tempo) Tj ET
+0.78 0.55 0.27 rg 56 461.39 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 458.39 Td (Sess\365es) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 110.13 458.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 115.86 458.39 Td (abertas:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 154.45 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 159.91 458.39 Td (quantas) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 195.82 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 201.28 458.39 Td (vezes) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 228.58 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 234.04 458.39 Td (algu\351m) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 267.85 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 273.31 458.39 Td (abriu) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 295.99 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 301.45 458.39 Td (o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 306.91 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 312.37 458.39 Td (card\341pio.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 354.58 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 360.04 458.39 Td (Se) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 370.96 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 376.42 458.39 Td (cair,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 396.79 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 402.25 458.39 Td (verifique) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 444.46 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 449.92 458.39 Td (os) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 460.84 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 466.3 458.39 Td (cart\365es) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 499.9 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 505.36 458.39 Td (NFC/QR) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 538.12 458.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 70 442.64 Td (das) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 86.38 442.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 91.84 442.64 Td (mesas.) Tj ET
+0.78 0.55 0.27 rg 56 429.89 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 426.89 Td (Visualiza\347\365es) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 137.25 426.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 142.99 426.89 Td (de) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 154.45 426.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 160.18 426.89 Td (pratos:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 193.04 426.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 198.5 426.89 Td (views) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 226.85 426.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 232.31 426.89 Td (\367) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 237.77 426.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 243.23 426.89 Td (sess\365es) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 281.45 426.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 286.91 426.89 Td (mostra) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 318.41 426.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 323.87 426.89 Td (quantos) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 359.78 426.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 365.24 426.89 Td (pratos) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 393.38 426.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 398.84 426.89 Td (cada) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 420.68 426.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 426.14 426.89 Td (pessoa) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 458.9 426.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 464.36 426.89 Td (v\352.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 478.43 426.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 483.89 426.89 Td (Quanto) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 514.34 426.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 70 411.14 Td (maior,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 99.19 411.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 104.65 411.14 Td (mais) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 127.54 411.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 133 411.14 Td (engajado.) Tj ET
+0.78 0.55 0.27 rg 56 398.39 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 395.39 Td (Cliques) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 105.28 395.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 111.01 395.39 Td (no) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 122.48 395.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 128.21 395.39 Td (Google) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 160.18 395.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 165.92 395.39 Td (Review:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 204.73 395.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 210.19 395.39 Td (\351) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 215.65 395.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 221.11 395.39 Td (a) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 226.57 395.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 232.03 395.39 Td (prova) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 257.02 395.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 262.48 395.39 Td (social) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 290.62 395.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 296.08 395.39 Td (que) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 312.46 395.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 317.92 395.39 Td (voc\352) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 339.76 395.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 345.22 395.39 Td (quer) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 364.75 395.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 370.21 395.39 Td (no) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 381.13 395.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 386.59 395.39 Td (Google) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 417.04 395.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 422.5 395.39 Td (Maps.) Tj ET
+0.78 0.55 0.27 rg 56 382.64 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 379.64 Td (Aberturas) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 114.32 379.64 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 120.05 379.64 Td (de) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 131.52 379.64 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 137.25 379.64 Td (Wi-Fi:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 167.9 379.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 173.36 379.64 Td (indicam) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 210.32 379.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 215.78 379.64 Td (cliente) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 247.07 379.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 252.53 379.64 Td (confort\341vel,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 308.81 379.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 314.27 379.64 Td (que) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 330.65 379.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 336.11 379.64 Td (fica) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 355.64 379.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 361.1 379.64 Td (mais) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 383.99 379.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 389.45 379.64 Td (tempo) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 417.8 379.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 423.26 379.64 Td (e) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 428.72 379.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 434.18 379.64 Td (consome) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 475.76 379.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 481.22 379.64 Td (mais.) Tj ET
+0.36 0.23 0.13 rg 60 329.89 m 70 329.89 l 73.31 329.89 76 332.58 76 335.89 c 76 345.89 l 76 349.2 73.31 351.89 70 351.89 c 60 351.89 l 56.69 351.89 54 349.2 54 345.89 c 54 335.89 l 54 332.58 56.69 329.89 60 329.89 c f
+BT /F2 13 Tf 0.97 0.94 0.9 rg 60.91 335.89 Td (2) Tj ET
+BT /F2 14.5 Tf 0.26 0.16 0.09 rg 88 334.89 Td (Qualidade e convers\343o \227 os mais estrat\351gicos) Tj ET
+1 0.99 0.98 rg 64 253.89 m 281.64 253.89 l 287.16 253.89 291.64 258.37 291.64 263.89 c 291.64 305.89 l 291.64 311.41 287.16 315.89 281.64 315.89 c 64 315.89 l 58.48 315.89 54 311.41 54 305.89 c 54 263.89 l 54 258.37 58.48 253.89 64 253.89 c f
+0.84 0.77 0.69 RG 0.6 w 54 254.89 m 291.64 254.89 l S
+BT /F2 8.5 Tf 0.48 0.41 0.35 rg 66 299.89 Td (ATEN\307\303O M\311DIA) Tj ET
+BT /F2 15 Tf 0.27 0.51 0.35 rg 66 275.89 Td (5\22610s) Tj ET
+BT /F1 7.5 Tf 0.48 0.41 0.35 rg 66 261.89 Td (interesse real) Tj ET
+1 0.99 0.98 rg 313.64 253.89 m 531.28 253.89 l 536.8 253.89 541.28 258.37 541.28 263.89 c 541.28 305.89 l 541.28 311.41 536.8 315.89 531.28 315.89 c 313.64 315.89 l 308.12 315.89 303.64 311.41 303.64 305.89 c 303.64 263.89 l 303.64 258.37 308.12 253.89 313.64 253.89 c f
+0.84 0.77 0.69 RG 0.6 w 303.64 254.89 m 541.28 254.89 l S
+BT /F2 8.5 Tf 0.48 0.41 0.35 rg 315.64 299.89 Td (CONVERS\303O GOOGLE) Tj ET
+BT /F2 15 Tf 0.27 0.51 0.35 rg 315.64 275.89 Td (20%+) Tj ET
+BT /F1 7.5 Tf 0.48 0.41 0.35 rg 315.64 261.89 Td (excelente) Tj ET
+1 0.99 0.98 rg 64 179.89 m 281.64 179.89 l 287.16 179.89 291.64 184.37 291.64 189.89 c 291.64 231.89 l 291.64 237.41 287.16 241.89 281.64 241.89 c 64 241.89 l 58.48 241.89 54 237.41 54 231.89 c 54 189.89 l 54 184.37 58.48 179.89 64 179.89 c f
+0.84 0.77 0.69 RG 0.6 w 54 180.89 m 291.64 180.89 l S
+BT /F2 8.5 Tf 0.48 0.41 0.35 rg 66 225.89 Td (USO DO WI-FI) Tj ET
+BT /F2 15 Tf 0.27 0.51 0.35 rg 66 201.89 Td (30%+) Tj ET
+BT /F1 7.5 Tf 0.48 0.41 0.35 rg 66 187.89 Td (atrativo forte) Tj ET
+1 0.99 0.98 rg 313.64 179.89 m 531.28 179.89 l 536.8 179.89 541.28 184.37 541.28 189.89 c 541.28 231.89 l 541.28 237.41 536.8 241.89 531.28 241.89 c 313.64 241.89 l 308.12 241.89 303.64 237.41 303.64 231.89 c 303.64 189.89 l 303.64 184.37 308.12 179.89 313.64 179.89 c f
+0.84 0.77 0.69 RG 0.6 w 303.64 180.89 m 541.28 180.89 l S
+BT /F2 8.5 Tf 0.48 0.41 0.35 rg 315.64 225.89 Td (ABAIXO DE 5%) Tj ET
+BT /F2 15 Tf 0.75 0.51 0.12 rg 315.64 201.89 Td (alerta) Tj ET
+BT /F1 7.5 Tf 0.48 0.41 0.35 rg 315.64 187.89 Td (ningu\351m agindo) Tj ET
+0.97 0.94 0.9 rg 64 122.79 m 531.28 122.79 l 536.8 122.79 541.28 127.27 541.28 132.79 c 541.28 163.89 l 541.28 169.41 536.8 173.89 531.28 173.89 c 64 173.89 l 58.48 173.89 54 169.41 54 163.89 c 54 132.79 l 54 127.27 58.48 122.79 64 122.79 c f
+0.78 0.55 0.27 rg 54 132.79 4 31.1 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 74 155.89 Td (Regra) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 100.24 155.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 105.97 155.89 Td (de) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 117.44 155.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 123.17 155.89 Td (ouro:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 146.99 155.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 152.45 155.89 Td (volume) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 186.26 155.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 191.72 155.89 Td (\(topo\)) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 217.55 155.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 223.01 155.89 Td (mostra) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 254.51 155.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 259.97 155.89 Td (alcance;) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 299.03 155.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 304.49 155.89 Td (convers\343o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 351.32 155.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 356.78 155.89 Td (\(base\)) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 384.92 155.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 390.38 155.89 Td (mostra) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 421.88 155.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 427.34 155.89 Td (experi\352ncia.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 483.62 155.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 489.08 155.89 Td (1000) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 510.92 155.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 74 140.14 Td (sess\365es) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 112.22 140.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 117.68 140.14 Td (com) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 137.42 140.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 142.88 140.14 Td (2%) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 157.16 140.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 162.62 140.14 Td (de) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 173.54 140.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 179 140.14 Td (Google) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 209.45 140.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 214.91 140.14 Td (valem) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 243.26 140.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 248.72 140.14 Td (menos) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 279.38 140.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 284.84 140.14 Td (que) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 301.22 140.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 306.68 140.14 Td (200) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 323.06 140.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 328.52 140.14 Td (sess\365es) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 366.74 140.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 372.2 140.14 Td (com) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 391.94 140.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 397.4 140.14 Td (25%.) Tj ET
+0.84 0.77 0.69 RG 0.8 w 54 46 m 541.28 46 l S
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 54 32 Td (Bupin \227 o card\341pio que se assiste) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 519.18 32 Td (2 / 4) Tj ET
 endstream
 endobj
 6 0 obj
-<< /Type /Page /Parent 7 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
 endobj
 7 0 obj
-<< /Type /Pages /Kids [4 0 R 6 0 R] /Count 2 >>
+<< /Length 25316 >>
+stream
+0.36 0.23 0.13 rg 0 801.89 595.28 40 re f
+BT /F2 12 Tf 0.97 0.94 0.9 rg 54 815.89 Td (BUPIN) Tj ET
+BT /F1 11 Tf 0.97 0.94 0.9 rg 391.28 815.89 Td (Guia de M\351tricas) Tj ET
+0.36 0.23 0.13 rg 60 717.89 m 70 717.89 l 73.31 717.89 76 720.58 76 723.89 c 76 733.89 l 76 737.2 73.31 739.89 70 739.89 c 60 739.89 l 56.69 739.89 54 737.2 54 733.89 c 54 723.89 l 54 720.58 56.69 717.89 60 717.89 c f
+BT /F2 13 Tf 0.97 0.94 0.9 rg 60.91 723.89 Td (3) Tj ET
+BT /F2 14.5 Tf 0.26 0.16 0.09 rg 88 722.89 Td (Tabela por prato \227 o cora\347\343o da an\341lise) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 54 703.89 Td (Cada) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 75.84 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 81.3 703.89 Td (linha) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 103.98 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 109.44 703.89 Td (\351) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 114.9 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 120.36 703.89 Td (um) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 134.64 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 140.1 703.89 Td (prato,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 165.93 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 171.39 703.89 Td (ordenado) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 212.76 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 218.22 703.89 Td (por) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 232.29 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 237.75 703.89 Td (aten\347\343o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 273.66 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 279.12 703.89 Td (m\351dia) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 307.47 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 312.93 703.89 Td (\(o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 321.54 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 327 703.89 Td (que) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 343.38 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 348.84 703.89 Td (chama) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 379.5 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 384.96 703.89 Td (mais) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 407.85 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 413.31 703.89 Td (olhar) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 435.99 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 441.45 703.89 Td (fica) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 460.98 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 466.44 703.89 Td (no) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 477.36 703.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 482.82 703.89 Td (topo\).) Tj ET
+0.36 0.23 0.13 rg 54 660.14 487.28 24 re f
+BT /F2 9 Tf 0.97 0.94 0.9 rg 62 668.14 Td (Coluna) Tj ET
+BT /F2 9 Tf 0.97 0.94 0.9 rg 212 668.14 Td (O que mede) Tj ET
+BT /F2 9 Tf 0.97 0.94 0.9 rg 417 668.14 Td (Use para...) Tj ET
+0.97 0.94 0.9 rg 54 638.14 487.28 22 re f
+0.84 0.77 0.69 RG 0.6 w 54 638.14 m 541.28 638.14 l S
+BT /F1 9 Tf 0.17 0.11 0.07 rg 62 645.14 Td (Aten\347\343o m\351dia) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 212 645.14 Td (tempo olhando o prato) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 417 645.14 Td (medir inten\347\343o) Tj ET
+0.84 0.77 0.69 RG 0.6 w 54 616.14 m 541.28 616.14 l S
+BT /F1 9 Tf 0.17 0.11 0.07 rg 62 623.14 Td (Interesse) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 212 623.14 Td (\(fav+personaliz.\) \367 views) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 417 623.14 Td (achar quem converte) Tj ET
+0.97 0.94 0.9 rg 54 594.14 487.28 22 re f
+0.84 0.77 0.69 RG 0.6 w 54 594.14 m 541.28 594.14 l S
+BT /F1 9 Tf 0.17 0.11 0.07 rg 62 601.14 Td (Views) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 212 601.14 Td (quantas vezes apareceu) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 417 601.14 Td (medir alcance) Tj ET
+0.84 0.77 0.69 RG 0.6 w 54 572.14 m 541.28 572.14 l S
+BT /F1 9 Tf 0.17 0.11 0.07 rg 62 579.14 Td (Sess\365es*) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 212 579.14 Td (sess\365es distintas que viram) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 417 579.14 Td (ler o funil) Tj ET
+0.97 0.94 0.9 rg 54 550.14 487.28 22 re f
+0.84 0.77 0.69 RG 0.6 w 54 550.14 m 541.28 550.14 l S
+BT /F1 9 Tf 0.17 0.11 0.07 rg 62 557.14 Td (Swipes*) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 212 557.14 Td (exposi\347\343o at\351 o prato) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 417 557.14 Td (alcance real) Tj ET
+0.84 0.77 0.69 RG 0.6 w 54 528.14 m 541.28 528.14 l S
+BT /F1 9 Tf 0.17 0.11 0.07 rg 62 535.14 Td (Favoritos) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 212 535.14 Td (cora\347\365es marcados) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 417 535.14 Td (achar queridinhos) Tj ET
+0.97 0.94 0.9 rg 54 506.14 487.28 22 re f
+0.84 0.77 0.69 RG 0.6 w 54 506.14 m 541.28 506.14 l S
+BT /F1 9 Tf 0.17 0.11 0.07 rg 62 513.14 Td (Personaliza\347\365es) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 212 513.14 Td (abriram adicionais) Tj ET
+BT /F1 9 Tf 0.17 0.11 0.07 rg 417 513.14 Td (inten\347\343o de pedir) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 54 494.14 Td (*) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 58.42 494.14 Td ( ) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 62.84 494.14 Td (Colunas) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 91.91 494.14 Td ( ) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 96.33 494.14 Td (da) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 105.17 494.14 Td ( ) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 109.59 494.14 Td (Fase) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 127.27 494.14 Td ( ) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 131.69 494.14 Td (2) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 136.11 494.14 Td ( ) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 140.53 494.14 Td (\(requerem) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 177.42 494.14 Td ( ) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 181.84 494.14 Td (a) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 186.26 494.14 Td ( ) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 190.68 494.14 Td (migration) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 225.7 494.14 Td ( ) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 230.12 494.14 Td (0005) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 247.8 494.14 Td ( ) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 252.22 494.14 Td (no) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 261.06 494.14 Td ( ) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 265.48 494.14 Td (banco\).) Tj ET
+0.36 0.23 0.13 rg 60 453.39 m 70 453.39 l 73.31 453.39 76 456.08 76 459.39 c 76 469.39 l 76 472.7 73.31 475.39 70 475.39 c 60 475.39 l 56.69 475.39 54 472.7 54 469.39 c 54 459.39 l 54 456.08 56.69 453.39 60 453.39 c f
+BT /F2 13 Tf 0.97 0.94 0.9 rg 60.91 459.39 Td (4) Tj ET
+BT /F2 14.5 Tf 0.26 0.16 0.09 rg 88 458.39 Td (Como cruzar as colunas) Tj ET
+0.78 0.55 0.27 rg 56 442.39 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 439.39 Td (Aten\347\343o) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 107.71 439.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 113.44 439.39 Td (alta) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 131.52 439.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 137.25 439.39 Td (+) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 142.99 439.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 148.72 439.39 Td (Interesse) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 193.04 439.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 198.77 439.39 Td (alto:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 220.16 439.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 225.62 439.39 Td (prato) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 248.3 439.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 253.76 439.39 Td (campe\343o.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 298.49 439.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 303.95 439.39 Td (Destaque) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 345.32 439.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 350.78 439.39 Td (na) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 361.7 439.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 367.16 439.39 Td (abertura,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 407.06 439.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 412.52 439.39 Td (melhore) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 449.48 439.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 454.94 439.39 Td (fotos,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 483.08 439.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 488.54 439.39 Td (teste) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 511.22 439.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 70 423.64 Td (pre\347o/margem.) Tj ET
+0.78 0.55 0.27 rg 56 410.89 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 407.89 Td (Aten\347\343o) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 107.71 407.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 113.44 407.89 Td (alta) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 131.52 407.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 137.25 407.89 Td (+) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 142.99 407.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 148.72 407.89 Td (Interesse) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 193.04 407.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 198.77 407.89 Td (baixo:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 228.32 407.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 233.78 407.89 Td (curiosidade) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 286.91 407.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 292.37 407.89 Td (sem) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 312.11 407.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 317.57 407.89 Td (a\347\343o.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 342.56 407.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 348.02 407.89 Td (Reveja) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 378.47 407.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 383.93 407.89 Td (descri\347\343o/pre\347o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 458.9 407.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 464.36 407.89 Td (\227) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 469.82 407.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 475.28 407.89 Td (talvez) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 503.42 407.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 508.88 407.89 Td (pare\347a) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 539.33 407.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 70 392.14 Td (caro.) Tj ET
+0.78 0.55 0.27 rg 56 379.39 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 376.39 Td (Aten\347\343o) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 107.71 376.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 113.44 376.39 Td (baixa) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 139.68 376.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 145.41 376.39 Td (+) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 151.14 376.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 156.88 376.39 Td (Views) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 186.64 376.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 192.38 376.39 Td (altas:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 219.5 376.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 224.96 376.39 Td (passou) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 257.72 376.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 263.18 376.39 Td (batido.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 294.47 376.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 299.93 376.39 Td (Foto/v\355deo) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 352.22 376.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 357.68 376.39 Td (fraco) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 382.67 376.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 388.13 376.39 Td (ou) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 399.05 376.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 404.51 376.39 Td (posi\347\343o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 440.42 376.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 445.88 376.39 Td (ruim) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 466.46 376.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 471.92 376.39 Td (\227) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 477.38 376.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 482.84 376.39 Td (regrave) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 516.44 376.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 521.9 376.39 Td (ou) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 532.82 376.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 70 360.64 Td (reordene.) Tj ET
+0.78 0.55 0.27 rg 56 347.89 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 344.89 Td (Interesse) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 114.32 344.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 120.05 344.89 Td (baixo) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 146.29 344.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 152.03 344.89 Td (\(<5%\)) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 179.37 344.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 185.1 344.89 Td (com) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 205.83 344.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 211.56 344.89 Td (muitas) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 244.64 344.89 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 250.37 344.89 Td (views:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 283.44 344.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 288.9 344.89 Td (prato) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 311.58 344.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 317.04 344.89 Td (frio.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 337.41 344.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 342.87 344.89 Td (Re-posicione) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 403.77 344.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 409.23 344.89 Td (ou) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 420.15 344.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 425.61 344.89 Td (foque) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 452.91 344.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 458.37 344.89 Td (margem) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 495.54 344.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 501 344.89 Td (em) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 515.28 344.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 70 329.14 Td (outro.) Tj ET
+0.78 0.55 0.27 rg 56 316.39 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 313.39 Td (Muitas) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 103.08 313.39 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 108.81 313.39 Td (personaliza\347\365es:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 190.83 313.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 196.29 313.39 Td (garanta) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 229.89 313.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 235.35 313.39 Td (adicionais) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 283.02 313.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 288.48 313.39 Td (completos) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 336.36 313.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 341.82 313.39 Td (e) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 347.28 313.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 352.74 313.39 Td (com) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 372.48 313.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 377.94 313.39 Td (pre\347o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 402.93 313.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 408.39 313.39 Td (\227) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 413.85 313.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 419.31 313.39 Td (\351) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 424.77 313.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 430.23 313.39 Td (receita) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 461.52 313.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 466.98 313.39 Td (f\341cil.) Tj ET
+0.97 0.94 0.9 rg 64 252.54 m 531.28 252.54 l 536.8 252.54 541.28 257.02 541.28 262.54 c 541.28 293.64 l 541.28 299.16 536.8 303.64 531.28 303.64 c 64 303.64 l 58.48 303.64 54 299.16 54 293.64 c 54 262.54 l 54 257.02 58.48 252.54 64 252.54 c f
+0.27 0.51 0.35 rg 54 262.54 4 31.1 re f
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 74 285.64 Td (Onde) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 95.84 285.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 101.3 285.64 Td (est\343o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 126.29 285.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 131.75 285.64 Td (os) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 142.67 285.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 148.13 285.64 Td (olhos,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 176.27 285.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 181.73 285.64 Td (est\341) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 201.26 285.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 206.72 285.64 Td (o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 212.18 285.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 217.64 285.64 Td (dinheiro.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 257.54 285.64 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 263 285.64 Td (Interesse) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 307.32 285.64 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 313.05 285.64 Td (acima) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 342.82 285.64 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 348.55 285.64 Td (de) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 360.02 285.64 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 365.75 285.64 Td (15%) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 386.48 285.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 391.94 285.64 Td (\(verde\)) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 423.23 285.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 428.69 285.64 Td (\351) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 434.15 285.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 439.61 285.64 Td (forte) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 462.29 285.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 467.75 285.64 Td (candidato) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 512.27 285.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 517.73 285.64 Td (a) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 523.19 285.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 74 269.89 Td (prato-vitrine) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 131.12 269.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 136.58 269.89 Td (da) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 147.5 269.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 152.96 269.89 Td (casa.) Tj ET
+0.36 0.23 0.13 rg 60 206.54 m 70 206.54 l 73.31 206.54 76 209.23 76 212.54 c 76 222.54 l 76 225.85 73.31 228.54 70 228.54 c 60 228.54 l 56.69 228.54 54 225.85 54 222.54 c 54 212.54 l 54 209.23 56.69 206.54 60 206.54 c f
+BT /F2 13 Tf 0.97 0.94 0.9 rg 60.91 212.54 Td (5) Tj ET
+BT /F2 14.5 Tf 0.26 0.16 0.09 rg 88 211.54 Td (Painel por mesa \(Fase 2\)) Tj ET
+0.78 0.55 0.27 rg 56 195.54 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 192.54 Td (Sess\365es) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 110.13 192.54 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 115.86 192.54 Td (por) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 130.64 192.54 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 136.37 192.54 Td (mesa:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 166.14 192.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 171.6 192.54 Td (quantas) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 207.51 192.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 212.97 192.54 Td (visitas) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 244.26 192.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 249.72 192.54 Td (aquela) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 280.17 192.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 285.63 192.54 Td (mesa) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 310.83 192.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 316.29 192.54 Td (abriu.) Tj ET
+0.78 0.55 0.27 rg 56 179.79 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 176.79 Td (Chamadas) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 119.39 176.79 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 125.13 176.79 Td (por) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 139.9 176.79 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 145.63 176.79 Td (mesa:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 175.4 176.79 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 180.86 176.79 Td (pedidos) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 216.77 176.79 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 222.23 176.79 Td (de) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 233.15 176.79 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 238.61 176.79 Td (gar\347om/conta/gerente.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 345.08 176.79 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 350.54 176.79 Td (Muitas) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 382.04 176.79 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 387.5 176.79 Td (chamadas) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 434.54 176.79 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 440 176.79 Td (indicam) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 476.96 176.79 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 482.42 176.79 Td (fila) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 499.64 176.79 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 505.1 176.79 Td (de) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 516.02 176.79 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 70 161.04 Td (atendimento) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 126.49 161.04 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 131.95 161.04 Td (ou) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 142.87 161.04 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 148.33 161.04 Td (mesa) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 173.53 161.04 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 178.99 161.04 Td (que) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 195.37 161.04 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 200.83 161.04 Td (precisa) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 234.43 161.04 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 239.89 161.04 Td (de) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 250.81 161.04 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 256.27 161.04 Td (aten\347\343o.) Tj ET
+0.36 0.23 0.13 rg 60 117.29 m 70 117.29 l 73.31 117.29 76 119.98 76 123.29 c 76 133.29 l 76 136.6 73.31 139.29 70 139.29 c 60 139.29 l 56.69 139.29 54 136.6 54 133.29 c 54 123.29 l 54 119.98 56.69 117.29 60 117.29 c f
+BT /F2 13 Tf 0.97 0.94 0.9 rg 60.91 123.29 Td (6) Tj ET
+BT /F2 14.5 Tf 0.26 0.16 0.09 rg 88 122.29 Td (O filtro de per\355odo \(7 / 15 / 30 dias\)) Tj ET
+0.78 0.55 0.27 rg 56 106.29 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 103.29 Td (7) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 75.73 103.29 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 81.47 103.29 Td (dias:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 105.28 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 110.74 103.29 Td (rea\347\343o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 141.19 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 146.65 103.29 Td (a) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 152.11 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 157.57 103.29 Td (um) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 171.85 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 177.31 103.29 Td (evento) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 207.76 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 213.22 103.29 Td (recente) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 246.82 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 252.28 103.29 Td (\(mudou) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 286.09 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 291.55 103.29 Td (uma) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 311.29 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 316.75 103.29 Td (foto,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 339.43 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 344.89 103.29 Td (fim) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 362.32 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 367.78 103.29 Td (de) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 378.7 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 384.16 103.29 Td (semana,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 423.43 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 428.89 103.29 Td (prato) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 451.57 103.29 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 457.03 103.29 Td (novo\).) Tj ET
+0.78 0.55 0.27 rg 56 90.54 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 87.54 Td (30) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 81.47 87.54 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 87.2 87.54 Td (dias:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 111.01 87.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 116.47 87.54 Td (tend\352ncia) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 160.99 87.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 166.45 87.54 Td (real) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 183.67 87.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 189.13 87.54 Td (e) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 194.59 87.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 200.05 87.54 Td (est\341vel) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 233.65 87.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 239.11 87.54 Td (\227) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 244.57 87.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 250.03 87.54 Td (use) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 266.41 87.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 271.87 87.54 Td (para) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 291.4 87.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 296.86 87.54 Td (decis\365es) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 338.23 87.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 343.69 87.54 Td (de) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 354.61 87.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 360.07 87.54 Td (card\341pio) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 399.13 87.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 404.59 87.54 Td (e) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 410.05 87.54 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 415.51 87.54 Td (pre\347o.) Tj ET
+0.84 0.77 0.69 RG 0.8 w 54 46 m 541.28 46 l S
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 54 32 Td (Bupin \227 o card\341pio que se assiste) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 519.18 32 Td (3 / 4) Tj ET
+endstream
 endobj
 8 0 obj
-<< /Type /Catalog /Pages 7 0 R >>
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 15105 >>
+stream
+0.36 0.23 0.13 rg 0 801.89 595.28 40 re f
+BT /F2 12 Tf 0.97 0.94 0.9 rg 54 815.89 Td (BUPIN) Tj ET
+BT /F1 11 Tf 0.97 0.94 0.9 rg 391.28 815.89 Td (Guia de M\351tricas) Tj ET
+0.78 0.55 0.27 rg 56 748.89 5 5 re f
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 70 745.89 Td (Compare) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 109.27 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 114.73 745.89 Td (o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 120.19 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 125.65 745.89 Td (mesmo) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 159.67 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 165.13 745.89 Td (per\355odo) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 201.04 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 206.5 745.89 Td (entre) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 229.18 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 234.64 745.89 Td (si;) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 246.4 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 251.86 745.89 Td (se) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 262.78 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 268.24 745.89 Td (trocou) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 296.38 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 301.84 745.89 Td (uma) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 321.58 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 327.04 745.89 Td (foto,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 349.72 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 355.18 745.89 Td (o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 360.64 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 366.1 745.89 Td (antes/depois) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 427 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 432.46 745.89 Td (no) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 443.38 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 448.84 745.89 Td (7) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 454.3 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 459.76 745.89 Td (dias) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 479.29 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 484.75 745.89 Td (mostra) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 516.25 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 521.71 745.89 Td (o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 527.17 745.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 70 730.14 Td (efeito.) Tj ET
+0.36 0.23 0.13 rg 60 686.39 m 70 686.39 l 73.31 686.39 76 689.08 76 692.39 c 76 702.39 l 76 705.7 73.31 708.39 70 708.39 c 60 708.39 l 56.69 708.39 54 705.7 54 702.39 c 54 692.39 l 54 689.08 56.69 686.39 60 686.39 c f
+BT /F2 13 Tf 0.97 0.94 0.9 rg 60.91 692.39 Td (7) Tj ET
+BT /F2 14.5 Tf 0.26 0.16 0.09 rg 88 691.39 Td (Roteiro r\341pido \227 5 minutos por semana) Tj ET
+0.78 0.55 0.27 rg 56 675.39 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 672.39 Td (1.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 79.04 672.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 84.5 672.39 Td (As) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 95.42 672.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 100.88 672.39 Td (sess\365es) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 139.1 672.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 144.56 672.39 Td (subiram) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 181.52 672.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 186.98 672.39 Td (ou) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 197.9 672.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 203.36 672.39 Td (ca\355ram?) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 242.63 672.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 248.09 672.39 Td (\(alcance) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 287.15 672.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 292.61 672.39 Td (f\355sico/QR\)) Tj ET
+0.78 0.55 0.27 rg 56 659.64 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 656.64 Td (2.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 79.04 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 84.5 656.64 Td (Convers\343o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 131.33 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 136.79 656.64 Td (p/) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 147.71 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 153.17 656.64 Td (Google) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 183.62 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 189.08 656.64 Td (acima) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 217.43 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 222.89 656.64 Td (de) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 233.81 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 239.27 656.64 Td (15%?) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 264.47 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 269.93 656.64 Td (Se) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 280.85 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 286.31 656.64 Td (n\343o,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 305.84 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 311.3 656.64 Td (ajuste) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 339.44 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 344.9 656.64 Td (o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 350.36 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 355.82 656.64 Td (convite) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 389.42 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 394.88 656.64 Td (na) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 405.8 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 411.26 656.64 Td (tela) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 428.48 656.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 433.94 656.64 Td (inicial.) Tj ET
+0.78 0.55 0.27 rg 56 643.89 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 640.89 Td (3.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 79.04 640.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 84.5 640.89 Td (Qual) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 104.03 640.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 109.49 640.89 Td (prato) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 132.17 640.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 137.63 640.89 Td (tem) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 155.06 640.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 160.52 640.89 Td (os) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 171.44 640.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 176.9 640.89 Td (3) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 182.36 640.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 187.82 640.89 Td (melhores) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 230.24 640.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 235.7 640.89 Td (\(aten\347\343o,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 277.91 640.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 283.37 640.89 Td (interesse,) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 328.73 640.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 334.19 640.89 Td (personaliza\347\365es\)?) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 417.77 640.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 423.23 640.89 Td (Promova-o.) Tj ET
+0.78 0.55 0.27 rg 56 628.14 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 625.14 Td (4.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 79.04 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 84.5 625.14 Td (Ache) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 106.34 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 111.8 625.14 Td (o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 117.26 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 122.72 625.14 Td (prato) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 145.4 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 150.86 625.14 Td (com) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 170.6 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 176.06 625.14 Td (mais) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 198.95 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 204.41 625.14 Td (views) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 232.76 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 238.22 625.14 Td (e) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 243.68 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 249.14 625.14 Td (menos) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 279.8 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 285.26 625.14 Td (interesse:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 330.62 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 336.08 625.14 Td (troque) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 364.22 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 369.68 625.14 Td (a) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 375.14 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 380.6 625.14 Td (foto) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 400.13 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 405.59 625.14 Td (ou) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 416.51 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 421.97 625.14 Td (tire) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 436.88 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 442.34 625.14 Td (da) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 453.26 625.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 458.72 625.14 Td (frente.) Tj ET
+0.78 0.55 0.27 rg 56 612.39 5 5 re f
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 70 609.39 Td (5.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 79.04 609.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 84.5 609.39 Td (Pratos) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 112.64 609.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 118.1 609.39 Td (com) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 137.84 609.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 143.3 609.39 Td (muitas) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 174.8 609.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 180.26 609.39 Td (personaliza\347\365es:) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 258.38 609.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 263.84 609.39 Td (confira) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 297.44 609.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 302.9 609.39 Td (se) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 313.82 609.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 319.28 609.39 Td (os) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 330.2 609.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 335.66 609.39 Td (adicionais) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 383.33 609.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 388.79 609.39 Td (est\343o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 413.78 609.39 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 419.24 609.39 Td (completos.) Tj ET
+0.36 0.23 0.13 rg 60 565.64 m 70 565.64 l 73.31 565.64 76 568.33 76 571.64 c 76 581.64 l 76 584.95 73.31 587.64 70 587.64 c 60 587.64 l 56.69 587.64 54 584.95 54 581.64 c 54 571.64 l 54 568.33 56.69 565.64 60 565.64 c f
+BT /F2 13 Tf 0.97 0.94 0.9 rg 60.91 571.64 Td (8) Tj ET
+BT /F2 14.5 Tf 0.26 0.16 0.09 rg 88 570.64 Td (Observa\347\365es importantes) Tj ET
+0.97 0.94 0.9 rg 64 490.79 m 531.28 490.79 l 536.8 490.79 541.28 495.27 541.28 500.79 c 541.28 547.64 l 541.28 553.16 536.8 557.64 531.28 557.64 c 64 557.64 l 58.48 557.64 54 553.16 54 547.64 c 54 500.79 l 54 495.27 58.48 490.79 64 490.79 c f
+0.75 0.51 0.12 rg 54 500.79 4 46.85 re f
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 74 539.64 Td (Os) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 84.92 539.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 90.38 539.64 Td (n\372meros) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 129.65 539.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 135.11 539.64 Td (s\363) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 146.03 539.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 151.49 539.64 Td (ficam) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 179.84 539.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 185.3 539.64 Td (significativos) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 250.19 539.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 255.65 539.64 Td (com) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 275.39 539.64 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 280.85 539.64 Td (tr\341fego) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 316.13 539.64 Td ( ) Tj ET
+BT /F2 10.5 Tf 0.26 0.16 0.09 rg 321.86 539.64 Td (real) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 339.94 539.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 345.4 539.64 Td (\(clientes) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 385.3 539.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 390.76 539.64 Td (usando) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 423.52 539.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 428.98 539.64 Td (o) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 434.44 539.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 439.9 539.64 Td (NFC/QR\).) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 478.96 539.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 484.42 539.64 Td (Em) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 498.7 539.64 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 74 523.89 Td (ambiente) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 116.42 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 121.88 523.89 Td (de) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 132.8 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 138.26 523.89 Td (teste) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 160.94 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 166.4 523.89 Td (pode) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 188.24 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 193.7 523.89 Td (haver) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 218.69 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 224.15 523.89 Td (pouco) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 251.45 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 256.91 523.89 Td (ou) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 267.83 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 273.29 523.89 Td (nenhum) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 309.41 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 314.87 523.89 Td (dado.) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 339.86 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 345.32 523.89 Td (Cada) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 367.16 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 372.62 523.89 Td (m\351trica) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 407.27 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 412.73 523.89 Td (\351) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 418.19 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 423.65 523.89 Td (cumulativa) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 474.68 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 480.14 523.89 Td (do) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 491.06 523.89 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 74 508.14 Td (per\355odo) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 109.91 508.14 Td ( ) Tj ET
+BT /F1 10.5 Tf 0.17 0.11 0.07 rg 115.37 508.14 Td (selecionado.) Tj ET
+0.36 0.23 0.13 rg 64 416.79 m 531.28 416.79 l 536.8 416.79 541.28 421.27 541.28 426.79 c 541.28 452.79 l 541.28 458.31 536.8 462.79 531.28 462.79 c 64 462.79 l 58.48 462.79 54 458.31 54 452.79 c 54 426.79 l 54 421.27 58.48 416.79 64 416.79 c f
+BT /F2 11 Tf 0.97 0.94 0.9 rg 70 442.79 Td (Bupin \227 o card\341pio que se assiste.) Tj ET
+BT /F1 8.5 Tf 0.93 0.87 0.81 rg 70 426.79 Td (Guia de M\351tricas \267 vers\343o 1.1) Tj ET
+0.84 0.77 0.69 RG 0.8 w 54 46 m 541.28 46 l S
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 54 32 Td (Bupin \227 o card\341pio que se assiste) Tj ET
+BT /F1 8.5 Tf 0.48 0.41 0.35 rg 519.18 32 Td (4 / 4) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R] /Count 4 >>
+endobj
+12 0 obj
+<< /Type /Catalog /Pages 11 0 R >>
 endobj
 xref
-0 9
+0 13
 0000000000 65535 f 
 0000000015 00000 n 
 0000000112 00000 n 
 0000000214 00000 n 
-0000005794 00000 n 
-0000005936 00000 n 
-0000007914 00000 n 
-0000008056 00000 n 
-0000008119 00000 n 
+0000001475 00000 n 
+0000001618 00000 n 
+0000021196 00000 n 
+0000021339 00000 n 
+0000046708 00000 n 
+0000046851 00000 n 
+0000062009 00000 n 
+0000062153 00000 n 
+0000062230 00000 n 
 trailer
-<< /Size 9 /Root 8 0 R >>
+<< /Size 13 /Root 12 0 R >>
 startxref
-8168
+62281
 %%EOF
