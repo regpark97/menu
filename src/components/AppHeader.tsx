@@ -50,7 +50,7 @@ export function AppHeader({ title }: { title: string }) {
     <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-5xl items-center gap-4 px-4 py-3">
         <Link to="/" aria-label="Bupin — início">
-          <img src="/logo-square.png" alt="Bupin" className="h-8 w-8 object-contain" />
+          <img src="/logo-quadrado.png" alt="Bupin" className="h-8 w-8 object-contain" />
         </Link>
         <span className="font-display text-xl">{title}</span>
         <nav className="ml-auto flex items-center gap-1 text-sm">

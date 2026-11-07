@@ -1,4 +1,4 @@
-// Gera public/favicon.png (quadrado) a partir de public/logo.png, sem libs.
+// Gera public/favicon.png (quadrado) a partir de public/logo-quadrado.png, sem libs.
 // Decodifica o PNG (RGBA/rgb/palette/gray via zlib), reamostra para um quadrado
 // com a logo inteira centralizada, e recodifica como PNG RGBA.
 import { readFileSync, writeFileSync } from "node:fs";
@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const SRC = join(__dirname, "..", "public", "logo.png");
+const SRC = join(__dirname, "..", "public", "logo-quadrado.png");
 const OUT = join(__dirname, "..", "public", "favicon.png");
 const SIZE = 256; // favicon 256x256
 

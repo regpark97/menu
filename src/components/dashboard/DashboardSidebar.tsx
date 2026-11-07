@@ -44,7 +44,7 @@ export function DashboardSidebar({
       {/* Marca */}
       <div className="flex h-16 items-center gap-2 border-b border-sidebar-border px-5">
         <Link to="/" onClick={onNavigate} aria-label="Bupin — início">
-          <img src="/logo-square.png" alt="Bupin" className="h-9 w-9 object-contain" />
+          <img src="/logo-quadrado.png" alt="Bupin" className="h-9 w-9 object-contain" />
         </Link>
         <span className="font-display text-lg text-sidebar-foreground">
           {variant === "super" ? "Mestre" : "Painel"}
