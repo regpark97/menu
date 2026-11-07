@@ -1,8 +1,10 @@
 // Gera docs/metricas-bupin.pdf — guia visual de métricas do Bupin.
 // PDF desenhado à mão (PDF 1.4, Helvetica/WinAnsi), sem dependências externas.
-import { writeFileSync } from "node:fs";
+import { writeFileSync, readFileSync } from "node:fs";
+import zlib from "node:zlib";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { decodePng, resize, flattenOn } from "./png.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -336,6 +338,17 @@ function cover() {
   addRect(ops, 0, 0, PAGE_W, PAGE_H, C.paper);
   addRect(ops, 0, PAGE_H * 0.42, PAGE_W, PAGE_H * 0.58, C.coffee);
   addRect(ops, 0, PAGE_H * 0.42, PAGE_W, 6, C.caramel);
+  // Selo creme com a logo no canto superior direito
+  const badgeW = 96;
+  const badgeH = 96;
+  const bx = MARGIN + CONTENT_W - badgeW;
+  const by = PAGE_H - 132;
+  addRoundRect(ops, bx, by, badgeW, badgeH, 18, C.cream);
+  const logoW = 58;
+  const logoH = 72; // proporção 4:5
+  const lx = bx + (badgeW - logoW) / 2;
+  const ly = by + (badgeH - logoH) / 2;
+  ops.push(`%LOGO ${num(lx)} ${num(ly)} ${num(logoW)} ${num(logoH)}`);
   addText(ops, MARGIN, PAGE_H - 90, "BUPIN", { size: 16, bold: true, color: C.cream });
   addText(ops, MARGIN, PAGE_H - 210, "Guia de", { size: 40, bold: true, color: C.white });
   addText(ops, MARGIN, PAGE_H - 258, "Métricas", { size: 40, bold: true, color: C.white });
@@ -475,6 +488,16 @@ function buildContent() {
   finishPage();
 }
 
+// ── Imagem da logo (para a capa) ─────────────────────────────────────────────
+function loadLogoImage() {
+  const png = decodePng(readFileSync(join(__dirname, "..", "public", "logo.png")));
+  // Reamostra para largura ~360px e compõe sobre creme (opaco) => RGB.
+  const small = resize(png.data, png.w, png.h, 360);
+  const rgb = flattenOn(small.data, small.w, small.h, C.cream);
+  const comp = zlib.deflateSync(Buffer.from(rgb), { level: 9 });
+  return { w: small.w, h: small.h, comp };
+}
+
 // ── Serialização ─────────────────────────────────────────────────────────────
 function assemble() {
   const objects = [];
@@ -484,6 +507,15 @@ function assemble() {
   };
   const F1 = addObj("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>");
   const F2 = addObj("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>");
+
+  // Objeto de imagem (XObject) — stream binário, montado separadamente.
+  const logo = loadLogoImage();
+  const logoObjNum = objects.length + 1;
+  const logoDict =
+    `<< /Type /XObject /Subtype /Image /Width ${logo.w} /Height ${logo.h} ` +
+    `/ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /FlateDecode /Length ${logo.comp.length} >>`;
+  // guarda como buffer especial { binary: true }
+  objects.push({ binary: true, head: logoDict, stream: logo.comp });
 
   let next = objects.length + 1;
   const contentNums = [];
@@ -497,37 +529,56 @@ function assemble() {
 
   const total = pages.length;
   for (let i = 0; i < pages.length; i++) {
-    // rodapé com numeração (a capa é a página 1)
     footer(pages[i], i + 1, total);
-    const stream = pages[i].join("\n");
+    // Substitui marcadores %LOGO x y w h por comando de desenho da imagem.
+    const ops2 = pages[i].map((line) => {
+      const m = line.match(/^%LOGO ([0-9.]+) ([0-9.]+) ([0-9.]+) ([0-9.]+)/);
+      if (m) {
+        const [, x, y2, w, h] = m;
+        return `q ${w} 0 0 ${h} ${x} ${y2} cm /Im0 Do Q`;
+      }
+      return line;
+    });
+    const stream = ops2.join("\n");
     objects[contentNums[i] - 1] =
       `<< /Length ${Buffer.byteLength(stream, "latin1")} >>\nstream\n${stream}\nendstream`;
   }
 
   const kids = pageNums.map((n) => `${n} 0 R`).join(" ");
   for (let i = 0; i < pages.length; i++) {
+    const xobj = i === 0 ? ` /XObject << /Im0 ${logoObjNum} 0 R >>` : "";
     objects[pageNums[i] - 1] =
       `<< /Type /Page /Parent ${pagesNum} 0 R /MediaBox [0 0 ${PAGE_W} ${PAGE_H}] ` +
-      `/Resources << /Font << /F1 ${F1} 0 R /F2 ${F2} 0 R >> >> ` +
+      `/Resources << /Font << /F1 ${F1} 0 R /F2 ${F2} 0 R >>${xobj} >> ` +
       `/Contents ${contentNums[i]} 0 R >>`;
   }
   objects[pagesNum - 1] = `<< /Type /Pages /Kids [${kids}] /Count ${pages.length} >>`;
   objects[catalogNum - 1] = `<< /Type /Catalog /Pages ${pagesNum} 0 R >>`;
 
-  let pdf = "%PDF-1.4\n%\xe2\xe3\xcf\xd3\n";
+  let pdf = Buffer.from("%PDF-1.4\n%\xe2\xe3\xcf\xd3\n", "latin1");
   const offsets = [];
   for (let i = 0; i < objects.length; i++) {
-    offsets[i] = Buffer.byteLength(pdf, "latin1");
-    pdf += `${i + 1} 0 obj\n${objects[i]}\nendobj\n`;
+    offsets[i] = pdf.length;
+    const o = objects[i];
+    if (o && o.binary) {
+      pdf = Buffer.concat([
+        pdf,
+        Buffer.from(`${i + 1} 0 obj\n${o.head}\nstream\n`, "latin1"),
+        o.stream,
+        Buffer.from("\nendstream\nendobj\n", "latin1"),
+      ]);
+    } else {
+      pdf = Buffer.concat([pdf, Buffer.from(`${i + 1} 0 obj\n${o}\nendobj\n`, "latin1")]);
+    }
   }
-  const xrefStart = Buffer.byteLength(pdf, "latin1");
+  const xrefStart = pdf.length;
   const n = objects.length + 1;
-  pdf += `xref\n0 ${n}\n0000000000 65535 f \n`;
+  let tail = `xref\n0 ${n}\n0000000000 65535 f \n`;
   for (let i = 0; i < objects.length; i++) {
-    pdf += String(offsets[i]).padStart(10, "0") + " 00000 n \n";
+    tail += String(offsets[i]).padStart(10, "0") + " 00000 n \n";
   }
-  pdf += `trailer\n<< /Size ${n} /Root ${catalogNum} 0 R >>\nstartxref\n${xrefStart}\n%%EOF\n`;
-  return Buffer.from(pdf, "latin1");
+  tail += `trailer\n<< /Size ${n} /Root ${catalogNum} 0 R >>\nstartxref\n${xrefStart}\n%%EOF\n`;
+  return Buffer.concat([pdf, Buffer.from(tail, "latin1")]);
 }
 
 // ── Build ────────────────────────────────────────────────────────────────────
