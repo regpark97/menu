@@ -111,7 +111,7 @@ function AdminPage() {
   const tenant = data?.tenant;
   const isSupport = data?.support ?? false;
   const canSwitch = !tenantParam && isSupport;
-  const [section, setSection] = useState("menu");
+  const [section, setSection] = useState("calls");
 
   return (
     <DashboardLayout
@@ -148,16 +148,11 @@ function AdminPage() {
               Modo suporte: você está vendo o painel de {tenant.name}.
             </div>
           )}
-          {section === "menu" ? (
-            <div className="space-y-6">
-              <WaiterCalls tenantId={tenant.id} />
-              <WifiCard tenant={tenant} />
-              <BrandingCard tenant={tenant} />
-              <ProductsList tenantId={tenant.id} />
-            </div>
-          ) : (
-            <Metrics tenantId={tenant.id} />
-          )}
+          {section === "calls" && <WaiterCalls tenantId={tenant.id} />}
+          {section === "products" && <ProductsList tenantId={tenant.id} />}
+          {section === "wifi" && <WifiCard tenant={tenant} />}
+          {section === "branding" && <BrandingCard tenant={tenant} />}
+          {section === "metrics" && <Metrics tenantId={tenant.id} />}
         </>
       )}
     </DashboardLayout>
@@ -917,11 +912,19 @@ function Metrics({ tenantId }: { tenantId: string }) {
       ]);
       const names = new Map((prods.data ?? []).map((p) => [p.id, p.name]));
       const rows = (intel.data ?? [])
-        .map((r) => ({
-          ...r,
-          name: names.get(r.product_id) ?? "—",
-          avg: Number(r.avg_attention_s ?? 0),
-        }))
+        .map((r) => {
+          const views = Number(r.views ?? 0);
+          const favourites = Number(r.favorites ?? 0);
+          const customizes = Number(r.customize_opens ?? 0);
+          // Taxa de interesse: quantos que viram o prato favoritaram ou personalizaram.
+          const interest = views > 0 ? ((favourites + customizes) / views) * 100 : 0;
+          return {
+            ...r,
+            name: names.get(r.product_id) ?? "—",
+            avg: Number(r.avg_attention_s ?? 0),
+            interest,
+          };
+        })
         .sort((a, b) => b.avg - a.avg);
       return { sessions, views, reviews, wifi, rows };
     },
@@ -929,11 +932,30 @@ function Metrics({ tenantId }: { tenantId: string }) {
   const overall = data?.rows.length
     ? data.rows.reduce((a, r) => a + r.avg, 0) / data.rows.length
     : 0;
+  const pct = (n: number | undefined, total: number | undefined) =>
+    total && total > 0 ? Math.round((Number(n ?? 0) / total) * 100) : 0;
   const cards = [
     { label: "Sessões abertas", value: data?.sessions, icon: Users },
     { label: "Visualizações de pratos", value: data?.views, icon: Eye },
     { label: "Cliques no Google Review", value: data?.reviews, icon: Star },
     { label: "Aberturas de Wi-Fi", value: data?.wifi, icon: Wifi },
+  ];
+  const cards2 = [
+    {
+      label: "Atenção média",
+      value: data?.rows.length ? `${overall.toFixed(1)}s` : "–",
+      icon: TrendingUp,
+    },
+    {
+      label: "Conversão p/ Google",
+      value: `${pct(data?.reviews, data?.sessions)}%`,
+      icon: Star,
+    },
+    {
+      label: "Uso do Wi-Fi",
+      value: `${pct(data?.wifi, data?.sessions)}%`,
+      icon: Wifi,
+    },
   ];
   return (
     <div className="space-y-6">
@@ -957,12 +979,24 @@ function Metrics({ tenantId }: { tenantId: string }) {
           </div>
         ))}
       </div>
+      <div className="grid grid-cols-3 gap-3">
+        {cards2.map((c) => (
+          <div key={c.label} className="rounded-2xl border border-border bg-secondary/40 p-4">
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <c.icon className="h-4 w-4 text-gold" />
+              <p className="text-xs">{c.label}</p>
+            </div>
+            <p className="mt-2 text-2xl font-semibold tabular-nums">{c.value}</p>
+          </div>
+        ))}
+      </div>
       <div className="overflow-x-auto rounded-2xl border border-border bg-card">
         <table className="w-full text-sm">
           <thead className="text-left text-xs text-muted-foreground">
             <tr className="border-b border-border">
               <th className="p-3">Produto</th>
               <th className="p-3">Atenção média</th>
+              <th className="p-3">Interesse</th>
               <th className="p-3">Views</th>
               <th className="p-3">Favoritos</th>
               <th className="p-3">Personalizações</th>
@@ -982,6 +1016,11 @@ function Metrics({ tenantId }: { tenantId: string }) {
                       {r.avg.toFixed(1)}s {hot && <TrendingUp className="h-3.5 w-3.5" />}
                     </span>
                   </td>
+                  <td
+                    className={`p-3 tabular-nums font-semibold ${r.interest >= 15 ? "text-success" : r.interest < 5 && r.views >= 5 ? "text-muted-foreground" : ""}`}
+                  >
+                    {r.interest.toFixed(0)}%
+                  </td>
                   <td className="p-3 tabular-nums">{r.views}</td>
                   <td className="p-3 tabular-nums">{r.favorites}</td>
                   <td className="p-3 tabular-nums">{r.customize_opens}</td>
@@ -990,7 +1029,7 @@ function Metrics({ tenantId }: { tenantId: string }) {
             })}
             {data && !data.rows.length && (
               <tr>
-                <td colSpan={5} className="p-6 text-center text-muted-foreground">
+                <td colSpan={6} className="p-6 text-center text-muted-foreground">
                   Sem dados no período.
                 </td>
               </tr>
@@ -998,7 +1037,8 @@ function Metrics({ tenantId }: { tenantId: string }) {
           </tbody>
         </table>
         <p className="border-t border-border p-3 text-xs text-muted-foreground">
-          Em verde: pratos com atenção acima da média — boas oportunidades de destaque e margem.
+          Em verde: atenção acima da média (boa oportunidade de destaque). Interesse = (favoritos +
+          personalizações) ÷ views — quanto mais alto, mais o prato desperta ação.
         </p>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { useIsSuperAdmin, usePendingModerationCount } from "@/components/AppHeader";
 import type { SectionItem } from "./sections";
+import { groupSections } from "./sections";
 
 const baseItem =
   "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors";
@@ -74,30 +75,32 @@ export function DashboardSidebar({
           )}
         </div>
 
-        {/* Seções contextuais */}
-        <div className="space-y-1">
-          <p className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            {variant === "super" ? "Gestão" : "Cardápio"}
-          </p>
-          {sections.map((s) => {
-            const Icon = s.icon;
-            const active = activeSection === s.key;
-            return (
-              <button
-                key={s.key}
-                type="button"
-                onClick={() => {
-                  onSectionChange(s.key);
-                  onNavigate?.();
-                }}
-                className={cn(baseItem, "w-full", active ? activeItem : idleItem)}
-              >
-                <Icon className="h-4 w-4 shrink-0" />
-                <span className="flex-1 text-left">{s.label}</span>
-              </button>
-            );
-          })}
-        </div>
+        {/* Seções contextuais, agrupadas */}
+        {groupSections(sections).map(({ group, items }) => (
+          <div key={group} className="space-y-1">
+            <p className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              {group}
+            </p>
+            {items.map((s) => {
+              const Icon = s.icon;
+              const active = activeSection === s.key;
+              return (
+                <button
+                  key={s.key}
+                  type="button"
+                  onClick={() => {
+                    onSectionChange(s.key);
+                    onNavigate?.();
+                  }}
+                  className={cn(baseItem, "w-full", active ? activeItem : idleItem)}
+                >
+                  <Icon className="h-4 w-4 shrink-0" />
+                  <span className="flex-1 text-left">{s.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        ))}
       </nav>
 
       {/* Rodapé */}

@@ -57,7 +57,7 @@ describe("DashboardLayout", () => {
             title="Francisco Coffee"
             subtitle="Gerencie seu cardápio"
             sections={ADMIN_SECTIONS}
-            activeSection="menu"
+            activeSection="calls"
             onSectionChange={() => {}}
           >
             <p>Conteúdo do painel</p>
@@ -68,9 +68,13 @@ describe("DashboardLayout", () => {
 
     expect(screen.getByText("Francisco Coffee")).toBeInTheDocument();
     expect(screen.getByText("Conteúdo do painel")).toBeInTheDocument();
-    // Seções da sidebar
-    expect(screen.getByText("Cardápio Rápido")).toBeInTheDocument();
-    expect(screen.getByText("Inteligência & Métricas")).toBeInTheDocument();
+    // Grupos e seções da sidebar
+    expect(screen.getByText("Operação")).toBeInTheDocument();
+    expect(screen.getByText("Chamadas")).toBeInTheDocument();
+    expect(screen.getByText("Pratos")).toBeInTheDocument();
+    expect(screen.getByText("Wi-Fi e Google")).toBeInTheDocument();
+    expect(screen.getByText("Aparência")).toBeInTheDocument();
+    expect(screen.getByText("Métricas")).toBeInTheDocument();
     // Botão de tema presente (aria-label do ThemeToggle no modo claro -> "Ativar tema escuro")
     expect(screen.getByLabelText("Ativar tema escuro")).toBeInTheDocument();
   });
