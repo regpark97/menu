@@ -361,6 +361,26 @@ export type Database = {
         }[];
       };
       call_waiter: { Args: { _tenant: string; _table: string; _kind?: string }; Returns: string };
+      product_intelligence_v2: {
+        Args: { _days: number; _tenant: string };
+        Returns: {
+          avg_attention_s: number;
+          customize_opens: number;
+          favorites: number;
+          product_id: string;
+          swipes: number;
+          unique_sessions: number;
+          views: number;
+        }[];
+      };
+      table_stats: {
+        Args: { _days: number; _tenant: string };
+        Returns: {
+          calls: number;
+          sessions: number;
+          table_ref: string;
+        }[];
+      };
       user_id_by_email: { Args: { _email: string }; Returns: string };
     };
     Enums: {

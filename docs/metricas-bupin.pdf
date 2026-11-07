@@ -1,0 +1,95 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+3 0 obj
+<< /Length 5528 >>
+stream
+BT /F2 22 Tf 0.29 0.17 0.08 rg 56 751.89 Td (Guia de An\341lise de M\351tricas \227 Bupin) Tj ET
+0.42 0.26 0.14 RG 1 w 56 747.89 m 539.28 747.89 l S
+BT /F2 14 Tf 0.47 0.27 0.12 rg 56 715.39 Td (Como ler os n\372meros do seu painel e transformar dados em decis\365es) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 56 693.14 Td (A aba **An\341lise > M\351tricas** responde \340 pergunta central: os clientes olham o qu\352, e o que os faz agir? Este guia explica cada n\372mero e como us\341-lo no dia a dia do restaurante.) Tj ET
+BT /F2 14 Tf 0.47 0.27 0.12 rg 56 661.39 Td (1. Cards do topo \(volume e alcance\)) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 645.14 Td (\225 **Sess\365es abertas:** quantas vezes algu\351m abriu o card\341pio \(uma visita\). \311 a sua audi\352ncia. Se cair, verifique os cart\365es NFC/QR das mesas.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 629.14 Td (\225 **Visualiza\347\365es de pratos:** quantos pratos foram vistos no feed. Views \367 Sess\365es = quantos pratos cada pessoa v\352 em m\351dia. Quanto maior, mais engajado.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 613.14 Td (\225 **Cliques no Google Review:** quantos tocaram em "Avaliar no Google". \311 a prova social, o que voc\352 quer no Google Maps.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 597.14 Td (\225 **Aberturas de Wi-Fi:** quantos abriram a senha do Wi-Fi. Indica cliente confort\341vel, que fica mais tempo e consome mais.) Tj ET
+BT /F2 14 Tf 0.47 0.27 0.12 rg 56 565.39 Td (2. Cards de qualidade e convers\343o \(os mais estrat\351gicos\)) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 549.14 Td (\225 **Aten\347\343o m\351dia:** tempo m\351dio em cada prato. 2-5s = passou r\341pido; 5-10s = interesse real; mais de 15s = forte inten\347\343o de compra.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 533.14 Td (\225 **Convers\343o p/ Google:** cliques no Google \367 sess\365es. 20% \351 excelente; abaixo de 5%, ningu\351m est\341 avaliando \227 reforce o convite na tela inicial.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 517.14 Td (\225 **Uso do Wi-Fi:** aberturas de Wi-Fi \367 sess\365es. Acima de 30%, o Wi-Fi \351 um atrativo forte. Muito baixo pode indicar rede dif\355cil ou senha errada.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 56 495.14 Td (**Regra de ouro:** volume \(topo\) mostra alcance; convers\343o \(base\) mostra experi\352ncia. 1000 sess\365es com 2% de Google valem menos que 200 sess\365es com 25%.) Tj ET
+BT /F2 14 Tf 0.47 0.27 0.12 rg 56 463.39 Td (3. Tabela por prato \(o cora\347\343o da an\341lise\)) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 56 447.14 Td (Cada linha \351 um prato, ordenado por aten\347\343o m\351dia \(o que chama mais olhar fica no topo\).) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 425.14 Td (\225 **Aten\347\343o m\351dia:** tempo m\351dio olhando o prato.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 409.14 Td (\225 **Interesse:** \(favoritos + personaliza\347\365es\) \367 views. Mede quantos que viram o prato realmente agiram.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 393.14 Td (\225 **Views:** quantas vezes o prato apareceu.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 377.14 Td (\225 **Sess\365es \(fase 2\):** sess\365es distintas que viram o prato \(funil\).) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 361.14 Td (\225 **Swipes \(fase 2\):** eventos de swipe at\351 o prato \(alcance/exposi\347\343o\).) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 345.14 Td (\225 **Favoritos:** quantos marcaram com o cora\347\343o.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 329.14 Td (\225 **Personaliza\347\365es:** quantos abriram os adicionais \(sinal forte de inten\347\343o de pedir\).) Tj ET
+BT /F2 14 Tf 0.47 0.27 0.12 rg 56 297.39 Td (4. Como cruzar as colunas) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 281.14 Td (\225 **Aten\347\343o alta + Interesse alto:** prato campe\343o. Destaque na abertura, melhores fotos, teste pre\347o/margem.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 265.14 Td (\225 **Aten\347\343o alta + Interesse baixo:** curiosidade sem a\347\343o. Reveja descri\347\343o/pre\347o; talvez pare\347a caro ou confuso.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 249.14 Td (\225 **Aten\347\343o baixa + Views altas:** passou batido. Foto/v\355deo fraco ou posi\347\343o ruim \227 regrave ou reordene.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 233.14 Td (\225 **Interesse baixo \(menos de 5%\) com muitas views:** prato "frio". Re-posicione ou foque margem em outro.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 217.14 Td (\225 **Muitas Personaliza\347\365es:** o cliente quer customizar. Garanta adicionais completos e com pre\347o \227 \351 receita f\341cil.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 201.14 Td (\225 **Muitos Favoritos:** prato queridinho da casa. Use na comunica\347\343o.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 56 179.14 Td (Onde est\343o os olhos, est\341 o dinheiro. Interesse acima de 15% \(verde\) \351 forte candidato a prato-vitrine.) Tj ET
+BT /F2 14 Tf 0.47 0.27 0.12 rg 56 147.39 Td (5. Painel "Por mesa" \(fase 2\)) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 131.14 Td (\225 **Sess\365es por mesa:** quantas visitas aquela mesa abriu.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 115.14 Td (\225 **Chamadas por mesa:** pedidos de gar\347om/conta/gerente. Muitas chamadas podem indicar fila de atendimento ou mesa que precisa de aten\347\343o.) Tj ET
+BT /F2 14 Tf 0.47 0.27 0.12 rg 56 83.39 Td (6. O filtro de per\355odo \(7 / 15 / 30 dias\)) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 67.14 Td (\225 **7 dias:** rea\347\343o a um evento recente \(mudou uma foto, fim de semana, novo prato\).) Tj ET
+endstream
+endobj
+4 0 obj
+<< /Type /Page /Parent 7 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
+endobj
+5 0 obj
+<< /Length 1926 >>
+stream
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 771.14 Td (\225 **30 dias:** tend\352ncia real e est\341vel. Use para decis\365es de card\341pio e pre\347o.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 755.14 Td (\225 Compare o mesmo per\355odo entre si; se trocou uma foto, o antes/depois no 7 dias mostra o efeito.) Tj ET
+BT /F2 14 Tf 0.47 0.27 0.12 rg 56 723.39 Td (7. Roteiro r\341pido \(5 minutos por semana\)) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 56 707.14 Td (1. As sess\365es subiram ou ca\355ram? \(alcance f\355sico/QR\)) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 56 691.14 Td (2. Convers\343o p/ Google est\341 acima de 15%? Se n\343o, ajuste o convite.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 56 675.14 Td (3. Qual prato tem os 3 melhores \(aten\347\343o, interesse, personaliza\347\365es\)? Promova-o.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 56 659.14 Td (4. Ache o prato com mais views e menos interesse: troque a foto ou tire da frente.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 56 643.14 Td (5. Pratos com muitas personaliza\347\365es: confira se os adicionais est\343o completos = dinheiro na mesa.) Tj ET
+BT /F2 14 Tf 0.47 0.27 0.12 rg 56 611.39 Td (8. Observa\347\365es importantes) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 595.14 Td (\225 Os n\372meros s\363 ficam significativos com tr\341fego real \(clientes usando o NFC/QR\). Em ambiente de teste pode haver pouco ou nenhum dado.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 579.14 Td (\225 Cada m\351trica \351 cumulativa do per\355odo selecionado; n\343o some dias manualmente, o filtro j\341 faz isso.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 68 563.14 Td (\225 As colunas Sess\365es, Swipes e o painel Por mesa dependem da atualiza\347\343o do banco \(migration 0005\). Enquanto ela n\343o for aplicada, o painel mostra apenas as colunas cl\341ssicas.) Tj ET
+BT /F1 11 Tf 0.16 0.13 0.09 rg 56 541.14 Td (Bupin \227 o card\341pio que se assiste. Guia de m\351tricas, vers\343o 1.0.) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 7 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R] /Count 2 >>
+endobj
+8 0 obj
+<< /Type /Catalog /Pages 7 0 R >>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000015 00000 n 
+0000000112 00000 n 
+0000000214 00000 n 
+0000005794 00000 n 
+0000005936 00000 n 
+0000007914 00000 n 
+0000008056 00000 n 
+0000008119 00000 n 
+trailer
+<< /Size 9 /Root 8 0 R >>
+startxref
+8168
+%%EOF

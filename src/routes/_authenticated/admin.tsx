@@ -902,31 +902,69 @@ function Metrics({ tenantId }: { tenantId: string }) {
             .eq("event_type", type)
             .gte("created_at", since)
         ).count ?? 0;
-      const [sessions, views, reviews, wifi, intel, prods] = await Promise.all([
+
+      // Prefere a v2 (com swipes/sessões únicas); se a migration ainda não foi
+      // aplicada, cai para a v1 (sem essas colunas) sem quebrar a tela.
+      const intel = await supabase.rpc("product_intelligence_v2", {
+        _tenant: tenantId,
+        _days: days,
+      });
+      let prodRows: {
+        product_id: string;
+        views: number | null;
+        avg_attention_s: number | null;
+        favorites: number | null;
+        customize_opens: number | null;
+        swipes?: number;
+        unique_sessions?: number;
+      }[] = [];
+      let v2 = false;
+      if (!intel.error && intel.data) {
+        prodRows = intel.data;
+        v2 = true;
+      } else {
+        const v1 = await supabase.rpc("product_intelligence", { _tenant: tenantId, _days: days });
+        prodRows = v1.data ?? [];
+      }
+
+      // Estatísticas por mesa (sessões + chamadas). Ignora se a função não existir.
+      const tstats = await supabase.rpc("table_stats", { _tenant: tenantId, _days: days });
+      const tables = (!tstats.error && tstats.data ? tstats.data : []) as {
+        table_ref: string;
+        sessions: number;
+        calls: number;
+      }[];
+
+      const [sessions, views, reviews, wifi, prods] = await Promise.all([
         count("session_start"),
         count("product_view"),
         count("review_click"),
         count("wifi_open"),
-        supabase.rpc("product_intelligence", { _tenant: tenantId, _days: days }),
         supabase.from("products").select("id,name").eq("tenant_id", tenantId),
       ]);
+
       const names = new Map((prods.data ?? []).map((p) => [p.id, p.name]));
-      const rows = (intel.data ?? [])
+      const rows = prodRows
         .map((r) => {
-          const views = Number(r.views ?? 0);
+          const rviews = Number(r.views ?? 0);
           const favourites = Number(r.favorites ?? 0);
           const customizes = Number(r.customize_opens ?? 0);
           // Taxa de interesse: quantos que viram o prato favoritaram ou personalizaram.
-          const interest = views > 0 ? ((favourites + customizes) / views) * 100 : 0;
+          const interest = rviews > 0 ? ((favourites + customizes) / rviews) * 100 : 0;
           return {
-            ...r,
-            name: names.get(r.product_id) ?? "—",
+            product_id: r.product_id,
+            views: rviews,
             avg: Number(r.avg_attention_s ?? 0),
+            favorites: favourites,
+            customize_opens: customizes,
+            swipes: r.swipes != null ? Number(r.swipes) : null,
+            unique_sessions: r.unique_sessions != null ? Number(r.unique_sessions) : null,
+            name: names.get(r.product_id) ?? "—",
             interest,
           };
         })
         .sort((a, b) => b.avg - a.avg);
-      return { sessions, views, reviews, wifi, rows };
+      return { sessions, views, reviews, wifi, rows, tables, v2 };
     },
   });
   const overall = data?.rows.length
@@ -998,6 +1036,8 @@ function Metrics({ tenantId }: { tenantId: string }) {
               <th className="p-3">Atenção média</th>
               <th className="p-3">Interesse</th>
               <th className="p-3">Views</th>
+              {data?.v2 && <th className="p-3">Sessões</th>}
+              {data?.v2 && <th className="p-3">Swipes</th>}
               <th className="p-3">Favoritos</th>
               <th className="p-3">Personalizações</th>
             </tr>
@@ -1022,6 +1062,8 @@ function Metrics({ tenantId }: { tenantId: string }) {
                     {r.interest.toFixed(0)}%
                   </td>
                   <td className="p-3 tabular-nums">{r.views}</td>
+                  {data?.v2 && <td className="p-3 tabular-nums">{r.unique_sessions ?? 0}</td>}
+                  {data?.v2 && <td className="p-3 tabular-nums">{r.swipes ?? 0}</td>}
                   <td className="p-3 tabular-nums">{r.favorites}</td>
                   <td className="p-3 tabular-nums">{r.customize_opens}</td>
                 </tr>
@@ -1029,7 +1071,7 @@ function Metrics({ tenantId }: { tenantId: string }) {
             })}
             {data && !data.rows.length && (
               <tr>
-                <td colSpan={6} className="p-6 text-center text-muted-foreground">
+                <td colSpan={data.v2 ? 8 : 6} className="p-6 text-center text-muted-foreground">
                   Sem dados no período.
                 </td>
               </tr>
@@ -1041,6 +1083,39 @@ function Metrics({ tenantId }: { tenantId: string }) {
           personalizações) ÷ views — quanto mais alto, mais o prato desperta ação.
         </p>
       </div>
+
+      {data?.tables.length ? (
+        <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+          <div className="flex items-center gap-2 border-b border-border p-3">
+            <Users className="h-4 w-4 text-gold" />
+            <h3 className="text-sm font-semibold">Por mesa</h3>
+          </div>
+          <table className="w-full text-sm">
+            <thead className="text-left text-xs text-muted-foreground">
+              <tr className="border-b border-border">
+                <th className="p-3">Mesa</th>
+                <th className="p-3">Sessões</th>
+                <th className="p-3">Chamadas</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.tables.map((t) => (
+                <tr key={t.table_ref} className="border-b border-border last:border-0">
+                  <td className="p-3 font-medium">{t.table_ref}</td>
+                  <td className="p-3 tabular-nums">{t.sessions}</td>
+                  <td className={`p-3 tabular-nums ${t.calls > 0 ? "text-warning" : ""}`}>
+                    {t.calls}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="border-t border-border p-3 text-xs text-muted-foreground">
+            Sessões = quantas visitas aquela mesa abriu. Chamadas = pedidos de garçom/conta/gerente.
+            Mesas com muitas chamadas podem indicar fila de atendimento.
+          </p>
+        </div>
+      ) : null}
     </div>
   );
 }
