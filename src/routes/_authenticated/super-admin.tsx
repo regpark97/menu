@@ -6,10 +6,11 @@ import QRCode from "qrcode";
 import { Copy, QrCode, LogIn, Check, X, Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
-import { AppHeader, useIsSuperAdmin } from "@/components/AppHeader";
+import { useIsSuperAdmin } from "@/components/AppHeader";
+import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { SUPER_SECTIONS } from "@/components/dashboard/sections";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -41,6 +42,7 @@ const selectCls = "h-10 rounded-md border border-input bg-background px-3 text-s
 
 function SuperAdmin() {
   const { data: isSuper, isLoading } = useIsSuperAdmin();
+  const [section, setSection] = useState("tenants");
   const tenants = useQuery({
     queryKey: ["all-tenants"],
     queryFn: async () =>
@@ -48,33 +50,26 @@ function SuperAdmin() {
     enabled: !!isSuper,
   });
   return (
-    <div className="min-h-dvh">
-      <AppHeader title="Super Admin" />
-      <main className="mx-auto max-w-5xl px-4 py-6">
-        {isLoading ? null : !isSuper ? (
-          <div className="glass rounded-2xl p-8 text-center text-muted-foreground">
-            Acesso restrito à equipe Bupin.
-          </div>
-        ) : (
-          <Tabs defaultValue="tenants">
-            <TabsList className="mb-6">
-              <TabsTrigger value="tenants">Clientes</TabsTrigger>
-              <TabsTrigger value="tags">Tags NFC</TabsTrigger>
-              <TabsTrigger value="moderation">Moderação</TabsTrigger>
-            </TabsList>
-            <TabsContent value="tenants">
-              <Tenants list={tenants.data ?? []} refetch={tenants.refetch} />
-            </TabsContent>
-            <TabsContent value="tags">
-              <Tags tenants={tenants.data ?? []} />
-            </TabsContent>
-            <TabsContent value="moderation">
-              <Moderation />
-            </TabsContent>
-          </Tabs>
-        )}
-      </main>
-    </div>
+    <DashboardLayout
+      variant="super"
+      title="Super Admin"
+      subtitle="Gestão de clientes, tags NFC e moderação de mídia"
+      sections={SUPER_SECTIONS}
+      activeSection={section}
+      onSectionChange={setSection}
+    >
+      {isLoading ? null : !isSuper ? (
+        <div className="rounded-2xl border border-border bg-card p-8 text-center text-muted-foreground">
+          Acesso restrito à equipe Bupin.
+        </div>
+      ) : (
+        <div>
+          {section === "tenants" && <Tenants list={tenants.data ?? []} refetch={tenants.refetch} />}
+          {section === "tags" && <Tags tenants={tenants.data ?? []} />}
+          {section === "moderation" && <Moderation />}
+        </div>
+      )}
+    </DashboardLayout>
   );
 }
 

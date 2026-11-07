@@ -6,7 +6,6 @@ import {
   Upload,
   Clock,
   Wifi,
-  ExternalLink,
   Eye,
   Users,
   Star,
@@ -19,12 +18,12 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
-import { AppHeader } from "@/components/AppHeader";
+import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { ADMIN_SECTIONS } from "@/components/dashboard/sections";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogContent,
@@ -112,63 +111,56 @@ function AdminPage() {
   const tenant = data?.tenant;
   const isSupport = data?.support ?? false;
   const canSwitch = !tenantParam && isSupport;
+  const [section, setSection] = useState("menu");
 
   return (
-    <div className="min-h-dvh">
-      <AppHeader title={tenant?.name ?? "Painel"} />
-      <main className="mx-auto max-w-5xl px-4 py-6">
-        {isLoading ? null : !tenant ? (
-          <div className="glass rounded-2xl p-8 text-center text-muted-foreground">
-            Nenhum estabelecimento vinculado à sua conta ainda. Fale com o suporte Bupin.
-          </div>
-        ) : (
-          <>
-            {isSupport && (
-              <div className="mb-4 rounded-xl border border-warning/40 bg-warning/10 px-4 py-2 text-sm text-warning">
-                Modo suporte: você está vendo o painel de {tenant.name}.
-              </div>
-            )}
-            <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-              <h1 className="text-4xl">{tenant.name}</h1>
-              <div className="flex flex-wrap items-center gap-2">
-                {canSwitch && (
-                  <Link
-                    to="/super-admin"
-                    className="rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-secondary"
-                  >
-                    Trocar de cliente
-                  </Link>
-                )}
-                <Link
-                  to="/c/$slug"
-                  params={{ slug: tenant.slug }}
-                  search={{ t: undefined }}
-                  target="_blank"
-                  className="flex items-center gap-1 text-sm text-gold"
-                >
-                  Ver cardápio <ExternalLink className="h-4 w-4" />
-                </Link>
-              </div>
+    <DashboardLayout
+      variant="admin"
+      title={tenant?.name ?? "Painel do Restaurante"}
+      subtitle={
+        isSupport
+          ? `Modo suporte${tenant ? ` · ${tenant.name}` : ""}`
+          : "Gerencie cardápio, fotos, Wi-Fi e métricas"
+      }
+      sections={ADMIN_SECTIONS}
+      activeSection={section}
+      onSectionChange={setSection}
+      menuHref={tenant ? { slug: tenant.slug } : undefined}
+      headerExtra={
+        canSwitch ? (
+          <Link
+            to="/super-admin"
+            className="hidden rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground sm:inline-flex"
+          >
+            Trocar de cliente
+          </Link>
+        ) : null
+      }
+    >
+      {isLoading ? null : !tenant ? (
+        <div className="rounded-2xl border border-border bg-card p-8 text-center text-muted-foreground">
+          Nenhum estabelecimento vinculado à sua conta ainda. Fale com o suporte Bupin.
+        </div>
+      ) : (
+        <>
+          {isSupport && (
+            <div className="mb-4 rounded-xl border border-warning/40 bg-warning/10 px-4 py-2 text-sm text-warning">
+              Modo suporte: você está vendo o painel de {tenant.name}.
             </div>
-            <Tabs defaultValue="menu">
-              <TabsList className="mb-6">
-                <TabsTrigger value="menu">Cardápio Rápido</TabsTrigger>
-                <TabsTrigger value="metrics">Inteligência & Métricas</TabsTrigger>
-              </TabsList>
-              <TabsContent value="menu" className="space-y-6">
-                <WaiterCalls tenantId={tenant.id} />
-                <WifiCard tenant={tenant} />
-                <BrandingCard tenant={tenant} />
-                <ProductsList tenantId={tenant.id} />
-              </TabsContent>
-              <TabsContent value="metrics">
-                <Metrics tenantId={tenant.id} />
-              </TabsContent>
-            </Tabs>
-          </>
-        )}
-      </main>
-    </div>
+          )}
+          {section === "menu" ? (
+            <div className="space-y-6">
+              <WaiterCalls tenantId={tenant.id} />
+              <WifiCard tenant={tenant} />
+              <BrandingCard tenant={tenant} />
+              <ProductsList tenantId={tenant.id} />
+            </div>
+          ) : (
+            <Metrics tenantId={tenant.id} />
+          )}
+        </>
+      )}
+    </DashboardLayout>
   );
 }
 
