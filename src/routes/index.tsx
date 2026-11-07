@@ -54,7 +54,7 @@ function Index() {
       />
       <div className="absolute inset-0 bg-hero-scrim" />
       <div className="relative mx-auto flex min-h-dvh max-w-3xl flex-col justify-end px-6 pb-16 pt-24">
-        <img src="/logo.png" alt="Bupin" className="h-16 w-auto object-contain" />
+        <img src="/logo-square.png" alt="Bupin" className="h-16 w-16 object-contain" />
         <h1 className="mt-4 text-5xl leading-[1.05] sm:text-7xl">O cardápio que se assiste.</h1>
         <p className="mt-4 max-w-md text-muted-foreground">
           Encoste o celular na mesa: Wi-Fi, avaliação no Google e um feed vertical de pratos — com
