@@ -8,6 +8,7 @@ import {
   Users,
   Tags,
   ImageIcon,
+  Inbox,
 } from "lucide-react";
 
 export type SectionItem = {
@@ -29,6 +30,7 @@ export const ADMIN_SECTIONS: SectionItem[] = [
 
 /** Seções do painel mestre. */
 export const SUPER_SECTIONS: SectionItem[] = [
+  { key: "leads", label: "Leads da LP", icon: Inbox, group: "Gestão" },
   { key: "tenants", label: "Clientes", icon: Users, group: "Gestão" },
   { key: "tags", label: "Tags NFC", icon: Tags, group: "Gestão" },
   { key: "moderation", label: "Moderação", icon: ImageIcon, group: "Operação" },

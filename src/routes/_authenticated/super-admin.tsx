@@ -9,6 +9,7 @@ import type { Tables } from "@/integrations/supabase/types";
 import { useIsSuperAdmin } from "@/components/AppHeader";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { SUPER_SECTIONS } from "@/components/dashboard/sections";
+import { LeadsSection } from "@/components/dashboard/LeadsSection";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,7 +43,7 @@ const selectCls = "h-10 rounded-md border border-input bg-background px-3 text-s
 
 function SuperAdmin() {
   const { data: isSuper, isLoading } = useIsSuperAdmin();
-  const [section, setSection] = useState("tenants");
+  const [section, setSection] = useState("leads");
   const tenants = useQuery({
     queryKey: ["all-tenants"],
     queryFn: async () =>
@@ -64,6 +65,7 @@ function SuperAdmin() {
         </div>
       ) : (
         <div>
+          {section === "leads" && <LeadsSection />}
           {section === "tenants" && <Tenants list={tenants.data ?? []} refetch={tenants.refetch} />}
           {section === "tags" && <Tags tenants={tenants.data ?? []} />}
           {section === "moderation" && <Moderation />}

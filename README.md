@@ -15,6 +15,20 @@
 > `regpark97 <lilomitofwdase@gmail.com>` (senão a Vercel bloqueia o deploy);
 > nunca comite o `.env`; nunca force-push em `main` (projeto ligado ao Lovable).
 
+## 🚀 Landing page (página inicial)
+
+A rota `/` é a landing page do BUPIN (dark chocolate + bege areia da marca). Detalhes
+completos em [`landing/README.md`](./landing/README.md).
+
+- **Formulário de leads** (`/` → seção final) envia direto para a tabela `leads`
+  (migration `drizzle/migrations/0006_leads.sql`) — **é preciso rodar essa migration no
+  Supabase antes do primeiro deploy**.
+- **Aba "Leads da LP"** no Super Admin lista todos os envios, com e-mail, WhatsApp e
+  avanço de status (Novo → Contatado → Demo → Fechado).
+- Mockup do celular com vídeos reais do cardápio (arquivos em `public/landing/videos/`).
+- Versão estática standalone em `landing/index.html` (abre no navegador sem build).
+
+
 Quero construir um micro-SaaS completo chamado "SipFlow Clone" — uma plataforma de cardápio interativo vertical (estilo TikTok/Reels) ativado por NFC/QR Code na mesa, com Customer Hub (Wi-Fi e Google Reviews), coleta de telemetria comportamental (tempo de atenção por prato) e gestão híbrida (Super Admin + Área do Loista com moderação de mídia).
 
 
