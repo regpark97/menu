@@ -1,10 +1,11 @@
-# Sipflow Tabletales
+# BUPIN
 
 > ## 📚 Antes de mexer: leia a documentação
 >
 > | Documento | Para que serve |
 > | --- | --- |
 > | **[`HANDOFF.md`](./HANDOFF.md)** | 👈 **comece por aqui** — credenciais, o que já foi feito, o que falta fazer (transferência de PC) |
+> | [`landing/README.md`](./landing/README.md) | A landing page da rota `/` — estrutura, formulário de leads e versão estática |
 > | [`docs/OPERACAO.md`](./docs/OPERACAO.md) | O dia a dia: criar cliente, vincular dono, tags NFC, diagnóstico |
 > | [`docs/DEPLOY.md`](./docs/DEPLOY.md) | Vercel, variáveis de ambiente, deploy travado |
 > | [`docs/SUPABASE.md`](./docs/SUPABASE.md) | Schema, RLS, funções e segurança do banco |

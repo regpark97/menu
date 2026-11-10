@@ -65,5 +65,18 @@ export async function flush() {
   const batch = queue;
   queue = [];
   const { error } = await supabase.from("telemetry_events").insert(batch as never);
-  if (error) console.warn("telemetry", error.message);
+  if (error) {
+    console.warn("telemetry", error.message);
+    // Uma tentativa de retry: devolve o lote à fila (mantendo a ordem) e agenda
+    // um novo flush rápido. Perde-se no máximo o que estiver na fila se a aba fechar.
+    queue = [...batch, ...queue];
+    if (!retryTimer) {
+      retryTimer = setTimeout(() => {
+        retryTimer = null;
+        void flush();
+      }, 3000);
+    }
+  }
 }
+
+let retryTimer: ReturnType<typeof setTimeout> | null = null;

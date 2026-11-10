@@ -15,6 +15,8 @@ import {
   X,
   Images,
   ImagePlus,
+  ArrowUp,
+  ArrowDown,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
@@ -329,6 +331,27 @@ function ProductsList({ tenantId }: { tenantId: string }) {
   // O novo prato entra no fim da lista do estabelecimento.
   const nextSortOrder = (products?.reduce((max, p) => Math.max(max, p.sort_order), 0) ?? 0) + 1;
 
+  /** Move o prato uma posição (troca sort_order com o vizinho). */
+  async function move(product: Tables<"products">, dir: -1 | 1) {
+    const list = products ?? [];
+    const sorted = [...list].sort((a, b) => a.sort_order - b.sort_order);
+    const idx = sorted.findIndex((p) => p.id === product.id);
+    const other = sorted[idx + dir];
+    if (!other) return;
+    // Troca os sort_orders dos dois pratos.
+    const { error } = await supabase
+      .from("products")
+      .update({ sort_order: product.sort_order })
+      .eq("id", other.id);
+    if (error) return toast.error(error.message);
+    const { error: e2 } = await supabase
+      .from("products")
+      .update({ sort_order: other.sort_order })
+      .eq("id", product.id);
+    if (e2) return toast.error(e2.message);
+    qc.invalidateQueries({ queryKey: ["admin-products", tenantId] });
+  }
+
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between gap-3">
@@ -346,7 +369,7 @@ function ProductsList({ tenantId }: { tenantId: string }) {
       )}
 
       {products?.map((p) => (
-        <ProductRow key={p.id} product={p} onChange={refetch} />
+        <ProductRow key={p.id} product={p} onChange={refetch} onMove={move} />
       ))}
 
       <NewProductDialog
@@ -602,7 +625,15 @@ function NewProductDialog({
   );
 }
 
-function ProductRow({ product, onChange }: { product: Tables<"products">; onChange: () => void }) {
+function ProductRow({
+  product,
+  onChange,
+  onMove,
+}: {
+  product: Tables<"products">;
+  onChange: () => void;
+  onMove: (product: Tables<"products">, dir: -1 | 1) => Promise<void>;
+}) {
   const [available, setAvailable] = useState(product.is_available);
   const [name, setName] = useState(product.name);
   const [price, setPrice] = useState(product.price_cents);
@@ -770,6 +801,27 @@ function ProductRow({ product, onChange }: { product: Tables<"products">; onChan
                 className="h-8 w-14 data-[state=checked]:bg-success [&>span]:h-7 [&>span]:w-7 [&>span]:data-[state=checked]:translate-x-6"
               />
             </label>
+          </div>
+          <div className="mt-2 flex items-center gap-1">
+            <span className="text-xs text-muted-foreground">Ordem</span>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7"
+              aria-label="Mover para cima"
+              onClick={() => onMove(product, -1)}
+            >
+              <ArrowUp className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7"
+              aria-label="Mover para baixo"
+              onClick={() => onMove(product, 1)}
+            >
+              <ArrowDown className="h-4 w-4" />
+            </Button>
           </div>
           {product.moderation_status === "pending" && (
             <p className="mt-2 flex items-center gap-1.5 text-xs text-warning">

@@ -7,29 +7,28 @@ Este diretório contém **duas versões** da mesma LP:
 
 | Versão | Onde | Uso |
 | --- | --- | --- |
-| **Estática** | `index.html` | Abrir direto no navegador, hospedar standalone (Netlify/Vercel estático) |
-| **Integrada (React)** | `port/` | Portar para dentro do projeto `menu` (Vite + TanStack Router) como rota `/` |
+| **Integrada (React)** | `../src/routes/index.tsx` + `../src/routes/lp.css` | Rota `/` do app — a homepage oficial |
+| **Estática** | `index.html` | Backup standalone: abrir no navegador ou hospedar separado |
 
 ---
 
 ## Versão estática (`index.html`)
 
-Arquivo único e autônomo — só precisa da pasta `videos/` ao lado.
+Arquivo único e autônomo — os vídeos ficam em `../public/landing/videos/`
+(servidos em `/landing/videos/` quando o app roda; ao abrir o `index.html`
+localmente fora do app, use-o sob o mesmo servidor).
 
 ```
-bupin-lp/
+landing/
   index.html                    ← a LP completa (HTML + CSS + JS inline)
-  videos/                       ← vídeos do mockup do celular
-    asada.mp4       (2.79 MB)   Taco de Asada
-    camarao.mp4     (6.38 MB)   Burrito de Camarão
-    pescado.mp4     (2.80 MB)   Taco de Pescado
-    chimichanga.mp4 (3.61 MB)   Chimichanga
-  images/                       ← fotos de exemplo (não usadas na versão atual)
-    hero.jpg, focaccia.jpg, focaccia2.jpg, coldbrew.jpg, matcha.jpg
-  logo.png, logo-quadrado.png   ← logo da marca (referência de paleta)
   INTEGRACAO-SUPER-ADMIN.md     ← guia: tabela leads + aba Leads no super admin
-  port/                         ← versão React pronta para o projeto
   README.md                     ← este arquivo
+
+../public/landing/videos/       ← vídeos do mockup (compartilhados com a versão React)
+  asada.mp4       (2.79 MB)     Taco de Asada
+  camarao.mp4     (6.38 MB)     Burrito de Camarão
+  pescado.mp4     (2.80 MB)     Taco de Pescado
+  chimichanga.mp4 (3.61 MB)     Chimichanga
 ```
 
 ### Como usar
@@ -61,47 +60,24 @@ bupin-lp/
 
 ---
 
-## Versão React (`port/`)
+## Versão React (rota `/` do app)
 
-Arquivos prontos para colar no projeto `menu` (regpark97/menu):
+A LP já está integrada como homepage do projeto `menu`:
 
 ```
-port/
-  src/routes/index.tsx    ← substitui o src/routes/index.tsx do projeto
-  src/routes/lp.css       ← importado pelo index.tsx (namespaced .bupin-lp)
+src/routes/index.tsx    ← a landing page (rota /)
+src/routes/lp.css       ← estilos namespaced (.bupin-lp, --blp-*)
+public/landing/videos/  ← vídeos do mockup
 ```
 
-### Passo a passo
-
-1. **Vídeos:** copie `bupin-lp/videos/` para `public/landing/videos/` no projeto:
-   ```
-   menu/public/landing/videos/asada.mp4
-   menu/public/landing/videos/camarao.mp4
-   menu/public/landing/videos/pescado.mp4
-   menu/public/landing/videos/chimichanga.mp4
-   ```
-
-2. **Rotas:** substitua `menu/src/routes/index.tsx` pelo conteúdo de
-   `port/src/routes/index.tsx` e copie `port/src/routes/lp.css` para o mesmo lugar.
-
-3. **Supabase:** crie a tabela `leads` (SQL em `INTEGRACAO-SUPER-ADMIN.md`). O formulário
-   já usa `supabase.from("leads").insert(...)` via `@/integrations/supabase/client` —
-   mesma instância do app.
-
-4. **Tema:** a LP é 100% self-contained (`.bupin-lp` com variáveis `--blp-*`), não
-   conflita com o Tailwind v4/shadcn do projeto. O tema claro/escuro do app não afeta a
-   LP (ela mantém o dark chocolate da marca).
-
-5. **Import do `lucide-react`** e `@tanstack/react-router` já existem no projeto.
-
-### O que mudou da estática para a React
-
-- Ícones SVG inline → componentes `lucide-react` (já usados no projeto).
-- JS de scroll/reveal/form → hooks (`useReveal`, `useNavScroll`, `useBarsAnimation`,
-  `PhoneMockup` com estado de categoria ativa).
-- Formulário envia direto pro Supabase (sem fetch manual com anon key).
-- Botão discreto **"Entrar"** no nav e rodapé → `/auth` (login único que já encaminha
-  admin/super-admin conforme a conta — nada de botões grandes de painel na homepage).
+- **Supabase:** o formulário usa `supabase.from("leads").insert(...)` — a tabela está na
+  migration `drizzle/migrations/0006_leads.sql` (rode no SQL Editor do Supabase).
+- **Tema:** a LP é 100% self-contained (`.bupin-lp` com variáveis `--blp-*`), não
+  conflita com o Tailwind v4/shadcn do projeto. O tema claro/escuro do app não afeta a
+  LP (ela mantém o dark chocolate da marca).
+- Ícones via `lucide-react`; scroll/reveal/form em hooks (`useReveal`, `useNavScroll`,
+  `useBarsAnimation`, `PhoneMockup` com categoria ativa sincronizada).
+- Botão discreto **"Entrar"** no nav e rodapé → `/auth`.
 - Head/SEO via TanStack `head()`.
 
 ---
