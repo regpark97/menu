@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   Smartphone, Zap, ShieldCheck, Wifi, Star, ChevronDown, Heart, X,
-  DollarSign, BadgeCheck, ImageIcon, Search,
+  DollarSign, BadgeCheck, ImageIcon, Search, Sun, Moon,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import "./lp.css";
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Cardápio vertical com NFC para cafés e restaurantes. O cliente desliza pelos pratos; você enxerga, em números, o que prende a atenção.",
+          "Cardápio vertical com NFC para restaurantes e cafés. O cliente desliza pelos pratos; você enxerga, em números, o que prende a atenção.",
       },
       { property: "og:title", content: "BUPIN — Da mesa ao dashboard" },
       {
@@ -81,6 +81,23 @@ const SEGMENTS = [
 ];
 
 /* ── helpers ──────────────────────────────────────────────────── */
+/** Tema da LP: escuro por padrão (igual ao cardápio), alternável pro claro.
+ *  Persistido em localStorage (mesma chave/estratégia do use-theme do app). */
+const THEME_KEY = "bupin-lp-theme";
+function useLpTheme() {
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    if (typeof window === "undefined") return "dark";
+    try { return (localStorage.getItem(THEME_KEY) as "dark" | "light") || "dark"; }
+    catch { return "dark"; }
+  });
+  const rootRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (rootRef.current) rootRef.current.setAttribute("data-theme", theme);
+    try { localStorage.setItem(THEME_KEY, theme); } catch { /* modo privado */ }
+  }, [theme]);
+  return { theme, setTheme, rootRef };
+}
+
 function useReveal() {
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -411,9 +428,10 @@ function Landing() {
   useReveal();
   const navRef = useNavScroll();
   const barsRef = useBarsAnimation();
+  const { theme, setTheme, rootRef } = useLpTheme();
 
   return (
-    <div className="bupin-lp">
+    <div className="bupin-lp" data-theme="dark" ref={rootRef}>
       {/* NAV */}
       <header className="blp-nav" ref={navRef}>
         <div className="blp-wrap blp-nav-inner">
@@ -428,8 +446,16 @@ function Landing() {
             <a href="#preco">Preço</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <div style={{ display: "flex", gap: 10 }}>
+          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <Link to="/auth" className="blp-btn blp-btn-link">Entrar</Link>
+            <button
+              className="blp-theme-toggle"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              aria-label={theme === "dark" ? "Mudar para tema claro" : "Mudar para tema escuro"}
+              title={theme === "dark" ? "Tema claro" : "Tema escuro"}
+            >
+              {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
             <a href="#contato" className="blp-btn blp-btn-primary">Quero o Bupin</a>
           </div>
         </div>
@@ -463,7 +489,7 @@ function Landing() {
             <div className="blp-hero-facts">
               <span><Smartphone size={15} /> Funciona no navegador</span>
               <span><Zap size={15} /> Ativa em segundos</span>
-              <span><ShieldCheck size={15} /> Marca do seu café</span>
+              <span><ShieldCheck size={15} /> Marca do seu restaurante</span>
             </div>
           </div>
           <PhoneMockup />
@@ -518,7 +544,7 @@ function Landing() {
           <div className="reveal">
             <div className="blp-sec-label">A experiência na mesa</div>
             <h2>
-              Um hub com a cara do seu café. <em>Nada de lista PDF.</em>
+              Um hub com a cara do seu restaurante. <em>Nada de lista PDF.</em>
             </h2>
             <p className="blp-sec-sub">
               A primeira tela que o cliente vê é sua marca — e o que ele mais precisa: cardápio,
@@ -701,7 +727,7 @@ function Landing() {
               ["As fotos que eu enviar vão direto pro ar?", "Suas novas fotos passam por uma curadoria rápida de enquadramento e qualidade antes de substituir as atuais — para o feed nunca perder o padrão visual. O cardápio continua no ar com a foto antiga até a nova ser aprovada.", false],
               ["O que exatamente é medido? É invasivo?", "Medimos sinais de navegação anônimos: views por prato, tempo de atenção, troca de categoria, favoritos e personalizações. Não há identificação individual do cliente — é comportamento agregado, não perfil pessoal.", false],
               ["As tags NFC são minhas? E se eu mudar de cardápio ou de mesa?", "As tags são reconfiguráveis: cada uma aponta dinamicamente para a mesa e o estabelecimento definidos no painel. Mudou o layout da sala? Revincula a tag — sem regravar nada.", false],
-              ["Serve para restaurante ou só para café?", "O formato nasceu em cafés, mas funciona para qualquer cardápio visual: bares, hamburguerias, sorveterias, food trucks. Se o seu produto é bonito, ele merece tela inteira.", false],
+              ["Serve só para restaurante?", "O formato nasceu em restaurantes e cafés, mas funciona para qualquer cardápio visual: bares, hamburguerias, sorveterias, food trucks. Se o seu produto é bonito, ele merece tela inteira.", false],
             ].map(([q, a, open]) => (
               <details key={q as string} open={!!open}>
                 <summary>{q}</summary>
