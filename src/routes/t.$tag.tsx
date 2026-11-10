@@ -1,3 +1,23 @@
+/**
+ * ─────────────────────────────────────────────────────────────────────────────
+ *  ROTA CORINGA DAS TAGS NFC — /t/:tag
+ * ─────────────────────────────────────────────────────────────────────────────
+ *
+ *  É a porta de entrada física do sistema: o cartão NFC gravado na mesa
+ *  aponta para /t/tag-001. Esta rota consulta a tabela nfc_tags e decide:
+ *
+ *    ┌─ tag inativa ou inexistente ──→ mensagem "chame um atendente"
+ *    ├─ custom_redirect_url preenchido ──→ vai para URL externa (a tag vira
+ *    │   um QR/NFC genérico reutilizável, ex.: promoção, menu de evento)
+ *    └─ tag vinculada a um tenant ──→ /c/{slug}?t={mesa}
+ *
+ *  O motivo de existir: os cartões físicos NUNCA precisam ser regravados.
+ *  Mudou o cliente dono da tag, a mesa ou o destino? Tudo se resolve no
+ *  painel (super admin), o cartão continua apontando para /t/tag-001.
+ *
+ *  noindex: é ponte, não página — não deve aparecer no Google.
+ */
+
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";

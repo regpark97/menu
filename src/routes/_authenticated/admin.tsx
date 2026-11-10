@@ -1,3 +1,26 @@
+/**
+ * ─────────────────────────────────────────────────────────────────────────────
+ *  PAINEL DO RESTAURANTE — /admin (área do dono do estabelecimento)
+ * ─────────────────────────────────────────────────────────────────────────────
+ *
+ *  Seções (sidebar): Chamadas · Pratos · Wi-Fi e Google · Aparência · Métricas.
+ *
+ *  Identificação do tenant (AdminPage → queryFn) segue 3 caminhos, em ordem:
+ *   1. ?tenant=<id>    → Modo suporte: super admin abriu o painel DE UM CLIENTE
+ *                        (link "Acessar Painel do Cliente" do super-admin).
+ *   2. Conta com dono  → caminho normal: o tenant cujo owner_user_id é o login.
+ *   3. Super admin "nu"→ mostra o primeiro tenant da lista para a equipe
+ *                        Bupin não ficar presa numa tela vazia.
+ *
+ *  Toda escrita (preço, esgotado, Wi-Fi, mídia) é validada também pelas
+ *  policies RLS do banco — o painel é o primeiro evisor, o banco é o juiz.
+ *
+ *  Moderação de mídia: uploads do dono vão para pending_* e aguardam
+ *  aprovação no super-admin; o cardápio segue mostrando a última foto
+ *  aprovada. O trigger do banco re-força o status 'pending' (defesa em
+ *  profundidade: nem um bug aqui publicaria foto sem curadoria).
+ */
+
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";

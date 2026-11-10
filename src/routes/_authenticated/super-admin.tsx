@@ -1,3 +1,24 @@
+/**
+ * ─────────────────────────────────────────────────────────────────────────────
+ *  PAINEL MESTRE — /super-admin (exclusivo da equipe Bupin)
+ * ─────────────────────────────────────────────────────────────────────────────
+ *
+ *  Seções (sidebar): Leads da LP · Clientes (tenants) · Tags NFC · Moderação.
+ *
+ *  - Leads: contatos captados pelo formulário da landing page (tabela
+ *    leads) com avanço de status — é aqui que o funil de vendas começa.
+ *  - Clientes: criar estabelecimento, definir plano, vincular dono por
+ *    e-mail (RPC user_id_by_email resolve o uuid — nunca colar UUID na mão)
+ *    e "Acessar Painel do Cliente" (impersonation via /admin?tenant=<id>).
+ *  - Tags NFC: gerar lotes (tag-001…tag-500), vincular a cliente/mesa ou
+ *    redirecionar para URL externa, copiar link e baixar QR de fallback.
+ *  - Moderação: fila de mídia pendente — comparar foto atual vs. nova e
+ *    aprovar (publica capa + galeria pendentes) ou recusar (descarta).
+ *
+ *  Acesso: bloqueado a não-super-admins no render E nas policies RLS
+ *  (has_role 'super_admin') — o painel esconde, o banco garante.
+ */
+
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";

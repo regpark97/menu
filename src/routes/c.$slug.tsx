@@ -1,3 +1,27 @@
+/**
+ * ─────────────────────────────────────────────────────────────────────────────
+ *  CARDÁPIO DO CLIENTE — /c/:slug?mesa=04
+ * ─────────────────────────────────────────────────────────────────────────────
+ *
+ *  A experiência que o BUPIN vende. Duas telas no mesmo componente:
+ *
+ *   1. HUB (boas-vindas)   → fundo do estabelecimento, logo, e 3 botões:
+ *                            cardápio (branco), Google Reviews e Wi-Fi (vidro).
+ *   2. FEED (descoberta)   → pratos em tela cheia, scroll vertical com snap,
+ *                            swipe horizontal navega a galeria de cada prato.
+ *
+ *  Detalhes que sustentam o produto:
+ *   - Telemetria invisível: initTelemetry liga o motor ao carregar; o
+ *     IntersectionObserver de cada ProductCard cronometra a atenção real
+ *     (veja comentário no motor, dentro de ProductCard).
+ *   - ssr:false — o cardápio é 100% cliente (telemetria + sessão por aba);
+ *     pré-renderizar uma página cheia de eventos anônimos não faz sentido.
+ *   - Pratos indisponíveis (is_available=false) nem chegam ao feed: o
+ *     filtro acontece na query, não no render.
+ *   - Botão flutuante de garçom/conta/gerente (WaiterButton) com cooldown
+ *     anti-spam de 2 min — verificado também no banco (RPC call_waiter).
+ */
+
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -279,6 +303,7 @@ function Feed({
     [categories, products],
   );
 
+  /** Pílula de categoria clicada: rola até o primeiro prato dela e registra o evento. */
   function jumpTo(catId: string) {
     const idx = products.findIndex((p) => p.category_id === catId);
     const el = scrollRef.current?.children[idx] as HTMLElement | undefined;
@@ -286,6 +311,7 @@ function Feed({
     track("category_change", { category_id: catId, metadata: { source: "pill" } });
   }
 
+  /** Card entrou em foco: atualiza a pílula ativa e conta o swipe (direção). */
   function onFocus(p: Product, index: number) {
     if (index !== lastIndex.current) {
       track("swipe", {
@@ -374,7 +400,16 @@ function ProductCard({
   onFocusRef.current = onFocus;
   const mods = (product.modifiers as ModifierGroup[] | null) ?? [];
 
-  // Invisible attention engine: time in focus (>= 65% visible), paused when tab is hidden.
+  // ── MOTOR DE ATENÇÃO (o coração da "inteligência" que vendemos) ─────────
+  // Cronometra QUANTO TEMPO o prato ficou em foco real:
+  //   • "em foco" = ≥65% do card visível (IntersectionObserver th 0.65);
+  //   • o cronômetro PAUSA quando a aba fica oculta (cliente atende uma
+  //     ligação, trava o celular) e retoma ao voltar — sem isso, o tempo
+  //     de "esquecido no bolso" contaria como atenção;
+  //   • ao SAIR do foco, dispara product_view com duration_ms — que o
+  //     telemetry.ts descarta se estiver fora da janela 400ms–120s
+  //     (scroll acidental / celular esquecido na mesa).
+  // onFocusRef: mantém o callback fresco sem reinstalar o observer.
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -505,6 +540,11 @@ function ProductCard({
   );
 }
 
+/**
+ * Gaveta "Deixe do seu jeito": o cliente testa adicionais (aveia, shot extra…)
+ * e vê o total ao vivo. O `last` mantém o prato renderizado durante a animação
+ * de saída — sem isso a gaveta fecharia vazia antes de deslizar fora.
+ */
 function CustomizeSheet({ product, onClose }: { product: Product | null; onClose: () => void }) {
   const [picked, setPicked] = useState<Record<string, number>>({});
   const [last, setLast] = useState<Product | null>(null);
