@@ -246,11 +246,46 @@ Ordem **importante**:
                            (ou aplique drizzle/migrations/0000 + 0001 + 0002)
 2. supabase/hardening.sql  segurança (RLS de user_roles + trigger)
 3. supabase/rpc-user-lookup.sql  RPC de busca por e-mail
-4. Conceda super_admin ......... insert em user_roles (HANDOFF.md seção 8)
+4. drizzle/migrations/0003_product_gallery.sql   galeria por produto
+5. drizzle/migrations/0004_waiter_calls.sql      chamar garçom (RPC + realtime)
+6. drizzle/migrations/0005_metrics_v2.sql        métricas fase 2 (RPCs v2 + mesas)
+7. drizzle/migrations/0006_leads.sql             tabela de leads da LP
+8. drizzle/migrations/0007_fix_new_user_trigger.sql  ⚠️ nunca pule (trigger seguro)
+9. Conceda super_admin ......... insert em user_roles (HANDOFF.md seção 8)
 ```
 
-Passos 2 e 3 são **idempotentes** (`drop … if exists` + `create or replace`) — pode
-rodar de novo sem medo.
+Passos 2, 3 e as migrações 0003–0006 são **idempotentes** (`drop … if exists` /
+`create or replace` / `if not exists`) — pode rodar de novo sem medo.
+A `0007` recria a função `handle_new_user`; rodar duas vezes é inofensivo.
+
+### Resumo do que cada migration (0003–0007) faz
+
+| Migration | O que adiciona | Status |
+| --- | --- | --- |
+| `0003_product_gallery.sql` | Colunas `media_gallery` / `pending_media_gallery` (jsonb) + `guard_moderation()` v2 (trata galeria pendente) | ✅ rodada |
+| `0004_waiter_calls.sql` | Tabela `waiter_calls`, RLS por tenant, RPC `call_waiter` (cooldown 2 min), realtime | ✅ rodada |
+| `0005_metrics_v2.sql` | RPCs `product_intelligence_v2` e `table_stats` (swipes, sessões únicas, por mesa) | ✅ rodada |
+| `0006_leads.sql` | Tabela `leads` (form da LP) + policies: insert público, leitura/edição só super_admin | ✅ rodada |
+| `0007_fix_new_user_trigger.sql` | `handle_new_user()` sem auto-promoção — todo usuário novo nasce `user` | ✅ rodada |
+
+---
+
+## 8. 🔍 Auditoria de segurança (10/11/2026)
+
+Relatório completo com severidades e correções sugeridas em
+[`docs/AUDITORIA-2026-11-10.md`](./AUDITORIA-2026-11-10.md). Resumo dos achados em
+aberto (pendentes de correção):
+
+| ID | Achado | Severidade |
+| --- | --- | --- |
+| C1 | Policies do bucket `media` não isolam por tenant (upload/update/delete de qualquer autenticado) | 🔴 crítica |
+| C2 | `nfc_tags` legível por `anon` com `using (true)` | 🟠 alta |
+| C3 | `tenants` expõe `wifi_password` e colunas sensíveis para `anon` | 🟠 alta |
+| M1 | `leads` aceita insert anônimo sem rate limit | 🟡 média |
+| M2 | Telemetria sem TTL/teto de volume | 🟡 média |
+| M4 | `SUPABASE_SERVICE_ROLE_KEY` fora do `.env.example`/docs | 🟡 média |
+
+Correções sugeridas (SQL pronto) estão no relatório da auditoria.
 
 ### Onde rodar
 

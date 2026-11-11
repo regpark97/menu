@@ -583,6 +583,7 @@ Revisão do estado das pendências da seção 4 após os commits de hoje:
 | 4.5 Aba "Usuários" no Super Admin | ⏳ não implementada | Opcional |
 | 4.6 Limpeza (`tmp-deploy*.log`, conta de teste) | ⏳ aberta | Verificar se ainda existem |
 | **Migrations 0005–0007** | ✅ rodadas | Confirmado pelo dono do projeto em 10/11/2026 |
+| **Auditoria de segurança/código** | 🆕 ver docs/AUDITORIA-2026-11-10.md | 1 achado CRÍTICO (storage sem isolamento por tenant) + 2 altos; correções sugeridas no relatório |
 
 ---
 
