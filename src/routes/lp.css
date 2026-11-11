@@ -212,7 +212,7 @@
   position: absolute; top: 0; left: 0; right: 0; z-index: 10;
   padding: 48px 14px 12px;
   background: linear-gradient(to bottom, rgba(16,8,4,.75), transparent);
-  display: flex; gap: 8px;
+  display: flex; flex-wrap: wrap; gap: 8px;
 }
 .bupin-lp .blp-topbar span {
   font-size: 10px; color: #f7f1e9; background: rgba(58,31,19,.55);
@@ -233,6 +233,8 @@
 
 /* ---------- sections ---------- */
 .bupin-lp .blp-section { padding: 100px 0; }
+/* Âncoras (#como-funciona etc.) não podem parar embaixo da nav fixa */
+.bupin-lp section[id] { scroll-margin-top: 76px; }
 .bupin-lp .blp-sec-label { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--blp-accent); margin-bottom: 14px; }
 .bupin-lp h2 {
   font-family: var(--blp-display); font-weight: 600; color: var(--blp-ink);
@@ -460,6 +462,20 @@
   .bupin-lp .blp-section { padding: 70px 0; }
   .bupin-lp .blp-frow { grid-template-columns: 1fr; }
   .bupin-lp .blp-wrap { padding: 0 36px; }
+
+  /* ── Tipografia/cards mobile (do commit c2a2145, restaurada —
+     o 5b254e4 apagou sem querer ao mexer no bloco) ──────────── */
+  .bupin-lp h2 { font-size: clamp(26px, 7.2vw, 32px); }
+  .bupin-lp .blp-price-card { padding: 28px 26px; }
+  .bupin-lp .blp-lead-form { padding: 32px 24px; }
+  .bupin-lp .blp-filters span { padding: 4px 12px; }
+
+  /* ── iOS: campo com fonte < 16px dispara zoom automático ──── */
+  .bupin-lp .blp-field input, .bupin-lp .blp-field select { font-size: 16px; }
+
+  /* ── Mockup do celular nunca estoura/clipa (iPhone SE 320px) ─ */
+  .bupin-lp .blp-phone { width: min(300px, calc(100vw - 88px)); }
+  .bupin-lp .blp-topbar span { padding: 4px 9px; }
 
   /* ── NAV mobile enxuta ─────────────────────────────────────────
      Cabe logo + toggle de tema. "Entrar" e o CTA saem da barra (o
