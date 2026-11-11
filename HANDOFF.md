@@ -582,7 +582,7 @@ Revisão do estado das pendências da seção 4 após os commits de hoje:
 | 4.4 Primeiro cliente real | ⏳ aberta | Usar o Caminho B (vínculo automático) |
 | 4.5 Aba "Usuários" no Super Admin | ⏳ não implementada | Opcional |
 | 4.6 Limpeza (`tmp-deploy*.log`, conta de teste) | ⏳ aberta | Verificar se ainda existem |
-| **Nova: rodar migrations 0005–0007** | 🔴 se não rodou | `0006_leads.sql` e `0007_fix_new_user_trigger.sql` via SQL Editor |
+| **Migrations 0005–0007** | ✅ rodadas | Confirmado pelo dono do projeto em 10/11/2026 |
 
 ---
 
