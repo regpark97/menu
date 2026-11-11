@@ -450,6 +450,7 @@
   .bupin-lp .blp-stats { grid-template-columns: 1fr 1fr; }
   .bupin-lp .blp-band { grid-template-columns: 1fr; padding: 40px 28px; }
   .bupin-lp .blp-nav-links { display: none; }
+  .bupin-lp .blp-wrap { padding: 0 32px; }
 }
 @media (max-width: 640px) {
   .bupin-lp .blp-steps, .bupin-lp .blp-bento { grid-template-columns: 1fr; }
@@ -458,6 +459,12 @@
   .bupin-lp .blp-bar { height: 120px; }
   .bupin-lp .blp-section { padding: 70px 0; }
   .bupin-lp .blp-frow { grid-template-columns: 1fr; }
+  .bupin-lp .blp-wrap { padding: 0 36px; }
+  /* Tipografia mobile: títulos e parágrafos menores que 18px ganham
+     line-height mais folgado pra leitura confortável na tela estreita. */
+  .bupin-lp h2 { font-size: clamp(26px, 7.2vw, 32px); }
+  .bupin-lp .blp-price-card { padding: 28px 26px; }
+  .bupin-lp .blp-filters span { padding: 4px 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .bupin-lp .blp-marquee-track, .bupin-lp .blp-heart, .bupin-lp .blp-eyebrow .dot { animation: none; }
