@@ -3,7 +3,7 @@
 > **Documento principal de transferência.** Se você acabou de clonar este repositório
 > em outro computador, **leia este arquivo de cima a baixo** antes de tocar em qualquer coisa.
 >
-> Última atualização: commit `2279729` — branch `main`.
+> Última atualização: commit `1e32d3b` (10/11/2026) — branch `main`.
 
 ---
 
@@ -543,7 +543,47 @@ URL de produção única: **https://bupin-app.vercel.app** (projeto Vercel = `bu
 ### 12.8 Validações
 - `npx tsc --noEmit` = 0 erros; `npx vitest run` = 1 passed; `npx eslint` = 0 erros.
 
----
-**Fim do handoff.** Bom trabalho no PC novo! 🚀
+### 12.9 Landing page BUPIN na rota `/` + captura de leads — 10/11/2026 (`5164011`)
+- **Landing page** do produto na rota `/` (`src/routes/index.tsx` + `src/routes/lp.css`), na identidade
+  da marca (dark chocolate + bege areia). Mockup de celular com vídeos reais do cardápio.
+- **Formulário de leads** no fim da LP → tabela `leads` — **migration `0006_leads.sql`**
+  (⚠️ rodar no Supabase antes do primeiro deploy).
+- **Aba "Leads da LP"** no Super Admin (`src/components/dashboard/LeadsSection.tsx`):
+  lista e-mail, WhatsApp e avanço de status (Novo → Contatado → Demo → Fechado).
+- Versão estática standalone em `landing/index.html` (abre sem build) + vídeos em `public/landing/videos/`.
+- Guia: `landing/INTEGRACAO-SUPER-ADMIN.md`.
 
-  `Authentication → Users` se ainda existir. Ela não tem estabelecimento, é lixo.
+### 12.10 Hardening do fluxo de auditoria — 10/11/2026 (`8cebb18`)
+- **Migration `0007_fix_new_user_trigger.sql`** — ajusta o trigger de novo usuário
+  (⚠️ **nunca pular**; aplicar após a `0006`).
+- Limpeza de peso morto: imagens/vídeos duplicados da LP removidos de `landing/`
+  (ficaram só os de `public/landing/`), pacote enxugado no `package-lock.json`.
+- Reforços em `src/lib/media.ts`, `src/lib/telemetry.ts` e `admin.tsx`.
+
+### 12.11 Docs e comentários — 10/11/2026 (`b655dea`)
+- Comentários do código refatorados; **README raiz reescrito** (agora aponta a landing page
+  e a ordem das migrations: `0000 → 0002 → 0004 → 0005 → 0006 → 0007`).
+
+### 12.12 Tema claro/escuro do painel admin — 10/11/2026 (`1e32d3b`)
+- Painel `/admin` ganhou **tema claro/escuro** (`src/routes/index.tsx` + `lp.css`).
+- Copy da landing page neutralizada (sem "Bupin" hardcode em lugares errados).
+
+---
+
+## 13. ⏳ Atualização das pendências (10/11/2026)
+
+Revisão do estado das pendências da seção 4 após os commits de hoje:
+
+| Pendência (seção 4) | Estado | Observação |
+| --- | --- | --- |
+| 4.1 Resetar senha do Postgres | ⚠️ verificar | Confirmar no dashboard se já foi feita |
+| 4.2 Auth → URL Configuration | ⚠️ verificar | Site URL/Redirects para `bupin-app.vercel.app` |
+| 4.3 Env vars na Vercel | ⚠️ verificar | As 6 variáveis, nos 3 ambientes |
+| 4.4 Primeiro cliente real | ⏳ aberta | Usar o Caminho B (vínculo automático) |
+| 4.5 Aba "Usuários" no Super Admin | ⏳ não implementada | Opcional |
+| 4.6 Limpeza (`tmp-deploy*.log`, conta de teste) | ⏳ aberta | Verificar se ainda existem |
+| **Nova: rodar migrations 0005–0007** | 🔴 se não rodou | `0006_leads.sql` e `0007_fix_new_user_trigger.sql` via SQL Editor |
+
+---
+
+**Fim do handoff.** Bom trabalho no PC novo! 🚀
