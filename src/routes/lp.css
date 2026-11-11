@@ -103,7 +103,7 @@
   border: 1px solid var(--blp-accent-line);
   display: grid; place-items: center;
   font-family: var(--blp-word);
-  color: var(--blp-accent); font-size: 19px;
+  color: var(--blp-accent-ink); font-size: 19px;
 }
 .bupin-lp .blp-logo-name { font-family: var(--blp-word); font-size: 20px; letter-spacing: .14em; color: var(--blp-ink); }
 .bupin-lp .blp-nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--blp-muted); }
@@ -460,11 +460,25 @@
   .bupin-lp .blp-section { padding: 70px 0; }
   .bupin-lp .blp-frow { grid-template-columns: 1fr; }
   .bupin-lp .blp-wrap { padding: 0 36px; }
-  /* Tipografia mobile: títulos e parágrafos menores que 18px ganham
-     line-height mais folgado pra leitura confortável na tela estreita. */
-  .bupin-lp h2 { font-size: clamp(26px, 7.2vw, 32px); }
-  .bupin-lp .blp-price-card { padding: 28px 26px; }
-  .bupin-lp .blp-filters span { padding: 4px 12px; }
+
+  /* ── NAV mobile enxuta ─────────────────────────────────────────
+     Cabe logo + toggle de tema. "Entrar" e o CTA saem da barra (o
+     CTA principal já existe em cheio no hero e no card de preço). */
+  .bupin-lp .blp-nav .blp-btn-link { display: none; }
+  .bupin-lp .blp-nav .blp-btn-primary { display: none; }
+  .bupin-lp .blp-nav-inner { height: 60px; }
+  .bupin-lp .blp-logo { gap: 10px; }
+  .bupin-lp .blp-logo-mark { width: 32px; height: 32px; font-size: 17px; border-radius: 9px; }
+  .bupin-lp .blp-logo-name { font-size: 17px; }
+
+  /* ── Botões do hero: empilhados, largura total confortável ──── */
+  .bupin-lp .blp-hero-ctas { flex-direction: column; }
+  .bupin-lp .blp-hero-ctas .blp-btn { width: 100%; justify-content: center; }
+  .bupin-lp .blp-hero-facts { flex-wrap: wrap; gap: 10px 16px; }
+
+  /* ── Marquee: respirando, sem encostar no mockup do celular ── */
+  .bupin-lp .blp-marquee { margin-top: 24px; padding: 18px 0; }
+  .bupin-lp .blp-phone { margin: 28px auto 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .bupin-lp .blp-marquee-track, .bupin-lp .blp-heart, .bupin-lp .blp-eyebrow .dot { animation: none; }
