@@ -49,7 +49,9 @@ import {
 import { initTelemetry, track } from "@/lib/telemetry";
 import type { Tables } from "@/integrations/supabase/types";
 
-type Product = Tables<"products">;
+type Product = Tables<"public_menu_products">;
+type Tenant = Tables<"public_menu">;
+type Category = Tables<"public_menu_children">;
 
 export const Route = createFileRoute("/c/$slug")({
   ssr: false,
@@ -80,20 +82,20 @@ function CustomerPage() {
   const { data, isLoading } = useQuery({
     queryKey: ["menu", slug],
     queryFn: async () => {
+      // View pública enxuta (migration 0009): sem wifi_password, plan, owner.
+      // A senha do Wi-Fi vem sob demanda via RPC tenant_wifi ao abrir o modal.
       const { data: tenant } = await supabase
-        .from("tenants")
+        .from("public_menu")
         .select("*")
         .eq("slug", slug)
-        .eq("active", true)
         .maybeSingle();
       if (!tenant) return null;
       const [cats, prods] = await Promise.all([
-        supabase.from("categories").select("*").eq("tenant_id", tenant.id).order("sort_order"),
+        supabase.from("public_menu_children").select("*").eq("tenant_id", tenant.id).order("sort_order"),
         supabase
-          .from("products")
+          .from("public_menu_products")
           .select("*")
           .eq("tenant_id", tenant.id)
-          .eq("is_available", true)
           .order("sort_order"),
       ]);
       return { tenant, categories: cats.data ?? [], products: prods.data ?? [] };
@@ -138,14 +140,24 @@ function Hub({
   table,
   onExplore,
 }: {
-  tenant: Tables<"tenants">;
+  tenant: Tenant;
   table?: string | undefined;
   onExplore: () => void;
 }) {
   const [wifiOpen, setWifiOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  // Senha buscada sob demanda (RPC tenant_wifi) — não vem mais no select inicial.
+  const [wifiPwd, setWifiPwd] = useState<string | null>(null);
   const bg = resolveMedia(tenant.bg_image_url);
   const isVideo = /\.(mp4|webm|mov)(\?|$)/i.test(bg);
+
+  async function openWifi() {
+    setWifiOpen(true);
+    if (wifiPwd === null) {
+      const { data } = await supabase.rpc("tenant_wifi", { _slug: tenant.slug });
+      setWifiPwd(data?.[0]?.password ?? "");
+    }
+  }
 
   return (
     <main className="relative h-dvh overflow-hidden">
@@ -199,7 +211,7 @@ function Hub({
             <button
               onClick={() => {
                 track("wifi_open");
-                setWifiOpen(true);
+                void openWifi();
               }}
               className="glass flex h-14 w-full items-center justify-center gap-2 rounded-2xl font-medium active:scale-[0.98]"
             >
@@ -223,12 +235,14 @@ function Hub({
           </div>
           <div className="rounded-xl bg-secondary p-4">
             <dt className="text-xs text-muted-foreground">Senha</dt>
-            <dd className="mt-1 font-mono font-semibold">{tenant.wifi_password}</dd>
+            <dd className="mt-1 font-mono font-semibold">
+              {wifiPwd === null ? "…" : wifiPwd || "não configurada"}
+            </dd>
           </div>
         </dl>
         <button
           onClick={async () => {
-            await navigator.clipboard.writeText(tenant.wifi_password ?? "");
+            await navigator.clipboard.writeText(wifiPwd ?? "");
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
           }}
@@ -288,7 +302,7 @@ function Feed({
   products,
   onBack,
 }: {
-  categories: Tables<"categories">[];
+  categories: Category[];
   products: Product[];
   onBack: () => void;
 }) {

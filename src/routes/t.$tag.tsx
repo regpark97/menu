@@ -45,22 +45,20 @@ function TagRedirect() {
 
   useEffect(() => {
     (async () => {
-      const { data } = await supabase
-        .from("nfc_tags")
-        .select("custom_redirect_url, table_label, active, tenants(slug)")
-        .eq("tag_code", tag)
-        .maybeSingle();
-      if (!data || !data.active) return setError(true);
-      if (data.custom_redirect_url) {
-        window.location.replace(data.custom_redirect_url);
+      // RPC resolve_tag (migration 0009): consulta pontual, sem expor a
+      // tabela nfc_tags para leitura anônima generalizada.
+      const { data } = await supabase.rpc("resolve_tag", { _code: tag });
+      const row = data && data.length ? data[0] : null;
+      if (!row || !row.active) return setError(true);
+      if (row.custom_redirect_url) {
+        window.location.replace(row.custom_redirect_url);
         return;
       }
-      const slug = (data.tenants as { slug: string } | null)?.slug;
-      if (!slug) return setError(true);
+      if (!row.slug) return setError(true);
       navigate({
         to: "/c/$slug",
-        params: { slug },
-        search: { t: data.table_label ?? undefined },
+        params: { slug: row.slug },
+        search: { t: row.table_label ?? undefined },
         replace: true,
       });
     })();

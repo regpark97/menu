@@ -77,7 +77,10 @@ Tabelas centrais — RLS em tudo, super admin via `user_roles.has_role`:
 
 Migrations em `drizzle/migrations/` (aplique pela ordem no SQL Editor):
 `0000` base → `0002` bucket de mídia → `0004` chamadas → `0005` métricas v2 →
-`0006` **leads da LP** → `0007` **fix do trigger de novo usuário** (nunca pule).
+`0006` **leads da LP** → `0007` **fix do trigger de novo usuário** (nunca pule) →
+`0008` isolamento do storage por tenant → `0009` superfície pública (view/RPCs) →
+`0010` trava das policies públicas (**só depois do deploy do código novo** —
+ver HANDOFF seção 14).
 
 ## Desenvolvimento local
 

@@ -312,8 +312,81 @@ export type Database = {
         };
         Relationships: [];
       };
+      leads: {
+        Row: {
+          id: number;
+          establishment: string;
+          owner: string;
+          phone: string;
+          email: string;
+          segment: string;
+          status: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: number;
+          establishment: string;
+          owner: string;
+          phone: string;
+          email: string;
+          segment: string;
+          status?: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: number;
+          establishment?: string;
+          owner?: string;
+          phone?: string;
+          email?: string;
+          segment?: string;
+          status?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
+      public_menu: {
+        Row: {
+          id: string;
+          slug: string;
+          name: string;
+          tagline: string | null;
+          logo_url: string | null;
+          bg_image_url: string | null;
+          google_review_url: string | null;
+          wifi_ssid: string | null;
+        };
+        Relationships: [];
+      };
+      public_menu_children: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          name: string;
+          sort_order: number;
+        };
+        Relationships: [];
+      };
+      public_menu_products: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          category_id: string | null;
+          name: string;
+          description: string | null;
+          price_cents: number;
+          media_url: string | null;
+          media_type: string;
+          media_gallery: Json;
+          modifiers: Json;
+          is_available: boolean;
+          is_featured: boolean;
+          sort_order: number;
+        };
+        Relationships: [];
+      };
       product_intelligence_view: {
         Row: {
           avg_attention_s: number | null;
@@ -382,6 +455,19 @@ export type Database = {
         }[];
       };
       user_id_by_email: { Args: { _email: string }; Returns: string };
+      tenant_wifi: {
+        Args: { _slug: string };
+        Returns: { ssid: string; password: string }[];
+      };
+      resolve_tag: {
+        Args: { _code: string };
+        Returns: {
+          slug: string;
+          table_label: string | null;
+          custom_redirect_url: string | null;
+          active: boolean;
+        }[];
+      };
     };
     Enums: {
       app_role: "super_admin" | "user";

@@ -583,7 +583,49 @@ Revisão do estado das pendências da seção 4 após os commits de hoje:
 | 4.5 Aba "Usuários" no Super Admin | ⏳ não implementada | Opcional |
 | 4.6 Limpeza (`tmp-deploy*.log`, conta de teste) | ⏳ aberta | Verificar se ainda existem |
 | **Migrations 0005–0007** | ✅ rodadas | Confirmado pelo dono do projeto em 10/11/2026 |
+| **Correções da auditoria (C1–C3)** | 🆕 implementadas | Migrations `0008` (storage por tenant), `0009` (superfície pública) e `0010` (trava das policies) + código atualizado — ver seção 14 |
+| **Rodar 0008–0010 no Supabase** | 🔴 pendente | ⚠️ Ordem: 0008 e 0009 podem rodar já; 0010 SÓ depois do deploy do código novo |
 | **Auditoria de segurança/código** | 🆕 ver docs/AUDITORIA-2026-11-10.md | 1 achado CRÍTICO (storage sem isolamento por tenant) + 2 altos; correções sugeridas no relatório |
+
+---
+
+## 14. 🔒 Correções de segurança implementadas (10/11/2026, audit ref. `docs/AUDITORIA-2026-11-10.md`)
+
+Três migrations novas + código do cardápio atualizado. **Validado:** tsc sem erros novos,
+3 testes passando.
+
+### O que cada uma corrige
+
+| Migration | Corrige | O que faz |
+| --- | --- | --- |
+| `0008_storage_tenant_isolation.sql` | C1 (crítica) | Policies do bucket `media` passam a exigir que a 1ª pasta do path seja um tenant do qual o usuário é dono (ou super admin). Impede que um dono sobrescreva/apague mídia de outro. |
+| `0009_public_surface.sql` | C3 | View `public_menu` (sem `wifi_password`/`plan`/`owner`) + RPC `tenant_wifi(_slug)` (senha sob demanda) + RPC `resolve_tag(_code)` (lookup NFC pontual). |
+| `0010_lock_public_policies.sql` | C2/C3 | Remove leitura anônima direta de `tenants`, `nfc_tags`, `categories`, `products`. Telemetria reescrita com helper `tenant_is_active` (security definer) para não quebrar. |
+
+### ⚠️ Sequência de rollout (NÃO inverta)
+
+```
+1. Rodar 0008 no SQL Editor        (pode rodar já — só endurece o storage)
+2. Rodar 0009 no SQL Editor        (pode rodar já — só adiciona view/RPCs)
+3. git push origin main            (deploy do código que usa view/RPCs)
+4. VERIFICAR produção: /c/francisco-coffee e /t/tag-001 funcionando
+5. SÓ ENTÃO rodar 0010             (remove o acesso público direto —
+                                     rodar antes do passo 4 QUEBRA o cardápio)
+6. Testar de novo em produção + testar no celular pelo 4G
+```
+
+### Código alterado
+
+| Arquivo | Mudança |
+| --- | --- |
+| `src/routes/c.$slug.tsx` | Lê de `public_menu` / `public_menu_children` / `public_menu_products` (views); senha do Wi-Fi via RPC `tenant_wifi` ao abrir o modal |
+| `src/routes/t.$tag.tsx` | Lookup da tag via RPC `resolve_tag` (não mais select direto em `nfc_tags`) |
+| `src/integrations/supabase/types.ts` | Tipos atualizados: tabela `leads` (faltava!), views novas, RPCs `tenant_wifi` e `resolve_tag` |
+| `.env.example` | Documenta `SUPABASE_SERVICE_ROLE_KEY` (server-only) |
+
+> ℹ️ Depois que o banco real tiver as migrations 0008–0010 rodadas, rode
+> `npx supabase gen types` para regenerar o `types.ts` oficial (a versão atual
+> foi atualizada à mão para destravar o TypeScript).
 
 ---
 
