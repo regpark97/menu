@@ -583,8 +583,9 @@ Revisão do estado das pendências da seção 4 após os commits de hoje:
 | 4.5 Aba "Usuários" no Super Admin | ⏳ não implementada | Opcional |
 | 4.6 Limpeza (`tmp-deploy*.log`, conta de teste) | ⏳ aberta | Verificar se ainda existem |
 | **Migrations 0005–0007** | ✅ rodadas | Confirmado pelo dono do projeto em 10/11/2026 |
-| **Correções da auditoria (C1–C3)** | 🆕 implementadas | Migrations `0008` (storage por tenant), `0009` (superfície pública) e `0010` (trava das policies) + código atualizado — ver seção 14 |
-| **Rodar 0008–0010 no Supabase** | 🔴 pendente | ⚠️ Ordem: 0008 e 0009 podem rodar já; 0010 SÓ depois do deploy do código novo |
+| **Correções da auditoria (C1–C3)** | ✅ aplicadas em produção | Migrations 0008–0010 rodadas + deploy verificado — detalhe em `docs/HISTORICO-2026-11-10-auditoria.md` |
+| **LP mobile (bordas/logo/nav/marquee)** | ✅ aplicado | Commits `c2a2145` e `5b254e4` — medido com Playwright |
+| **Regenerar types.ts oficial** | ⏳ pendente | `npx supabase gen types` (versão atual é manual, completa) |
 | **Auditoria de segurança/código** | 🆕 ver docs/AUDITORIA-2026-11-10.md | 1 achado CRÍTICO (storage sem isolamento por tenant) + 2 altos; correções sugeridas no relatório |
 
 ---

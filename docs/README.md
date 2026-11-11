@@ -1,4 +1,4 @@
-# 📖 Documentação SipFlow
+# 📖 Documentação Bupin
 
 Índice de toda a documentação do projeto.
 
@@ -9,6 +9,8 @@
 | [`SUPABASE.md`](./SUPABASE.md)     | Backend          | Schema, tabelas, RLS, funções, RPCs, segurança do banco          |
 | [`OPERACAO.md`](./OPERACAO.md)     | Atendimento      | Criar cliente, vincular dono, tags NFC, diagnóstico de problemas |
 | [`HISTORICO.md`](./HISTORICO.md)   | Todos            | Linha do tempo: o que foi feito, quando e por quê                |
+| [`HISTORICO-2026-11-10-auditoria.md`](./HISTORICO-2026-11-10-auditoria.md) | Todos | Auditoria de segurança completa + correções C1–C3 e LP mobile |
+| [`AUDITORIA-2026-11-10.md`](./AUDITORIA-2026-11-10.md) | Dev | Relatório técnico bruto da auditoria (12 achados com SQL de correção) |
 | [`../MIGRACAO-SUPABASE.md`](../MIGRACAO-SUPABASE.md) | Setup inicial | Guia original da migração de banco do Lovable |
 
 ---
@@ -27,3 +29,4 @@
 | Conceder Super Admin a alguém                    | [`OPERACAO.md`](./OPERACAO.md) seção 6             |
 | Saber o que já foi feito e por quê               | [`HISTORICO.md`](./HISTORICO.md)                   |
 | Saber o que ainda falta                          | [`../HANDOFF.md`](../HANDOFF.md) seção 4           |
+| Entender as correções de segurança de 10/11      | [`HISTORICO-2026-11-10-auditoria.md`](./HISTORICO-2026-11-10-auditoria.md) |
