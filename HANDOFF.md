@@ -630,4 +630,35 @@ Três migrations novas + código do cardápio atualizado. **Validado:** tsc sem 
 
 ---
 
+## 15. 📱 Fix mobile da LP (11/11/2026 — sessão com o Claude Code)
+
+O usuário reportou a LP mal formatada no celular. Investigação do CSS revelou **5 bugs**,
+incluindo uma **regressão**: o commit `5b254e4` apagou sem querer as regras de tipografia
+do commit anterior `c2a2145` ao editar o bloco `@media (max-width: 640px)`.
+
+| # | Bug | Causa raiz | Correção |
+| --- | --- | --- | --- |
+| 1 | Tipografia "gigante" no mobile (títulos estourando, cards sem respiro) | Regressão: regras do `c2a2145` (`h2` clamp, paddings do price-card/filters) removidas por engano no `5b254e4` | Reescritas dentro do bloco `@media 640px` + `blp-lead-form { padding: 32px 24px }` |
+| 2 | Pílulas do mockup do celular (Destaques/Tacos/Burritos/Especialidades) vazando | `.blp-topbar` sem `flex-wrap` — 4 pílulas não cabem nos 300px | `flex-wrap: wrap` (quebram em 2 linhas) |
+| 3 | Zoom automático do iOS ao focar o formulário de leads | Inputs com `font-size: 14.5px` (< 16px) disparam o zoom do Safari | `font-size: 16px` nos inputs/select no `@media 640px` |
+| 4 | Mockup clipado/colado nas bordas em telas estreitas (iPhone SE 320px) | Mockup fixo de 300px + 72px de padding da `.blp-wrap` | `width: min(300px, 100vw - 88px)` |
+| 5 | Âncoras (#como-funciona etc.) abrindo embaixo da nav fixa | Falta `scroll-margin-top` — a nav de 60px cobre o título | `section[id] { scroll-margin-top: 76px }` |
+
+**Arquivos alterados** (commit `d87c7de`, autor `regpark97`):
+`src/routes/lp.css` e `landing/index.html` (versão estática, mesmas correções).
+
+**Validação:** `vite build` ok (2064 módulos, CSS `index-YStszgQX.css`) · `vitest` 3/3
+passando · CSS compilado conferido regra a regra · deploy verificado em produção
+(assets com hash novo servidos em `bupin-app.vercel.app`).
+
+**Ambiente local desta sessão:** Node v22.14.0 instalado portátil (sem admin) em
+`%LOCALAPPDATA%\nodejs2` — o npm desta máquina não resolve por PATH; chame
+`& "$env:LOCALAPPDATA\nodejs2\node-v22.14.0-win-x64\npm.cmd"`.
+
+> ⚠️ **Para não repetir a regressão:** ao editar o bloco `@media (max-width: 640px)` de
+> `lp.css`, sempre **adicione** regras ao final do bloco — nunca substitua o conteúdo
+> existente. O bug surgiu de um replace que apagou linhas vizinhas.
+
+---
+
 **Fim do handoff.** Bom trabalho no PC novo! 🚀

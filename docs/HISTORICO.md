@@ -464,6 +464,32 @@ O `active` sozinho libera a leitura pública. **Confirmado ao vivo:** `/t/tag-00
 
 ---
 
+## Fase 11 — Fix mobile da landing page (11/11/2026)
+
+**Contexto:** usuário reportou a LP mal formatada no celular, mesmo depois dos fixes
+da noite de 10/11 (`c2a2145` e `5b254e4`). Análise do CSS revelou 5 bugs restantes.
+
+**Descoberta principal:** o `5b254e4` (fix do logo/nav mobile) **regrediu** o commit
+anterior `c2a2145` — ao editar o bloco `@media (max-width: 640px)`, as regras de
+tipografia (`h2` clamp, paddings do price-card/filters) foram substituídas em vez de
+mantidas. Por isso a página continuava "gigante" no celular.
+
+| Fix | Detalhe |
+| --- | --- |
+| Tipografia restaurada | `h2 { clamp(26px, 7.2vw, 32px) }`, paddings do price-card/lead-form/filters — regras perdidas da regressão |
+| Pílulas do mockup | `flex-wrap: wrap` na `.blp-topbar` — antes vazavam do celular de 300px |
+| Zoom do iOS | inputs/select com 16px no mobile (Safari da zoom automático abaixo disso) |
+| Mockup fluido | `width: min(300px, 100vw - 88px)` — não estoura nem em iPhone SE (320px) |
+| Âncoras | `scroll-margin-top: 76px` — a nav fixa cobria os títulos das seções |
+
+**Commit:** `d87c7de` (`fix(lp): restaura tipografia mobile perdida + fixes iOS, mockup e ancoras`) —
+autor `regpark97` ✅. Build validado (vite + vitest 3/3), deploy confirmado em produção
+pelo hash do CSS servido (`index-YStszgQX.css`).
+
+Aplicado tanto em `src/routes/lp.css` quanto na versão estática `landing/index.html`.
+
+---
+
 ## Documentação relacionada
 
 | Arquivo               | Conteúdo                                        |

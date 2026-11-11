@@ -30,3 +30,4 @@
 | Saber o que já foi feito e por quê               | [`HISTORICO.md`](./HISTORICO.md)                   |
 | Saber o que ainda falta                          | [`../HANDOFF.md`](../HANDOFF.md) seção 4           |
 | Entender as correções de segurança de 10/11      | [`HISTORICO-2026-11-10-auditoria.md`](./HISTORICO-2026-11-10-auditoria.md) |
+| Entender o fix mobile da LP de 11/11             | [`../HANDOFF.md`](../HANDOFF.md) seção 15 + [`HISTORICO.md`](./HISTORICO.md) Fase 11 |
