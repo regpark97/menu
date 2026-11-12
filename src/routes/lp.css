@@ -46,6 +46,9 @@
   isolation: isolate;
   transition: background 0.4s, color 0.4s;
 }
+/* evita estouro de padding/borda em telas estreitas */
+.bupin-lp *, .bupin-lp *::before, .bupin-lp *::after { box-sizing: border-box; }
+
 /* ── TEMA CLARO — igual ao painel admin :root ──────────────────────
    oklch do styles.css: bg 0.985/0.006/75, primary 0.42/0.07/45,
    gold 0.55/0.1/55, secondary 0.94/0.018/72. */
@@ -148,11 +151,11 @@
 @keyframes blp-pulse { 50% { opacity: .3; } }
 .bupin-lp h1 {
   font-family: var(--blp-display); font-weight: 600;
-  font-size: clamp(40px, 5.4vw, 64px); line-height: 1.08; letter-spacing: -.01em;
+  font-size: clamp(34px, 9.5vw, 64px); line-height: 1.08; letter-spacing: -.01em;
   color: var(--blp-ink); margin: 0;
 }
 .bupin-lp h1 em { font-style: italic; color: var(--blp-accent); font-weight: 500; }
-.bupin-lp .blp-lead { margin-top: 24px; font-size: 17px; color: var(--blp-muted); max-width: 520px; }
+.bupin-lp .blp-lead { margin-top: 24px; font-size: clamp(15px, 2.6vw, 17px); color: var(--blp-muted); max-width: 520px; }
 .bupin-lp .blp-lead strong { color: var(--blp-ink); font-weight: 600; }
 .bupin-lp .blp-hero-ctas { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; }
 .bupin-lp .blp-hero-facts { display: flex; gap: 28px; margin-top: 44px; color: var(--blp-faint); font-size: 13px; flex-wrap: wrap; }
@@ -457,25 +460,30 @@
 @media (max-width: 640px) {
   .bupin-lp .blp-steps, .bupin-lp .blp-bento { grid-template-columns: 1fr; }
   .bupin-lp .blp-b-item.wide, .bupin-lp .blp-b-item.tall { grid-column: span 1; grid-row: span 1; }
-  .bupin-lp .blp-bars { grid-template-columns: repeat(3, 1fr); height: auto; gap: 20px; }
-  .bupin-lp .blp-bar { height: 120px; }
-  .bupin-lp .blp-section { padding: 70px 0; }
+  .bupin-lp .blp-bars { grid-template-columns: repeat(3, 1fr); height: auto; gap: 16px; }
+  .bupin-lp .blp-bar { height: 110px; }
+  .bupin-lp .blp-section { padding: 56px 0; }
   .bupin-lp .blp-frow { grid-template-columns: 1fr; }
-  .bupin-lp .blp-wrap { padding: 0 36px; }
+  .bupin-lp .blp-wrap { padding: 0 20px; }
 
   /* ── Tipografia/cards mobile (do commit c2a2145, restaurada —
      o 5b254e4 apagou sem querer ao mexer no bloco) ──────────── */
-  .bupin-lp h2 { font-size: clamp(26px, 7.2vw, 32px); }
-  .bupin-lp .blp-price-card { padding: 28px 26px; }
-  .bupin-lp .blp-lead-form { padding: 32px 24px; }
+  .bupin-lp h2 { font-size: clamp(24px, 6.8vw, 30px); }
+  .bupin-lp .blp-sec-sub { font-size: 15px; }
+  .bupin-lp .blp-price-card { padding: 28px 22px; }
+  .bupin-lp .blp-price-card .amount { font-size: 52px; }
+  .bupin-lp .blp-lead-form { padding: 28px 20px; }
   .bupin-lp .blp-filters span { padding: 4px 12px; }
 
   /* ── iOS: campo com fonte < 16px dispara zoom automático ──── */
   .bupin-lp .blp-field input, .bupin-lp .blp-field select { font-size: 16px; }
 
   /* ── Mockup do celular nunca estoura/clipa (iPhone SE 320px) ─ */
-  .bupin-lp .blp-phone { width: min(300px, calc(100vw - 88px)); }
+  .bupin-lp .blp-phone { width: min(300px, calc(100vw - 64px)); }
+  .bupin-lp .blp-topbar { padding: 44px 10px 10px; }
   .bupin-lp .blp-topbar span { padding: 4px 9px; }
+  .bupin-lp .blp-card .blp-name { font-size: 22px; }
+  .bupin-lp .blp-card .blp-desc { font-size: 11.5px; }
 
   /* ── NAV mobile enxuta ─────────────────────────────────────────
      Cabe logo + toggle de tema. "Entrar" e o CTA saem da barra (o
@@ -488,13 +496,57 @@
   .bupin-lp .blp-logo-name { font-size: 17px; }
 
   /* ── Botões do hero: empilhados, largura total confortável ──── */
+  .bupin-lp .blp-hero { padding: 96px 0 56px; }
   .bupin-lp .blp-hero-ctas { flex-direction: column; }
   .bupin-lp .blp-hero-ctas .blp-btn { width: 100%; justify-content: center; }
   .bupin-lp .blp-hero-facts { flex-wrap: wrap; gap: 10px 16px; }
 
+  /* ── Eyebrow do hero: quebra em vez de vazar por cima do h1 ── */
+  .bupin-lp .blp-eyebrow { flex-wrap: wrap; font-size: 10.5px; letter-spacing: .1em; padding: 6px 12px; margin-bottom: 20px; }
+
   /* ── Marquee: respirando, sem encostar no mockup do celular ── */
-  .bupin-lp .blp-marquee { margin-top: 24px; padding: 18px 0; }
-  .bupin-lp .blp-phone { margin: 28px auto 0; }
+  .bupin-lp .blp-marquee { margin-top: 24px; padding: 14px 0; }
+  .bupin-lp .blp-phone { margin: 24px auto 0; }
+
+  /* ── Steps / bento com respiro menor (não encostar texto) ──── */
+  .bupin-lp .blp-step { padding: 24px 20px; }
+  .bupin-lp .blp-step .num { font-size: 40px; }
+  .bupin-lp .blp-step h3 { font-size: 17px; }
+  .bupin-lp .blp-step .tag { top: 16px; right: 16px; }
+  .bupin-lp .blp-b-item { padding: 22px 20px; }
+  .bupin-lp .blp-b-item h3 { font-size: 16px; }
+  .bupin-lp .blp-b-item p { font-size: 13.5px; }
+
+  /* ── Dashboard mock: sem brigas de espaço (título × filtros) ── */
+  .bupin-lp .blp-dash { padding: 18px 16px; }
+  .bupin-lp .blp-dash-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .bupin-lp .blp-dash-head .t { font-size: 14px; }
+  .bupin-lp .blp-stat { padding: 14px; }
+  .bupin-lp .blp-stat .v { font-size: 22px; }
+  .bupin-lp .blp-bar .lab { font-size: 10.5px; }
+  .bupin-lp .blp-filters { flex-wrap: wrap; }
+
+  /* ── Band de decisão + final: paddings proporcionais ────────── */
+  .bupin-lp .blp-band { padding: 28px 20px; gap: 24px; }
+  .bupin-lp .blp-band h2 { font-size: clamp(24px, 6.8vw, 30px); }
+  .bupin-lp .blp-band li { font-size: 14px; gap: 10px; }
+  .bupin-lp .blp-final { padding: 72px 20px 48px; }
+  .bupin-lp .blp-final .blp-final-sub { margin-top: 14px; }
+
+  /* ── FAQ e footer: sem aperto ───────────────────────────────── */
+  .bupin-lp .blp-faq { gap: 10px; margin-top: 36px; }
+  .bupin-lp details { padding: 16px 18px; }
+  .bupin-lp .blp-footer { padding: 32px 0; }
+  .bupin-lp .blp-foot { flex-direction: column; text-align: center; gap: 8px; }
+}
+/* ── Telas muito estreitas (≤380px): hero e cards ainda mais enxutos ── */
+@media (max-width: 380px) {
+  .bupin-lp .blp-wrap { padding: 0 16px; }
+  .bupin-lp h1 { font-size: 30px; }
+  .bupin-lp .blp-lead { font-size: 14.5px; }
+  .bupin-lp .blp-hero-facts { font-size: 12px; gap: 8px 12px; }
+  .bupin-lp .blp-price-card .amount { font-size: 44px; }
+  .bupin-lp .blp-card .blp-name { font-size: 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .bupin-lp .blp-marquee-track, .bupin-lp .blp-heart, .bupin-lp .blp-eyebrow .dot { animation: none; }
