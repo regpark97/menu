@@ -506,7 +506,7 @@
   .bupin-lp .blp-eyebrow { flex-wrap: wrap; font-size: 10.5px; letter-spacing: .1em; padding: 6px 12px; margin-bottom: 20px; }
 
   /* ── Marquee: respirando, sem encostar no mockup do celular ── */
-  .bupin-lp .blp-marquee { margin-top: 24px; padding: 14px 0; }
+  .bupin-lp .blp-marquee { margin-top: 32px; padding: 14px 0; margin-bottom: 56px; }
   .bupin-lp .blp-phone { margin: 24px auto 0; }
 
   /* ── Steps / bento com respiro menor (não encostar texto) ──── */
