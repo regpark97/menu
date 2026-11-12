@@ -406,17 +406,19 @@
     .stats{grid-template-columns:1fr 1fr}
     .band{grid-template-columns:1fr;padding:40px 28px}
     .nav-links{display:none}
+    section.wrap{padding:96px 0 64px}
   }
   @media(max-width:640px){
     .steps,.bento{grid-template-columns:1fr}
     .b-item.wide,.b-item.tall{grid-column:span 1;grid-row:span 1}
     .bars{grid-template-columns:repeat(3,1fr);height:auto;gap:16px}
     .bar{height:110px}
-    section{padding:96px 0 64px}
+    /* `section.wrap` vence `.wrap{padding:0 24px}` abaixo (especificidade) */
+    section.wrap{padding:96px 0 64px}
     h2{font-size:clamp(24px,6.8vw,30px)}
     .sec-sub{font-size:15px}
     .wrap{padding:0 24px}
-    .hero{padding:96px 24px 56px}
+    section.hero{padding:96px 24px 56px}
     .price-card{padding:28px 22px}
     .price-card .amount{font-size:52px}
     .lead-form{padding:28px 20px}

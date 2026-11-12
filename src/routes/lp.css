@@ -457,16 +457,20 @@
   .bupin-lp .blp-band { grid-template-columns: 1fr; padding: 40px 28px; }
   .bupin-lp .blp-nav-links { display: none; }
   .bupin-lp .blp-wrap { padding: 0 32px; }
+  /* `section.` necessário: sem isso o `.blp-wrap` acima zera o padding vertical */
+  .bupin-lp section.blp-section { padding: 96px 0 64px; }
 }
 @media (max-width: 640px) {
   .bupin-lp .blp-steps, .bupin-lp .blp-bento { grid-template-columns: 1fr; }
   .bupin-lp .blp-b-item.wide, .bupin-lp .blp-b-item.tall { grid-column: span 1; grid-row: span 1; }
   .bupin-lp .blp-bars { grid-template-columns: repeat(3, 1fr); height: auto; gap: 16px; }
   .bupin-lp .blp-bar { height: 110px; }
-  .bupin-lp .blp-section { padding: 96px 0 64px; }
+  /* ATENÇÃO: precisa de `section.` para vencer `.blp-wrap { padding: 0 24px }`
+     que vem depois neste bloco e zeraria o padding vertical das seções. */
+  .bupin-lp section.blp-section { padding: 96px 0 64px; }
   .bupin-lp .blp-frow { grid-template-columns: 1fr; }
   .bupin-lp .blp-wrap { padding: 0 24px; }
-  .bupin-lp .blp-hero { padding: 96px 24px 56px; }
+  .bupin-lp section.blp-hero { padding: 96px 24px 56px; }
 
   /* ── Tipografia/cards mobile (do commit c2a2145, restaurada —
      o 5b254e4 apagou sem querer ao mexer no bloco) ──────────── */
@@ -498,6 +502,7 @@
   .bupin-lp .blp-logo-name { font-size: 17px; }
 
   /* ── Botões do hero: empilhados, largura total confortável ──── */
+  .bupin-lp section.blp-hero { padding: 96px 24px 56px; }
   .bupin-lp .blp-hero-ctas { flex-direction: column; }
   .bupin-lp .blp-hero-ctas .blp-btn { width: 100%; justify-content: center; }
   .bupin-lp .blp-hero-facts { flex-wrap: wrap; gap: 10px 16px; }
