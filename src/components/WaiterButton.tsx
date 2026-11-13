@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Bell, Receipt, UserRound, X, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useMenuLanguage } from "@/hooks/use-menu-language";
 
 type CallKind = "waiter" | "bill" | "manager";
 
@@ -19,6 +20,12 @@ export function WaiterButton({
   tenantId: string;
   table?: string | undefined;
 }) {
+  const { t } = useMenuLanguage();
+  const labels: Record<CallKind, string> = {
+    waiter: t("waiterTeam"),
+    bill: t("waiterBill"),
+    manager: t("waiterManager"),
+  };
   const [open, setOpen] = useState(false);
   const [sending, setSending] = useState<CallKind | null>(null);
   const [cooldown, setCooldown] = useState(false);
@@ -35,9 +42,9 @@ export function WaiterButton({
     if (error) {
       if (error.message.includes("Aguarde")) {
         setCooldown(true);
-        toast.error("Você já chamou há pouco. Aguarde um instante.");
+        toast.error(t("waiterCooldown"));
       } else {
-        toast.error("Não foi possível chamar agora. Tente novamente.");
+        toast.error(t("waiterError"));
       }
       return;
     }
@@ -45,12 +52,12 @@ export function WaiterButton({
     setCooldown(true);
     toast.success(
       kind === "bill"
-        ? "Conta solicitada. Já estamos a caminho!"
+        ? t("waiterToastBill")
         : kind === "manager"
-          ? "Gerente avisado. Um instante, por favor."
+          ? t("waiterToastManager")
           : table
-            ? `Garçom chamado para a Mesa ${table}!`
-            : "Garçom chamado! Já estamos indo.",
+            ? t("waiterToastTable", table)
+            : t("waiterToast"),
       { duration: 5000 },
     );
     setTimeout(() => setCooldown(false), 120_000);
@@ -72,14 +79,14 @@ export function WaiterButton({
               ) : (
                 <o.icon className="h-4 w-4 text-gold" />
               )}
-              {o.label}
+              {labels[o.kind]}
             </button>
           ))}
         </div>
       )}
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label="Chamar a equipe"
+        aria-label={t("waiterTeam")}
         className={`relative flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl transition active:scale-90 ${cooldown ? "opacity-60" : "animate-waiter-pulse"}`}
       >
         {open ? <X className="h-6 w-6" /> : <Bell className="h-6 w-6" />}

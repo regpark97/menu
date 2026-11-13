@@ -39,14 +39,16 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { WaiterButton } from "@/components/WaiterButton";
-import {
-  formatMoney,
-  resolveMedia,
-  parseGallery,
-  productPhotos,
-  type ModifierGroup,
-} from "@/lib/format";
+import { resolveMedia, parseGallery, productPhotos, type ModifierGroup } from "@/lib/format";
 import { initTelemetry, track } from "@/lib/telemetry";
+import { LanguageSelector } from "@/components/LanguageSelector";
+import {
+  MenuLanguageProvider,
+  MenuContentProvider,
+  useMenuLanguage,
+  useMenuText,
+} from "@/hooks/use-menu-language";
+import { moneyText } from "@/lib/menu-i18n";
 import type { Tables } from "@/integrations/supabase/types";
 
 type Product = Tables<"public_menu_products">;
@@ -75,6 +77,15 @@ export const Route = createFileRoute("/c/$slug")({
 });
 
 function CustomerPage() {
+  return (
+    <MenuLanguageProvider>
+      <CustomerContent />
+    </MenuLanguageProvider>
+  );
+}
+
+function CustomerContent() {
+  const { locale, setLocale } = useMenuLanguage();
   const { slug } = Route.useParams();
   const { t } = Route.useSearch();
   const [screen, setScreen] = useState<"hub" | "feed">("hub");
@@ -91,7 +102,11 @@ function CustomerPage() {
         .maybeSingle();
       if (!tenant) return null;
       const [cats, prods] = await Promise.all([
-        supabase.from("public_menu_children").select("*").eq("tenant_id", tenant.id).order("sort_order"),
+        supabase
+          .from("public_menu_children")
+          .select("*")
+          .eq("tenant_id", tenant.id)
+          .order("sort_order"),
         supabase
           .from("public_menu_products")
           .select("*")
@@ -112,15 +127,11 @@ function CustomerPage() {
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-gold border-t-transparent" />
       </div>
     );
-  if (!data)
-    return (
-      <div className="flex h-dvh items-center justify-center px-6 text-center text-muted-foreground">
-        Estabelecimento não encontrado.
-      </div>
-    );
+  if (!data) return <TranslatedNotFound />;
 
   return (
-    <>
+    <MenuContentProvider categories={data.categories} products={data.products}>
+      <LanguageSelector locale={locale} onChange={setLocale} />
       {screen === "hub" ? (
         <Hub tenant={data.tenant} table={t} onExplore={() => setScreen("feed")} />
       ) : (
@@ -131,7 +142,16 @@ function CustomerPage() {
         />
       )}
       <WaiterButton tenantId={data.tenant.id} table={t ?? undefined} />
-    </>
+    </MenuContentProvider>
+  );
+}
+
+function TranslatedNotFound() {
+  const { t } = useMenuLanguage();
+  return (
+    <div className="flex h-dvh items-center justify-center px-6 text-center text-muted-foreground">
+      {t("notFound")}
+    </div>
   );
 }
 
@@ -145,6 +165,7 @@ function Hub({
   onExplore: () => void;
 }) {
   const [wifiOpen, setWifiOpen] = useState(false);
+  const { t, locale } = useMenuLanguage();
   const [copied, setCopied] = useState(false);
   // Senha buscada sob demanda (RPC tenant_wifi) — não vem mais no select inicial.
   const [wifiPwd, setWifiPwd] = useState<string | null>(null);
@@ -177,7 +198,7 @@ function Hub({
       <div className="relative flex h-full flex-col px-6 pb-10 pt-6">
         {table && (
           <div className="mx-auto glass rounded-full px-4 py-1.5 text-xs uppercase tracking-[0.25em]">
-            Mesa {table}
+            {t("table", table)}
           </div>
         )}
         <div className="flex flex-1 flex-col items-center justify-center text-center">
@@ -194,7 +215,7 @@ function Hub({
             onClick={onExplore}
             className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary font-semibold text-primary-foreground active:scale-[0.98]"
           >
-            Explorar Cardápio <ArrowRight className="h-5 w-5" />
+            {t("explore")} <ArrowRight className="h-5 w-5" />
           </button>
           {tenant.google_review_url && (
             <a
@@ -204,7 +225,7 @@ function Hub({
               onClick={() => track("review_click")}
               className="glass flex h-14 w-full items-center justify-center gap-2 rounded-2xl font-medium active:scale-[0.98]"
             >
-              Avaliar no Google <ArrowUpRight className="h-5 w-5" />
+              {t("reviews")} <ArrowUpRight className="h-5 w-5" />
             </a>
           )}
           {tenant.wifi_ssid && (
@@ -215,7 +236,7 @@ function Hub({
               }}
               className="glass flex h-14 w-full items-center justify-center gap-2 rounded-2xl font-medium active:scale-[0.98]"
             >
-              Conectar ao Wi-Fi <ChevronRight className="h-5 w-5" />
+              {t("wifiConnect")} <ChevronRight className="h-5 w-5" />
             </button>
           )}
         </div>
@@ -226,17 +247,17 @@ function Hub({
           <div className="glass flex h-11 w-11 items-center justify-center rounded-full">
             <Wifi className="h-5 w-5 text-gold" />
           </div>
-          <h2 className="text-3xl">Wi-Fi da casa</h2>
+          <h2 className="text-3xl">{t("wifiTitle")}</h2>
         </div>
         <dl className="mt-6 space-y-3">
           <div className="rounded-xl bg-secondary p-4">
-            <dt className="text-xs text-muted-foreground">Rede</dt>
+            <dt className="text-xs text-muted-foreground">{t("wifiNetwork")}</dt>
             <dd className="mt-1 font-semibold">{tenant.wifi_ssid}</dd>
           </div>
           <div className="rounded-xl bg-secondary p-4">
-            <dt className="text-xs text-muted-foreground">Senha</dt>
+            <dt className="text-xs text-muted-foreground">{t("wifiPassword")}</dt>
             <dd className="mt-1 font-mono font-semibold">
-              {wifiPwd === null ? "…" : wifiPwd || "não configurada"}
+              {wifiPwd === null ? "…" : wifiPwd || t("unset")}
             </dd>
           </div>
         </dl>
@@ -250,11 +271,11 @@ function Hub({
         >
           {copied ? (
             <>
-              <Check className="h-5 w-5" /> Senha copiada
+              <Check className="h-5 w-5" /> {t("copiedPassword")}
             </>
           ) : (
             <>
-              <Copy className="h-5 w-5" /> Copiar Senha
+              <Copy className="h-5 w-5" /> {t("copyPassword")}
             </>
           )}
         </button>
@@ -272,6 +293,7 @@ function Sheet({
   onClose: () => void;
   children: React.ReactNode;
 }) {
+  const { t } = useMenuLanguage();
   return (
     <div
       className={`fixed inset-0 z-50 transition ${open ? "pointer-events-auto" : "pointer-events-none"}`}
@@ -287,7 +309,7 @@ function Sheet({
         <button
           onClick={onClose}
           className="absolute right-4 top-4 rounded-full p-2 text-muted-foreground"
-          aria-label="Fechar"
+          aria-label={t("close")}
         >
           <X className="h-5 w-5" />
         </button>
@@ -297,7 +319,7 @@ function Sheet({
   );
 }
 
-function Feed({
+export function Feed({
   categories,
   products,
   onBack,
@@ -307,6 +329,8 @@ function Feed({
   onBack: () => void;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { t } = useMenuLanguage();
+  const { text } = useMenuText();
   const [activeCat, setActiveCat] = useState<string | null>(products[0]?.category_id ?? null);
   const [customizing, setCustomizing] = useState<Product | null>(null);
   const [favs, setFavs] = useState<Set<string>>(new Set());
@@ -340,22 +364,22 @@ function Feed({
   return (
     <main className="relative h-dvh">
       <header className="pointer-events-none absolute inset-x-0 top-0 z-20 bg-top-scrim pb-8 pt-4">
-        <div className="pointer-events-auto flex items-center gap-2 px-4">
+        <div className="pointer-events-auto flex items-center gap-2 px-4 pr-14">
           <button
             onClick={onBack}
             className="glass flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
-            aria-label="Voltar"
+            aria-label={t("back")}
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <nav className="no-scrollbar flex gap-2 overflow-x-auto">
+          <nav className="no-scrollbar min-w-0 flex-1 flex gap-2 overflow-x-auto">
             {usedCats.map((c) => (
               <button
                 key={c.id}
                 onClick={() => jumpTo(c.id)}
                 className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${activeCat === c.id ? "bg-primary text-primary-foreground" : "glass"}`}
               >
-                {c.name}
+                {text(c.name)}
               </button>
             ))}
           </nav>
@@ -386,7 +410,7 @@ function Feed({
         ))}
         {products.length === 0 && (
           <div className="flex h-dvh items-center justify-center text-muted-foreground">
-            Cardápio em preparação.
+            {t("preparing")}
           </div>
         )}
       </div>
@@ -412,6 +436,8 @@ function ProductCard({
   const ref = useRef<HTMLElement>(null);
   const onFocusRef = useRef(onFocus);
   onFocusRef.current = onFocus;
+  const { t, locale } = useMenuLanguage();
+  const { text } = useMenuText();
   const mods = (product.modifiers as ModifierGroup[] | null) ?? [];
 
   // ── MOTOR DE ATENÇÃO (o coração da "inteligência" que vendemos) ─────────
@@ -517,32 +543,32 @@ function ProductCard({
         <div className="min-w-0 flex-1">
           {product.is_featured && (
             <span className="text-[10px] uppercase tracking-[0.3em] text-gold">
-              Destaque da casa
+              {t("featured")}
             </span>
           )}
-          <h2 className="mt-1 text-4xl leading-[1.05]">{product.name}</h2>
+          <h2 className="mt-1 text-4xl leading-[1.05]">{text(product.name)}</h2>
           {product.description && (
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              {product.description}
+              {text(product.description)}
             </p>
           )}
           <div className="mt-5 flex flex-wrap items-center gap-2">
             <span className="glass rounded-full px-4 py-2 text-sm font-semibold">
-              {formatMoney(product.price_cents)}
+              {moneyText(product.price_cents, locale)}
             </span>
             {mods.length > 0 && (
               <button
                 onClick={onCustomize}
                 className="flex items-center gap-1 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground active:scale-95"
               >
-                Personalizar <Plus className="h-4 w-4" />
+                {t("customize")} <Plus className="h-4 w-4" />
               </button>
             )}
           </div>
         </div>
         <button
           onClick={onFav}
-          aria-label="Favoritar"
+          aria-label={t("favorite")}
           className="glass flex h-14 w-14 shrink-0 items-center justify-center rounded-full active:scale-90"
         >
           <Heart
@@ -561,6 +587,8 @@ function ProductCard({
  */
 function CustomizeSheet({ product, onClose }: { product: Product | null; onClose: () => void }) {
   const [picked, setPicked] = useState<Record<string, number>>({});
+  const { t, locale } = useMenuLanguage();
+  const { text } = useMenuText();
   const [last, setLast] = useState<Product | null>(null);
   useEffect(() => {
     if (product) {
@@ -592,12 +620,12 @@ function CustomizeSheet({ product, onClose }: { product: Product | null; onClose
     <Sheet open={!!product} onClose={onClose}>
       {p && (
         <>
-          <p className="text-xs uppercase tracking-[0.25em] text-gold">Deixe do seu jeito</p>
-          <h2 className="mt-1 text-3xl">{p.name}</h2>
+          <p className="text-xs uppercase tracking-[0.25em] text-gold">{t("yourWay")}</p>
+          <h2 className="mt-1 text-3xl">{text(p.name)}</h2>
           <div className="mt-6 space-y-6">
             {mods.map((g) => (
               <div key={g.group}>
-                <p className="mb-2 text-sm font-semibold text-muted-foreground">{g.group}</p>
+                <p className="mb-2 text-sm font-semibold text-muted-foreground">{text(g.group)}</p>
                 <div className="space-y-2">
                   {g.options.map((o) => {
                     const on = `${g.group}::${o.name}` in picked;
@@ -613,10 +641,10 @@ function CustomizeSheet({ product, onClose }: { product: Product | null; onClose
                           >
                             {on && <Check className="h-3 w-3" />}
                           </span>
-                          {o.name}
+                          {text(o.name)}
                         </span>
                         <span className="text-sm text-muted-foreground">
-                          + {formatMoney(o.price_cents)}
+                          + {moneyText(o.price_cents, locale)}
                         </span>
                       </button>
                     );
@@ -626,12 +654,10 @@ function CustomizeSheet({ product, onClose }: { product: Product | null; onClose
             ))}
           </div>
           <div className="mt-6 flex items-center justify-between rounded-2xl bg-primary px-5 py-4 text-primary-foreground">
-            <span className="text-sm font-medium">Total</span>
-            <span className="text-xl font-bold tabular-nums">{formatMoney(total)}</span>
+            <span className="text-sm font-medium">{t("total")}</span>
+            <span className="text-xl font-bold tabular-nums">{moneyText(total, locale)}</span>
           </div>
-          <p className="mt-3 text-center text-xs text-muted-foreground">
-            Mostre ao atendente para fazer o pedido.
-          </p>
+          <p className="mt-3 text-center text-xs text-muted-foreground">{t("showWaiter")}</p>
         </>
       )}
     </Sheet>
