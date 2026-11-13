@@ -49,6 +49,8 @@ import {
   useMenuText,
 } from "@/hooks/use-menu-language";
 import { moneyText } from "@/lib/menu-i18n";
+import { syncMenuVideoPlayback } from "@/lib/menu-video";
+import { categoryProgress } from "@/lib/category-progress";
 import type { Tables } from "@/integrations/supabase/types";
 
 type Product = Tables<"public_menu_products">;
@@ -340,6 +342,40 @@ export function Feed({
     () => categories.filter((c) => products.some((p) => p.category_id === c.id)),
     [categories, products],
   );
+  const catsRef = useRef<HTMLElement>(null);
+  const [catIndicator, setCatIndicator] = useState({ visible: false, left: 0, width: 100 });
+
+  /** A régua só existe quando as pílulas não cabem; acompanha arraste e tradução. */
+  useEffect(() => {
+    const nav = catsRef.current;
+    if (!nav) return;
+    let frame = 0;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const next = categoryProgress(nav.clientWidth, nav.scrollWidth, nav.scrollLeft);
+        setCatIndicator((current) =>
+          current.visible === next.visible &&
+          Math.abs(current.left - next.left) < 0.1 &&
+          Math.abs(current.width - next.width) < 0.1
+            ? current
+            : next,
+        );
+      });
+    };
+    update();
+    nav.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(update);
+    observer?.observe(nav);
+    Array.from(nav.children).forEach((child) => observer?.observe(child));
+    return () => {
+      cancelAnimationFrame(frame);
+      observer?.disconnect();
+      nav.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [usedCats, text]);
 
   /** Pílula de categoria clicada: rola até o primeiro prato dela e registra o evento. */
   function jumpTo(catId: string) {
@@ -364,7 +400,7 @@ export function Feed({
   return (
     <main className="relative h-dvh">
       <header className="pointer-events-none absolute inset-x-0 top-0 z-20 bg-top-scrim pb-8 pt-4">
-        <div className="pointer-events-auto flex items-center gap-2 px-4 pr-14">
+        <div className="pointer-events-auto relative flex items-center gap-2 px-4 pr-14">
           <button
             onClick={onBack}
             className="glass flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
@@ -372,7 +408,7 @@ export function Feed({
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <nav className="no-scrollbar min-w-0 flex-1 flex gap-2 overflow-x-auto">
+          <nav ref={catsRef} className="no-scrollbar min-w-0 flex-1 flex gap-2 overflow-x-auto">
             {usedCats.map((c) => (
               <button
                 key={c.id}
@@ -383,6 +419,17 @@ export function Feed({
               </button>
             ))}
           </nav>
+          {catIndicator.visible && (
+            <span
+              className="pointer-events-none absolute -bottom-1 left-1/2 h-[3px] w-12 -translate-x-1/2 rounded-full bg-white/15"
+              aria-hidden="true"
+            >
+              <span
+                className="absolute inset-y-0 rounded-full bg-gold/60 transition-[left] duration-150"
+                style={{ left: `${catIndicator.left}%`, width: `${catIndicator.width}%` }}
+              />
+            </span>
+          )}
         </div>
       </header>
 
@@ -417,6 +464,43 @@ export function Feed({
 
       <CustomizeSheet product={customizing} onClose={() => setCustomizing(null)} />
     </main>
+  );
+}
+
+/** Cada vídeo observa sua própria visibilidade: vale para o scroll vertical e a galeria. */
+function MenuVideo({ src, label }: { src: string; label: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    let inView = false;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return;
+        const visible = entry.isIntersecting && entry.intersectionRatio >= 0.65;
+        if (visible === inView) return;
+        inView = visible;
+        syncMenuVideoPlayback(video, visible);
+      },
+      { threshold: 0.65 },
+    );
+    observer.observe(video);
+    return () => {
+      observer.disconnect();
+      video.pause();
+    };
+  }, [src]);
+  return (
+    <video
+      ref={ref}
+      src={src}
+      aria-label={label}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      className="h-full w-full object-cover"
+    />
   );
 }
 
@@ -508,14 +592,7 @@ function ProductCard({
           {photos.map((ph, i) => (
             <div key={`${ph.url}-${i}`} className="relative h-full w-full shrink-0 snap-center">
               {ph.type === "video" ? (
-                <video
-                  src={resolveMedia(ph.url)}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="h-full w-full object-cover"
-                />
+                <MenuVideo src={resolveMedia(ph.url)} label={product.name} />
               ) : (
                 <img
                   src={resolveMedia(ph.url)}
