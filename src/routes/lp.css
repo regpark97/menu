@@ -458,7 +458,7 @@
   .bupin-lp .blp-nav-links { display: none; }
   .bupin-lp .blp-wrap { padding: 0 32px; }
   /* `section.` necessário: sem isso o `.blp-wrap` acima zera o padding vertical */
-  .bupin-lp section.blp-section { padding: 96px 0 64px; }
+  .bupin-lp section.blp-section { padding: 72px 0 40px; }
 }
 @media (max-width: 640px) {
   .bupin-lp .blp-steps, .bupin-lp .blp-bento { grid-template-columns: 1fr; }
@@ -467,10 +467,11 @@
   .bupin-lp .blp-bar { height: 110px; }
   /* ATENÇÃO: precisa de `section.` para vencer `.blp-wrap { padding: 0 24px }`
      que vem depois neste bloco e zeraria o padding vertical das seções. */
-  .bupin-lp section.blp-section { padding: 96px 0 64px; }
+  /* 24px laterais explícitos ao sobrescrever o padding do wrap */
+  .bupin-lp section.blp-section { padding: 56px 24px 32px; }
   .bupin-lp .blp-frow { grid-template-columns: 1fr; }
   .bupin-lp .blp-wrap { padding: 0 24px; }
-  .bupin-lp section.blp-hero { padding: 96px 24px 56px; }
+  .bupin-lp section.blp-hero { padding: 88px 24px 40px; }
 
   /* ── Tipografia/cards mobile (do commit c2a2145, restaurada —
      o 5b254e4 apagou sem querer ao mexer no bloco) ──────────── */
@@ -501,8 +502,8 @@
   .bupin-lp .blp-logo-mark { width: 32px; height: 32px; font-size: 17px; border-radius: 9px; }
   .bupin-lp .blp-logo-name { font-size: 17px; }
 
-  /* ── Botões do hero: empilhados, largura total confortável ──── */
-  .bupin-lp section.blp-hero { padding: 96px 24px 56px; }
+  /* ── Hero mobile: respiro lateral explícito (24px) ── */
+  .bupin-lp section.blp-hero { padding: 88px 24px 40px; }
   .bupin-lp .blp-hero-ctas { flex-direction: column; }
   .bupin-lp .blp-hero-ctas .blp-btn { width: 100%; justify-content: center; }
   .bupin-lp .blp-hero-facts { flex-wrap: wrap; gap: 10px 16px; }
@@ -511,7 +512,7 @@
   .bupin-lp .blp-eyebrow { flex-wrap: wrap; font-size: 10.5px; letter-spacing: .1em; padding: 6px 12px; margin-bottom: 20px; }
 
   /* ── Marquee: respirando, sem encostar no mockup do celular ── */
-  .bupin-lp .blp-marquee { margin-top: 32px; padding: 14px 0; margin-bottom: 56px; }
+  .bupin-lp .blp-marquee { margin-top: 32px; padding: 14px 0; margin-bottom: 24px; }
   .bupin-lp .blp-phone { margin: 24px auto 0; }
 
   /* ── Steps / bento com respiro menor (não encostar texto) ──── */
@@ -547,7 +548,7 @@
 }
 /* ── Telas muito estreitas (≤380px): hero e cards ainda mais enxutos ── */
 @media (max-width: 380px) {
-  .bupin-lp .blp-wrap { padding: 0 16px; }
+  .bupin-lp .blp-wrap, .bupin-lp .blp-nav .blp-wrap { padding: 0 24px; }
   .bupin-lp h1 { font-size: 30px; }
   .bupin-lp .blp-lead { font-size: 14.5px; }
   .bupin-lp .blp-hero-facts { font-size: 12px; gap: 8px 12px; }
