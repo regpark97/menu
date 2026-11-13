@@ -64,13 +64,12 @@ import {
   formatMoney,
   parseMoneyInput,
   resolveMedia,
-  parseGallery,
   parseModifiers,
   cleanModifiers,
-  type GalleryItem,
   type ModifierGroup,
 } from "@/lib/format";
 import { ModifiersEditor } from "@/components/ModifiersEditor";
+import { ProductGalleryEditor } from "@/components/ProductGalleryEditor";
 import { uploadMedia } from "@/lib/media";
 import { WaiterCalls } from "@/components/WaiterCalls";
 import { filterTenantsByQuery, type TenantPickerItem } from "@/lib/tenant-picker";
@@ -729,11 +728,7 @@ function ProductRow({
   const [name, setName] = useState(product.name);
   const [price, setPrice] = useState(product.price_cents);
   const [desc, setDesc] = useState(product.description ?? "");
-  const [uploading, setUploading] = useState(false);
-  const [galleryUploading, setGalleryUploading] = useState(false);
   const [mods, setMods] = useState<ModifierGroup[]>(() => parseModifiers(product.modifiers));
-  const gallery = parseGallery(product.media_gallery);
-  const pendingGallery = parseGallery(product.pending_media_gallery);
   useEffect(() => {
     setAvailable(product.is_available);
   }, [product.is_available]);
@@ -772,77 +767,6 @@ function ProductRow({
       .eq("id", product.id);
     if (error) return toast.error(error.message);
     toast.success("Alterações salvas");
-    onChange();
-  }
-
-  async function onFile(f: File | undefined) {
-    if (!f) return;
-    setUploading(true);
-    try {
-      const m = await uploadMedia(f, `${product.tenant_id}/${product.id}`);
-      // Seta 'pending' explicitamente (não dependemos só do trigger do banco).
-      // O trigger continua no banco como trava de segurança contra auto-publicação.
-      const { data: updated, error } = await supabase
-        .from("products")
-        .update({
-          pending_media_url: m.url,
-          pending_media_type: m.type,
-          moderation_status: "pending",
-        })
-        .eq("id", product.id)
-        .select("moderation_status")
-        .single();
-      if (error) throw error;
-      if (updated?.moderation_status !== "pending") {
-        throw new Error(
-          "A foto subiu, mas não entrou na fila de aprovação. Avise o suporte (trigger de moderação ausente no banco).",
-        );
-      }
-      toast.success(
-        "Sua nova foto foi enviada e entrará no ar assim que nossa equipe validar o enquadramento.",
-        { duration: 6000 },
-      );
-      onChange();
-    } catch (e) {
-      toast.error((e as Error).message);
-    }
-    setUploading(false);
-  }
-
-  /** Adiciona fotos extras à galeria pendente (também aguardam aprovação). */
-  async function onGalleryFiles(files: FileList | undefined) {
-    if (!files || !files.length) return;
-    setGalleryUploading(true);
-    try {
-      const uploaded: GalleryItem[] = [];
-      for (const f of Array.from(files)) {
-        const m = await uploadMedia(f, `${product.tenant_id}/${product.id}/gallery`);
-        uploaded.push({ url: m.url, type: m.type });
-      }
-      const next = [...pendingGallery, ...uploaded];
-      const { error } = await supabase
-        .from("products")
-        .update({ pending_media_gallery: next, moderation_status: "pending" })
-        .eq("id", product.id);
-      if (error) throw error;
-      toast.success("Fotos adicionadas. Vão ao ar junto com a aprovação da equipe.", {
-        duration: 6000,
-      });
-      onChange();
-    } catch (e) {
-      toast.error((e as Error).message);
-    }
-    setGalleryUploading(false);
-  }
-
-  /** Remove uma foto da galeria pendente. */
-  async function removePendingGallery(url: string) {
-    const next = pendingGallery.filter((g) => g.url !== url);
-    const { error } = await supabase
-      .from("products")
-      .update({ pending_media_gallery: next })
-      .eq("id", product.id);
-    if (error) return toast.error(error.message);
     onChange();
   }
 
@@ -954,74 +878,9 @@ function ProductRow({
       </div>
       <ModifiersEditor value={mods} onChange={setMods} />
 
-      {(gallery.length > 0 || pendingGallery.length > 0) && (
-        <div className="mt-4">
-          <p className="mb-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Images className="h-3.5 w-3.5" /> Galeria (mais fotos do prato)
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {gallery.map((g, i) => (
-              <div
-                key={g.url}
-                className="relative h-16 w-16 overflow-hidden rounded-lg bg-secondary"
-              >
-                {g.type === "video" ? (
-                  <video src={resolveMedia(g.url)} muted className="h-full w-full object-cover" />
-                ) : (
-                  <img src={resolveMedia(g.url)} alt="" className="h-full w-full object-cover" />
-                )}
-                <span className="absolute bottom-0.5 left-0.5 rounded bg-black/60 px-1 text-[9px] text-white">
-                  {i + 2}
-                </span>
-              </div>
-            ))}
-            {pendingGallery.map((g) => (
-              <div
-                key={g.url}
-                className="relative h-16 w-16 overflow-hidden rounded-lg border-2 border-warning bg-secondary"
-              >
-                {g.type === "video" ? (
-                  <video src={resolveMedia(g.url)} muted className="h-full w-full object-cover" />
-                ) : (
-                  <img src={resolveMedia(g.url)} alt="" className="h-full w-full object-cover" />
-                )}
-                <button
-                  onClick={() => removePendingGallery(g.url)}
-                  className="absolute right-0.5 top-0.5 rounded-full bg-black/60 p-0.5 text-white"
-                  aria-label="Remover foto pendente"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      <ProductGalleryEditor product={product} onChange={onChange} />
 
-      <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
-        <div className="flex flex-wrap items-center gap-1">
-          <label className="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-secondary">
-            <Upload className="h-4 w-4" /> {uploading ? "Enviando…" : "Nova capa"}
-            <input
-              type="file"
-              accept="image/*,video/*"
-              className="hidden"
-              disabled={uploading}
-              onChange={(e) => onFile(e.target.files?.[0])}
-            />
-          </label>
-          <label className="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-secondary">
-            <Images className="h-4 w-4" /> {galleryUploading ? "Enviando…" : "Adicionar fotos"}
-            <input
-              type="file"
-              accept="image/*,video/*"
-              multiple
-              className="hidden"
-              disabled={galleryUploading}
-              onChange={(e) => onGalleryFiles(e.target.files ?? undefined)}
-            />
-          </label>
-        </div>
+      <div className="mt-3 flex justify-end">
         <Button onClick={save} disabled={!dirty || price <= 0}>
           Salvar
         </Button>

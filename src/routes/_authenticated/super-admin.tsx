@@ -583,7 +583,7 @@ function Moderation() {
     const patch = approve
       ? {
           media_url: p.pending_media_url ?? p.media_url,
-          media_type: p.pending_media_type ?? "image",
+          media_type: p.pending_media_type ?? p.media_type,
           media_gallery: p.pending_media_gallery ?? [],
           pending_media_url: null,
           pending_media_type: null,
