@@ -1,8 +1,14 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import type { Tables } from "@/integrations/supabase/types";
 
-const mocks = vi.hoisted(() => ({ update: vi.fn() }));
+const mocks = vi.hoisted(() => ({ update: vi.fn(), fetch: vi.fn() }));
+
+vi.stubGlobal("fetch", mocks.fetch);
+vi.spyOn(URL, "createObjectURL").mockReturnValue("blob:preview");
+vi.spyOn(URL, "revokeObjectURL").mockImplementation(() => {});
+
+afterEach(() => vi.restoreAllMocks());
 
 vi.mock("@/integrations/supabase/client", () => ({
   supabase: {
@@ -26,6 +32,35 @@ vi.mock("@/lib/media", () => ({
   }),
 }));
 
+vi.mock("@/lib/image-crop", () => ({
+  cropImageForCard: async (file: File) =>
+    new File([file], `${file.name.replace(/\.[^.]+$/, "")}-9x16.jpg`, { type: "image/jpeg" }),
+}));
+vi.mock("@/components/PhotoCropDialog", () => ({
+  PhotoCropDialog: ({
+    onConfirm,
+    onDone,
+  }: {
+    onConfirm: (pixels: {
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+    }) => Promise<boolean>;
+    onDone: () => void;
+  }) => (
+    <button
+      onClick={() =>
+        void onConfirm({ x: 0, y: 0, width: 100, height: 178 }).then((saved) => {
+          if (saved) onDone();
+        })
+      }
+    >
+      Aplicar recorte 9:16
+    </button>
+  ),
+}));
+
 import { ProductGalleryEditor } from "@/components/ProductGalleryEditor";
 
 const product = {
@@ -41,9 +76,20 @@ const product = {
 } as Tables<"products">;
 
 function renderEditor(overrides: Partial<Tables<"products">> = {}) {
-  return render(
-    <ProductGalleryEditor product={{ ...product, ...overrides }} onChange={() => {}} />,
+  const base = { ...product, ...overrides };
+  const view = render(
+    <ProductGalleryEditor
+      product={base}
+      onChange={() => {
+        const patch = mocks.update.mock.lastCall?.[0] as Partial<Tables<"products">> | undefined;
+        if (patch)
+          view.rerender(
+            <ProductGalleryEditor product={{ ...base, ...patch }} onChange={() => {}} />,
+          );
+      }}
+    />,
   );
+  return view;
 }
 
 describe("Editor unificado de fotos", () => {
@@ -72,12 +118,19 @@ describe("Editor unificado de fotos", () => {
     });
 
     fireEvent.change(input);
+    fireEvent.click(await screen.findByRole("button", { name: "Aplicar recorte 9:16" }));
     await waitFor(() => expect(mocks.update).toHaveBeenCalledOnce());
     expect(mocks.update).toHaveBeenCalledWith(
-      expect.objectContaining({ pending_media_url: "iphone.jpg" }),
+      expect.objectContaining({ pending_media_url: "iphone-9x16.jpg" }),
     );
   });
-  beforeEach(() => mocks.update.mockClear());
+  beforeEach(() => {
+    mocks.update.mockClear();
+    mocks.fetch.mockReset().mockResolvedValue({
+      ok: true,
+      blob: async () => new Blob(["foto"], { type: "image/jpeg" }),
+    });
+  });
 
   it("envia a foto escolhida para a fila como capa, preservando as outras", async () => {
     renderEditor();
@@ -112,11 +165,38 @@ describe("Editor unificado de fotos", () => {
         ],
       },
     });
-    await waitFor(() => expect(mocks.update).toHaveBeenCalledOnce());
-    expect(mocks.update).toHaveBeenCalledWith({
-      pending_media_url: "primeira.jpg",
+    fireEvent.click(await screen.findByRole("button", { name: "Aplicar recorte 9:16" }));
+    await waitFor(() => expect(mocks.update).toHaveBeenCalledTimes(2));
+    expect(mocks.update).toHaveBeenLastCalledWith({
+      pending_media_url: "primeira-9x16.jpg",
       pending_media_type: "image",
       pending_media_gallery: [{ url: "segunda.mp4", type: "video" }],
+      moderation_status: "pending",
+    });
+  });
+
+  it("reenquadra uma extra sem mudar a capa ou a ordem das demais", async () => {
+    renderEditor();
+    fireEvent.click(screen.getByRole("button", { name: "Cortar" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Aplicar recorte 9:16" }));
+    await waitFor(() => expect(mocks.update).toHaveBeenCalledOnce());
+    expect(mocks.update).toHaveBeenCalledWith({
+      pending_media_url: "capa-atual.mp4",
+      pending_media_type: "video",
+      pending_media_gallery: [{ url: "foto-original-9x16.jpg", type: "image" }],
+      moderation_status: "pending",
+    });
+  });
+
+  it("substitui uma capa publicada após o recorte, preservando as extras", async () => {
+    renderEditor({ media_url: "capa-atual.jpg", media_type: "image" });
+    fireEvent.click(screen.getAllByRole("button", { name: "Cortar" })[0]!);
+    fireEvent.click(await screen.findByRole("button", { name: "Aplicar recorte 9:16" }));
+    await waitFor(() => expect(mocks.update).toHaveBeenCalledOnce());
+    expect(mocks.update).toHaveBeenCalledWith({
+      pending_media_url: "foto-original-9x16.jpg",
+      pending_media_type: "image",
+      pending_media_gallery: [{ url: "extra-1.jpg", type: "image" }],
       moderation_status: "pending",
     });
   });
