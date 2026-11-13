@@ -2,9 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   Smartphone, Zap, ShieldCheck, Wifi, Star, ChevronDown,
-  ImageIcon, Heart, BadgeCheck, Search, Sun, Moon,
+  ImageIcon, Heart, BadgeCheck, Search, Sun, Moon, Hand,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { landingFeed, type LpDemoCard } from "@/lib/landing-demo";
 import "./lp.css";
 
 export const Route = createFileRoute("/")({
@@ -36,8 +37,8 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-/* ── dados do mockup ─────────────────────────────────────────── */
-const FEED = [
+/* ── fallback do mockup se a API pública não responder ───────────── */
+const LP_FALLBACK_FEED: LpDemoCard[] = [
   {
     cat: "tacos", label: "Taquería · La Cantina del Sol",
     name: "Taco de Asada", desc: "Carne assada na brasa, cebola caramelizada e salsa verde",
@@ -60,7 +61,7 @@ const FEED = [
   },
 ];
 
-const CATS = [
+const LP_FALLBACK_CATS = [
   { id: "destaques", label: "Destaques" },
   { id: "tacos", label: "Tacos" },
   { id: "burritos", label: "Burritos" },
@@ -153,19 +154,54 @@ function useBarsAnimation() {
 /* ── phone mockup com auto-scroll + categoria sincronizada ───── */
 function PhoneMockup() {
   const feedRef = useRef<HTMLDivElement>(null);
+  const [feed, setFeed] = useState<LpDemoCard[]>(LP_FALLBACK_FEED);
+  const [cats, setCats] = useState(LP_FALLBACK_CATS);
   const [activeCat, setActiveCat] = useState("destaques");
   const indexRef = useRef(0);
+
+  // Exemplo ao vivo do Peli's Noosa (a API pública não exige login).
+  useEffect(() => {
+    let active = true;
+    async function loadPeliMenu() {
+      const { data: tenant } = await supabase
+        .from("public_menu")
+        .select("id,name,slug")
+        .eq("slug", "mediterranean-restaurant")
+        .maybeSingle();
+      if (!tenant) return;
+      const [categories, products] = await Promise.all([
+        supabase.from("public_menu_children").select("*").eq("tenant_id", tenant.id).order("sort_order"),
+        supabase.from("public_menu_products").select("*").eq("tenant_id", tenant.id).order("sort_order"),
+      ]);
+      const next = landingFeed(categories.data ?? [], products.data ?? []);
+      if (!active || next.length === 0) return;
+      const nextCats = (categories.data ?? [])
+        .filter((category) => next.some((card) => card.cat === category.id))
+        .map((category) => ({ id: category.id, label: category.name }));
+      setFeed(next);
+      setCats(nextCats);
+      setActiveCat(next[0]!.cat);
+    }
+    void loadPeliMenu();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   useEffect(() => {
     const feed = feedRef.current;
     if (!feed) return;
     const cards = [...feed.querySelectorAll<HTMLElement>(".blp-card")];
+    const observers: IntersectionObserver[] = [];
     let timer: number | undefined;
 
     const syncPill = () => {
       const card = cards[indexRef.current];
       if (card) setActiveCat(card.dataset["cat"] || "destaques");
     };
+
+    indexRef.current = Math.min(indexRef.current, cards.length - 1);
+    syncPill();
 
     const startAuto = () => {
       window.clearInterval(timer);
@@ -206,12 +242,18 @@ function PhoneMockup() {
       const vio = new IntersectionObserver(
         (entries) =>
           entries.forEach((e) => {
-            if (e.isIntersecting) video.play().catch(() => {});
-            else video.pause();
+            if (e.isIntersecting) {
+              video.pause();
+              video.currentTime = 0;
+              video.play().catch(() => {});
+            } else {
+              video.pause();
+            }
           }),
         { threshold: 0.5, root: feed }
       );
       vio.observe(card);
+      observers.push(vio);
     });
 
     startAuto();
@@ -222,23 +264,31 @@ function PhoneMockup() {
       phone?.removeEventListener("mouseenter", pause);
       phone?.removeEventListener("touchstart", pause);
       feed.removeEventListener("wheel", pause);
+      observers.forEach((observer) => observer.disconnect());
     };
-  }, []);
+  }, [feed]);
 
   return (
     <div className="blp-phone-wrap">
       <div className="blp-phone">
+        <div className="blp-swipe-hint" aria-hidden="true">
+          <Hand size={32} strokeWidth={1.7} />
+        </div>
         <div className="blp-topbar">
-          {CATS.map((c) => (
+          {cats.map((c) => (
             <span key={c.id} className={activeCat === c.id ? "on" : ""}>
               {c.label}
             </span>
           ))}
         </div>
         <div className="blp-feed" ref={feedRef}>
-          {FEED.map((item) => (
+          {feed.map((item) => (
             <div className="blp-card" data-cat={item.cat} key={item.name}>
-              <video src={item.video} muted loop playsInline autoPlay preload="auto" />
+              {item.video ? (
+                <video src={item.video} muted loop playsInline autoPlay preload="auto" />
+              ) : (
+                <img className="blp-media" src={item.image} alt={item.name} />
+              )}
               <span className="blp-heart" aria-label="Favoritar">
                 <Heart size={17} fill="currentColor" />
               </span>
@@ -469,7 +519,7 @@ function Landing() {
               <span className="dot" /> NFC na mesa · Cardápio vertical · Sem app
             </span>
             <h1>
-              O cardápio que prende a atenção. <em>E mostra por quê.</em>
+              O cardápio que prende a atenção. <em>E&nbsp;mostra por quê.</em>
             </h1>
             <p className="blp-lead">
               O cliente toca o NFC da mesa e desliza pelos seus pratos como quem rola um feed.{" "}
