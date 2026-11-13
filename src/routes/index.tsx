@@ -136,7 +136,7 @@ function useBarsAnimation() {
         entries.forEach((e) => {
           if (e.isIntersecting) {
             el.querySelectorAll<HTMLElement>(".fill").forEach((f, i) => {
-              setTimeout(() => (f.style.height = f.dataset.h + "%"), i * 110);
+              setTimeout(() => (f.style.height = `${f.dataset["h"] ?? 0}%`), i * 110);
             });
             io.disconnect();
           }
@@ -164,7 +164,7 @@ function PhoneMockup() {
 
     const syncPill = () => {
       const card = cards[indexRef.current];
-      if (card) setActiveCat(card.dataset.cat || "destaques");
+      if (card) setActiveCat(card.dataset["cat"] || "destaques");
     };
 
     const startAuto = () => {

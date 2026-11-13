@@ -29,7 +29,11 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { useIsSuperAdmin } from "@/components/AppHeader";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
-import { SUPER_SECTIONS } from "@/components/dashboard/sections";
+import {
+  SUPER_SECTIONS,
+  normalizeSuperAdminSection,
+  type SuperAdminSection,
+} from "@/components/dashboard/sections";
 import { LeadsSection } from "@/components/dashboard/LeadsSection";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -47,6 +51,11 @@ import {
 import { resolveMedia, parseGallery } from "@/lib/format";
 
 export const Route = createFileRoute("/_authenticated/super-admin")({
+  validateSearch: (
+    search: Record<string, unknown>,
+  ): { section?: SuperAdminSection | undefined } => ({
+    section: normalizeSuperAdminSection(search["section"]),
+  }),
   head: () => ({
     meta: [
       { title: "Super Admin — Bupin" },
@@ -64,7 +73,14 @@ const selectCls = "h-10 rounded-md border border-input bg-background px-3 text-s
 
 function SuperAdmin() {
   const { data: isSuper, isLoading } = useIsSuperAdmin();
-  const [section, setSection] = useState("leads");
+  const { section: sectionParam } = Route.useSearch();
+  const navigate = Route.useNavigate();
+  const section = sectionParam ?? "leads";
+  const onSectionChange = (key: string) => {
+    const next = normalizeSuperAdminSection(key);
+    if (!next) return;
+    void navigate({ to: "/super-admin", search: { section: next }, replace: true });
+  };
   const tenants = useQuery({
     queryKey: ["all-tenants"],
     queryFn: async () =>
@@ -78,7 +94,7 @@ function SuperAdmin() {
       subtitle="Gestão de clientes, tags NFC e moderação de mídia"
       sections={SUPER_SECTIONS}
       activeSection={section}
-      onSectionChange={setSection}
+      onSectionChange={onSectionChange}
     >
       {isLoading ? null : !isSuper ? (
         <div className="rounded-2xl border border-border bg-card p-8 text-center text-muted-foreground">

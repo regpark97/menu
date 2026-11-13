@@ -135,7 +135,7 @@ function AdminPage() {
   });
   const tenant = data?.tenant;
   const isSupport = data?.support ?? false;
-  const canSwitch = !tenantParam && isSupport;
+  const canSwitch = isSupport;
   const [section, setSection] = useState("calls");
 
   return (
@@ -155,7 +155,8 @@ function AdminPage() {
         canSwitch ? (
           <Link
             to="/super-admin"
-            className="hidden rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground sm:inline-flex"
+            search={{ section: "tenants" }}
+            className="flex shrink-0 items-center gap-1 rounded-lg px-2 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
           >
             Trocar de cliente
           </Link>
@@ -366,12 +367,18 @@ function ProductsList({ tenantId }: { tenantId: string }) {
       .from("products")
       .update({ sort_order: product.sort_order })
       .eq("id", other.id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     const { error: e2 } = await supabase
       .from("products")
       .update({ sort_order: other.sort_order })
       .eq("id", product.id);
-    if (e2) return toast.error(e2.message);
+    if (e2) {
+      toast.error(e2.message);
+      return;
+    }
     qc.invalidateQueries({ queryKey: ["admin-products", tenantId] });
   }
 

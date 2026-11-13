@@ -29,6 +29,15 @@ export const ADMIN_SECTIONS: SectionItem[] = [
 ];
 
 /** Seções do painel mestre. */
+export type SuperAdminSection = "leads" | "tenants" | "tags" | "moderation";
+
+/** Permite compartilhar uma aba na URL sem aceitar seções arbitrárias. */
+export function normalizeSuperAdminSection(value: unknown): SuperAdminSection | undefined {
+  if (value === "leads" || value === "tenants" || value === "tags" || value === "moderation")
+    return value;
+  return undefined;
+}
+
 export const SUPER_SECTIONS: SectionItem[] = [
   { key: "leads", label: "Leads da LP", icon: Inbox, group: "Gestão" },
   { key: "tenants", label: "Clientes", icon: Users, group: "Gestão" },
