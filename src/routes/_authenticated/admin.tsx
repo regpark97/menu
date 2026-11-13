@@ -9,8 +9,8 @@
  *   1. ?tenant=<id>    → Modo suporte: super admin abriu o painel DE UM CLIENTE
  *                        (link "Acessar Painel do Cliente" do super-admin).
  *   2. Conta com dono  → caminho normal: o tenant cujo owner_user_id é o login.
- *   3. Super admin "nu"→ mostra o primeiro tenant da lista para a equipe
- *                        Bupin não ficar presa numa tela vazia.
+ *   3. Super admin "nu"→ mostra lista pesquisável de clientes para a equipe
+ *                        Bupin escolher; nenhum restaurante é escolhido sozinho.
  *
  *  Toda escrita (preço, esgotado, Wi-Fi, mídia) é validada também pelas
  *  policies RLS do banco — o painel é o primeiro evisor, o banco é o juiz.
@@ -40,6 +40,7 @@ import {
   ImagePlus,
   ArrowUp,
   ArrowDown,
+  ChevronRight,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
@@ -72,6 +73,14 @@ import {
 import { ModifiersEditor } from "@/components/ModifiersEditor";
 import { uploadMedia } from "@/lib/media";
 import { WaiterCalls } from "@/components/WaiterCalls";
+import { filterTenantsByQuery, type TenantPickerItem } from "@/lib/tenant-picker";
+
+type AdminPageData = {
+  tenant: Tables<"tenants"> | null;
+  support: boolean;
+  picker: boolean;
+  clients: TenantPickerItem[];
+};
 
 export const Route = createFileRoute("/_authenticated/admin")({
   validateSearch: (s: Record<string, unknown>): { tenant?: string | undefined } => ({
@@ -95,7 +104,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
 
 function AdminPage() {
   const { tenant: tenantParam } = Route.useSearch();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<AdminPageData>({
     queryKey: ["my-tenant", tenantParam],
     queryFn: async () => {
       // 1) Modo suporte: o Super Admin abriu um cliente específico (?tenant=<id>).
@@ -105,7 +114,7 @@ function AdminPage() {
           .select("*")
           .eq("id", tenantParam)
           .maybeSingle();
-        return { tenant: data, support: Boolean(data) };
+        return { tenant: data, support: Boolean(data), picker: false, clients: [] };
       }
       // 2) Caminho normal: o estabelecimento do qual o usuário é dono.
       const { data: u } = await supabase.auth.getUser();
@@ -115,22 +124,23 @@ function AdminPage() {
         .eq("owner_user_id", u.user!.id)
         .limit(1)
         .maybeSingle();
-      if (owned) return { tenant: owned, support: false };
-      // 3) Super Admin sem tenant próprio: mostra o primeiro da lista, para não
-      //    ficar preso na tela vazia. A equipe Bupin gerencia todos os clientes.
+      if (owned) return { tenant: owned, support: false, picker: false, clients: [] };
+      // 3) Super Admin sem tenant próprio: escolhe explicitamente na lista.
+      //    A lista é sempre provida pelo RLS, que limita o acesso à equipe Bupin.
       const { data: isSuper } = await supabase
         .from("user_roles")
         .select("role")
         .eq("user_id", u.user!.id)
         .eq("role", "super_admin");
-      if (!isSuper?.length) return { tenant: null, support: false };
-      const { data: first } = await supabase
+      if (!isSuper?.length) {
+        return { tenant: null, support: false, picker: false, clients: [] };
+      }
+      const { data: clients, error } = await supabase
         .from("tenants")
-        .select("*")
-        .order("created_at")
-        .limit(1)
-        .maybeSingle();
-      return { tenant: first, support: Boolean(first) };
+        .select("id, name, slug")
+        .order("name");
+      if (error) throw error;
+      return { tenant: null, support: false, picker: true, clients: clients ?? [] };
     },
   });
   const tenant = data?.tenant;
@@ -141,11 +151,13 @@ function AdminPage() {
   return (
     <DashboardLayout
       variant="admin"
-      title={tenant?.name ?? "Painel do Restaurante"}
+      title={data?.picker ? "Escolher cliente" : (tenant?.name ?? "Painel do Restaurante")}
       subtitle={
-        isSupport
-          ? `Modo suporte${tenant ? ` · ${tenant.name}` : ""}`
-          : "Gerencie cardápio, fotos, Wi-Fi e métricas"
+        data?.picker
+          ? "Modo suporte · selecione um estabelecimento"
+          : isSupport
+            ? `Modo suporte${tenant ? ` · ${tenant.name}` : ""}`
+            : "Gerencie cardápio, fotos, Wi-Fi e métricas"
       }
       sections={ADMIN_SECTIONS}
       activeSection={section}
@@ -163,9 +175,13 @@ function AdminPage() {
         ) : null
       }
     >
-      {isLoading ? null : !tenant ? (
+      {isLoading ? null : data?.picker ? (
+        <ClientPicker clients={data.clients} />
+      ) : !tenant ? (
         <div className="rounded-2xl border border-border bg-card p-8 text-center text-muted-foreground">
-          Nenhum estabelecimento vinculado à sua conta ainda. Fale com o suporte Bupin.
+          {tenantParam
+            ? "Cliente não encontrado ou sem acesso. Escolha outro estabelecimento."
+            : "Nenhum estabelecimento vinculado à sua conta ainda. Fale com o suporte Bupin."}
         </div>
       ) : (
         <>
@@ -182,6 +198,51 @@ function AdminPage() {
         </>
       )}
     </DashboardLayout>
+  );
+}
+
+function ClientPicker({ clients }: { clients: TenantPickerItem[] }) {
+  const [query, setQuery] = useState("");
+  const filtered = filterTenantsByQuery(clients, query);
+
+  return (
+    <div className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+      <h2 className="font-display text-xl">Qual cliente você quer gerenciar?</h2>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Nenhum restaurante é escolhido automaticamente. Filtre pelo nome ou endereço do cardápio.
+      </p>
+      <Input
+        className="mt-4"
+        type="search"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        placeholder="Buscar cliente ou slug…"
+        aria-label="Filtrar clientes"
+      />
+      <div className="mt-5 grid gap-3 sm:grid-cols-2">
+        {filtered.map((client) => (
+          <Link
+            key={client.id}
+            to="/admin"
+            search={{ tenant: client.id }}
+            className="flex min-h-16 items-center gap-3 rounded-xl border border-border p-4 text-left transition-colors hover:border-primary/50 hover:bg-accent"
+          >
+            <div className="min-w-0 flex-1">
+              <p className="truncate font-medium">{client.name}</p>
+              <p className="mt-1 truncate text-xs text-muted-foreground">/c/{client.slug}</p>
+            </div>
+            <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+          </Link>
+        ))}
+      </div>
+      {filtered.length === 0 && (
+        <p className="mt-5 rounded-xl bg-secondary p-4 text-center text-sm text-muted-foreground">
+          {clients.length === 0
+            ? "Nenhum cliente cadastrado ainda. Crie o primeiro no Super Admin."
+            : "Nenhum cliente corresponde à busca."}
+        </p>
+      )}
+    </div>
   );
 }
 
