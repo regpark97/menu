@@ -46,6 +46,25 @@ describe("Enquadramento interativo", () => {
     expect(onConfirm).toHaveBeenCalledWith({ x: 0, y: 0, width: 540, height: 960 });
   });
 
+  it("aceita o modo 1:1 para a logo, preservando o 9:16 como padrão dos pratos", () => {
+    render(
+      <PhotoCropDialog
+        imageUrl="blob:logo"
+        remaining={1}
+        aspect={1}
+        title="Enquadrar logo"
+        formatLabel="quadrado da logo (1:1)"
+        onCancel={() => {}}
+        onDone={() => {}}
+        onConfirm={async () => true}
+      />,
+    );
+
+    expect(screen.getByTestId("cropper")).toHaveAttribute("data-aspect", "1");
+    expect(screen.getByRole("heading", { name: "Enquadrar logo" })).toBeInTheDocument();
+    expect(screen.getByText(/quadrado da logo \(1:1\)/)).toBeInTheDocument();
+  });
+
   it("permite usar o original sem chamar o recorte", async () => {
     const onUseOriginal = vi.fn(() => Promise.resolve(true));
     const onConfirm = vi.fn(() => Promise.resolve(true));

@@ -20,8 +20,8 @@ export function cropDimensions(pixels: Area, naturalWidth: number, naturalHeight
   };
 }
 
-/** Gera JPEG com o enquadramento vertical escolhido pelo usuário, localmente. */
-export async function cropImageForCard(file: File, pixels: Area): Promise<File> {
+/** Gera JPEG com o enquadramento escolhido pelo usuário, localmente. */
+export async function cropImage(file: File, pixels: Area, suffix = "-9x16.jpg"): Promise<File> {
   const url = URL.createObjectURL(file);
   try {
     const image = new Image();
@@ -63,8 +63,13 @@ export async function cropImageForCard(file: File, pixels: Area): Promise<File> 
       ),
     );
     const baseName = file.name.replace(/\.[^.]+$/, "");
-    return new File([blob], `${baseName}-9x16.jpg`, { type: "image/jpeg" });
+    return new File([blob], `${baseName}${suffix}`, { type: "image/jpeg" });
   } finally {
     URL.revokeObjectURL(url);
   }
+}
+
+/** Compatibilidade com o fluxo dos pratos: recorte vertical do feed. */
+export function cropImageForCard(file: File, pixels: Area): Promise<File> {
+  return cropImage(file, pixels);
 }

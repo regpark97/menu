@@ -19,6 +19,9 @@ export function PhotoCropDialog({
   onDone,
   onConfirm,
   onUseOriginal,
+  aspect = 9 / 16,
+  title = "Enquadrar foto",
+  formatLabel = "vertical do cardápio (9:16)",
 }: {
   imageUrl: string;
   remaining: number;
@@ -26,6 +29,9 @@ export function PhotoCropDialog({
   onDone: () => void;
   onConfirm: (pixels: Area) => Promise<boolean>;
   onUseOriginal?: () => Promise<boolean>;
+  aspect?: number;
+  title?: string;
+  formatLabel?: string;
 }) {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -56,15 +62,15 @@ export function PhotoCropDialog({
         aria-describedby="crop-description"
       >
         <DialogHeader>
-          <DialogTitle>Enquadrar foto</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
           <DialogDescription id="crop-description">
-            Arraste a imagem e ajuste o zoom para o cardápio vertical (9:16).
+            Arraste a imagem e ajuste o zoom para o formato {formatLabel}.
             {remaining > 1 && ` ${remaining} fotos nesta seleção.`}
           </DialogDescription>
         </DialogHeader>
         <div
-          className="relative mx-auto aspect-[9/16] max-h-[58dvh] max-w-full overflow-hidden rounded-xl bg-secondary"
-          style={{ width: "min(100%, 320px)" }}
+          className="relative mx-auto max-h-[58dvh] max-w-full overflow-hidden rounded-xl bg-secondary"
+          style={{ aspectRatio: aspect, width: "min(100%, 320px)" }}
         >
           <Cropper
             image={imageUrl}
@@ -72,7 +78,7 @@ export function PhotoCropDialog({
             zoom={zoom}
             minZoom={1}
             maxZoom={3}
-            aspect={9 / 16}
+            aspect={aspect}
             cropShape="rect"
             showGrid
             objectFit="horizontal-cover"

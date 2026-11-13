@@ -71,6 +71,8 @@ import {
 import { ModifiersEditor } from "@/components/ModifiersEditor";
 import { ProductGalleryEditor } from "@/components/ProductGalleryEditor";
 import { uploadMedia } from "@/lib/media";
+import { cropImage } from "@/lib/image-crop";
+import { PhotoCropDialog } from "@/components/PhotoCropDialog";
 import { WaiterCalls } from "@/components/WaiterCalls";
 import { filterTenantsByQuery, type TenantPickerItem } from "@/lib/tenant-picker";
 
@@ -314,10 +316,29 @@ function BrandingCard({ tenant }: { tenant: Tables<"tenants"> }) {
   const [logo, setLogo] = useState(tenant.logo_url ?? "");
   const [bg, setBg] = useState(tenant.bg_image_url ?? "");
   const [busy, setBusy] = useState<"logo" | "bg" | null>(null);
+  const [cropSource, setCropSource] = useState<{
+    kind: "logo" | "bg";
+    file: File;
+    url: string;
+  } | null>(null);
   const qc = useQueryClient();
 
-  async function upload(kind: "logo" | "bg", f: File | undefined) {
-    if (!f) return;
+  function closeCrop() {
+    if (cropSource) URL.revokeObjectURL(cropSource.url);
+    setCropSource(null);
+  }
+
+  function chooseFile(kind: "logo" | "bg", file: File | undefined) {
+    if (!file) return;
+    if (kind === "bg" && file.type.startsWith("video/")) {
+      void upload(kind, file);
+      return;
+    }
+    setCropSource({ kind, file, url: URL.createObjectURL(file) });
+  }
+
+  async function upload(kind: "logo" | "bg", f: File | undefined): Promise<boolean> {
+    if (!f) return false;
     setBusy(kind);
     try {
       const m = await uploadMedia(f, `${tenant.id}/${kind}`);
@@ -329,10 +350,13 @@ function BrandingCard({ tenant }: { tenant: Tables<"tenants"> }) {
       if (error) throw error;
       toast.success(kind === "logo" ? "Logo atualizada" : "Imagem de fundo atualizada");
       qc.invalidateQueries({ queryKey: ["my-tenant"] });
+      return true;
     } catch (e) {
       toast.error((e as Error).message);
+      return false;
+    } finally {
+      setBusy(null);
     }
-    setBusy(null);
   }
 
   return (
@@ -355,7 +379,7 @@ function BrandingCard({ tenant }: { tenant: Tables<"tenants"> }) {
                 accept="image/*"
                 className="hidden"
                 disabled={busy !== null}
-                onChange={(e) => upload("logo", e.target.files?.[0])}
+                onChange={(e) => chooseFile("logo", e.target.files?.[0])}
               />
             </label>
           </div>
@@ -373,16 +397,39 @@ function BrandingCard({ tenant }: { tenant: Tables<"tenants"> }) {
                 accept="image/*,video/*"
                 className="hidden"
                 disabled={busy !== null}
-                onChange={(e) => upload("bg", e.target.files?.[0])}
+                onChange={(e) => chooseFile("bg", e.target.files?.[0])}
               />
             </label>
           </div>
         </div>
       </div>
       <p className="text-xs text-muted-foreground">
-        Escolha uma imagem da galeria do seu celular. A logo e o fundo aparecem na tela inicial do
-        cardápio.
+        Escolha uma imagem da galeria do seu celular e ajuste o enquadramento antes de salvar. Vídeos
+        de fundo são enviados normalmente.
       </p>
+      {cropSource && (
+        <PhotoCropDialog
+          key={`${cropSource.kind}-${cropSource.url}`}
+          imageUrl={cropSource.url}
+          remaining={1}
+          aspect={cropSource.kind === "logo" ? 1 : 9 / 16}
+          title={cropSource.kind === "logo" ? "Enquadrar logo" : "Enquadrar imagem de fundo"}
+          formatLabel={
+            cropSource.kind === "logo" ? "quadrado da logo (1:1)" : "vertical do fundo (9:16)"
+          }
+          onCancel={closeCrop}
+          onDone={closeCrop}
+          onConfirm={async (pixels) => {
+            const file = await cropImage(
+              cropSource.file,
+              pixels,
+              cropSource.kind === "logo" ? "-1x1.jpg" : "-9x16.jpg",
+            );
+            return upload(cropSource.kind, file);
+          }}
+          onUseOriginal={async () => upload(cropSource.kind, cropSource.file)}
+        />
+      )}
     </section>
   );
 }
