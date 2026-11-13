@@ -66,12 +66,12 @@ export function ProductGalleryEditor({
     }
   }
 
-  async function upload(files: FileList | null) {
+  async function upload(files: File[]) {
     if (!files?.length) return;
     setBusy(true);
     try {
       const uploaded: GalleryItem[] = [];
-      for (const file of Array.from(files)) {
+      for (const file of files) {
         uploaded.push(await uploadMedia(file, `${product.tenant_id}/${product.id}/gallery`));
       }
       await edit(appendMedia(cover, gallery, uploaded));
@@ -102,7 +102,9 @@ export function ProductGalleryEditor({
             className="hidden"
             disabled={busy}
             onChange={(event) => {
-              const files = event.target.files;
+              // Copia antes de limpar: em alguns navegadores, o FileList é vivo
+              // e perderia os arquivos se o input fosse resetado antes.
+              const files = Array.from(event.target.files ?? []);
               event.target.value = "";
               void upload(files);
             }}

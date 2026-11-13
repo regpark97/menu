@@ -47,6 +47,36 @@ function renderEditor(overrides: Partial<Tables<"products">> = {}) {
 }
 
 describe("Editor unificado de fotos", () => {
+  it("não perde os arquivos ao limpar um FileList vivo antes do upload", async () => {
+    const { container } = renderEditor({ media_url: null, pending_media_gallery: [] });
+    const input = container.querySelector('input[type="file"]')!;
+    let live = true;
+    const selected = [new File(["foto"], "iphone.jpg", { type: "image/jpeg" })];
+    Object.defineProperty(input, "files", {
+      configurable: true,
+      get: () => ({
+        get length() {
+          return live ? selected.length : 0;
+        },
+        *[Symbol.iterator]() {
+          yield* selected;
+        },
+      }),
+    });
+    Object.defineProperty(input, "value", {
+      configurable: true,
+      get: () => "",
+      set: () => {
+        live = false;
+      },
+    });
+
+    fireEvent.change(input);
+    await waitFor(() => expect(mocks.update).toHaveBeenCalledOnce());
+    expect(mocks.update).toHaveBeenCalledWith(
+      expect.objectContaining({ pending_media_url: "iphone.jpg" }),
+    );
+  });
   beforeEach(() => mocks.update.mockClear());
 
   it("envia a foto escolhida para a fila como capa, preservando as outras", async () => {
