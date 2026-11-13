@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronDown, Loader2 } from "lucide-react";
 import { LANGUAGE_OPTIONS, type MenuLocale } from "@/lib/menu-i18n";
+import { CountryFlag } from "@/components/CountryFlag";
 import { useMenuLanguage, useMenuText } from "@/hooks/use-menu-language";
 
 /** Seletor fixo no canto superior. O menu abre à esquerda da bolinha do garçom. */
@@ -17,8 +18,6 @@ export function LanguageSelector({
   const [top, setTop] = useState(16);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const selected =
-    LANGUAGE_OPTIONS.find((option) => option.locale === locale) ?? LANGUAGE_OPTIONS[0]!;
 
   useEffect(() => {
     if (!open) return;
@@ -61,9 +60,7 @@ export function LanguageSelector({
         aria-expanded={open}
         className="glass flex h-9 items-center gap-1.5 rounded-full px-2.5 text-sm font-medium shadow-lg transition active:scale-95"
       >
-        <span className="text-lg leading-none" aria-hidden="true">
-          {selected.flag}
-        </span>
+        <CountryFlag locale={locale} />
         {translating ? (
           <Loader2 className="h-3 w-3 animate-spin" aria-label={t("translating")} />
         ) : (
@@ -96,9 +93,7 @@ export function LanguageSelector({
               }}
               className="flex min-h-10 w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-left text-sm transition-colors hover:bg-secondary active:bg-secondary"
             >
-              <span className="text-lg leading-none" aria-hidden="true">
-                {option.flag}
-              </span>
+              <CountryFlag locale={option.locale} />
               <span className="min-w-0 flex-1">{option.name}</span>
               {option.locale === locale && <Check className="h-4 w-4 shrink-0 text-gold" />}
             </button>
