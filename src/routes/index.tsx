@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
-  Smartphone, Zap, ShieldCheck, Wifi, Star, ChevronDown, Heart, X,
-  DollarSign, BadgeCheck, ImageIcon, Search, Sun, Moon,
+  Smartphone, Zap, ShieldCheck, Wifi, Star, ChevronDown,
+  ImageIcon, Heart, BadgeCheck, Search, Sun, Moon,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import "./lp.css";
@@ -577,26 +577,6 @@ function Landing() {
             </div>
             <div className="blp-b-item wide reveal">
               <div className="blp-b-icon"><ChevronDown size={20} /></div>
-              <h3>Feed vertical, prato por prato</h3>
-              <p>Foto em tela cheia, vídeo em loop, preço claro e descrição curta. O cliente navega por categorias e descobre itens que passariam despercebidos numa lista.</p>
-              <div className="blp-mini">
-                <span>Fotos e vídeos</span><span>Categorias em pílulas</span><span>Scroll com snap</span><span className="hl">Vídeo em loop</span>
-              </div>
-            </div>
-            <div className="blp-b-item reveal">
-              <div className="blp-b-icon"><Heart size={20} /></div>
-              <h3>Favoritos e personalização</h3>
-              <p>O cliente favorita o que amou e monta o pedido do jeito dele — leite de aveia, shot extra, adicionais — vendo o total ao vivo.</p>
-              <div className="blp-mini"><span>♥ Favoritar</span><span className="hl">Adicionais com preço</span></div>
-            </div>
-            <div className="blp-b-item reveal">
-              <div className="blp-b-icon"><X size={20} /></div>
-              <h3>Esgotou? Um toque</h3>
-              <p>O prato sai do feed na hora, sem intermediário. Quando volta, volta ao ar no mesmo toque.</p>
-              <div className="blp-mini"><span className="hl">Switch disponível/esgotado</span></div>
-            </div>
-            <div className="blp-b-item wide reveal">
-              <div className="blp-b-icon"><DollarSign size={20} /></div>
               <h3>Implementação sob medida, sem letra miúda</h3>
               <p>A taxa de implementação varia conforme o tamanho do cardápio, a quantidade de tags NFC e os ajustes de marca — você sabe exatamente o que está pagando antes de fechar.</p>
               <div className="blp-mini"><span>Setup guiado</span><span>Tags NFC vinculadas à sua operação</span><span className="hl">Sem surpresa no orçamento</span></div>
@@ -653,28 +633,6 @@ function Landing() {
               Tempo médio de atenção estimado a partir da sequência de visualização/saída de cada
               prato. Dados ilustrativos — não são garantia de vendas.
             </div>
-          </div>
-
-          <div className="blp-band reveal">
-            <div>
-              <div className="blp-sec-label">Decisões melhores</div>
-              <h2>
-                Um prato chama atenção e ninguém percebe. <em>Agora você percebe.</em>
-              </h2>
-            </div>
-            <ul>
-              {[
-                ["Reposicionar o cardápio:", " o item com maior atenção pode subir de categoria ou ganhar destaque."],
-                ["Testar preço e margem:", " compare atenção por prato com o que você já sabe da sua operação."],
-                ["Personalizações que vendem:", " veja quais adicionais o cliente mais abre — e quais nunca são tocados."],
-                ["Horário de pico de interesse:", " entenda quando cada categoria desperta mais atenção para planejar promoções."],
-              ].map(([b, rest]) => (
-                <li key={b}>
-                  <BadgeCheck size={16} />
-                  <span><strong>{b}</strong>{rest}</span>
-                </li>
-              ))}
-            </ul>
           </div>
         </section>
 
