@@ -579,19 +579,8 @@ export function NewProductDialog({
             Depois de criar, você pode subir a foto e ajustar os detalhes na lista.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col gap-3">
-          <div className="order-2">
-            <label className="text-xs text-muted-foreground">Nome do prato</label>
-            <Input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              maxLength={80}
-              className="mt-1 h-11"
-              placeholder="Ex.: Latte de Pistache"
-            />
-          </div>
-
-          <div className="order-1">
+        <div className="space-y-3">
+          <div>
             <label htmlFor="new-product-category" className="text-xs text-muted-foreground">
               Categoria
             </label>
@@ -651,6 +640,7 @@ export function NewProductDialog({
               <div className="mt-1 flex items-center gap-2">
                 <select
                   id="new-product-category"
+                  autoFocus={categories.length > 0 && !creatingCategory}
                   value={categoryId}
                   onChange={(e) => setCategoryId(e.target.value)}
                   className="h-11 w-full rounded-md border border-input bg-transparent px-3 text-sm outline-none"
@@ -671,6 +661,19 @@ export function NewProductDialog({
                 </Button>
               </div>
             )}
+          </div>
+          <div>
+            <label htmlFor="new-product-name" className="text-xs text-muted-foreground">
+              Nome do prato
+            </label>
+            <Input
+              id="new-product-name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              maxLength={80}
+              className="mt-1 h-11"
+              placeholder="Ex.: Latte de Pistache"
+            />
           </div>
 
           <div>

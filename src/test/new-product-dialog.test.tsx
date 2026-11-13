@@ -35,11 +35,12 @@ describe("Adicionar prato", () => {
     );
 
     const categorySelect = screen.getByLabelText("Categoria");
-    const nameLabel = screen.getByText("Nome do prato");
-    const categoryField = categorySelect.closest(".order-1");
-    expect(categoryField).not.toBeNull();
-    expect(nameLabel.parentElement).toHaveClass("order-2");
-    expect(nameLabel.parentElement?.parentElement).toHaveClass("flex-col", "gap-3");
-    expect(nameLabel.parentElement?.parentElement).toBe(categoryField?.parentElement);
+    const nameInput = screen.getByLabelText("Nome do prato");
+    const priceInput = screen.getByPlaceholderText("R$ 0,00");
+    expect(categorySelect.compareDocumentPosition(nameInput)).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    expect(nameInput.compareDocumentPosition(priceInput) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(categorySelect).toHaveFocus();
   });
 });
