@@ -22,7 +22,12 @@ vi.mock("@/integrations/supabase/client", () => ({
 
 import { ThemeProvider, useTheme } from "@/hooks/use-theme";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
-import { ADMIN_SECTIONS } from "@/components/dashboard/sections";
+import { ADMIN_SECTIONS, SUPER_SECTIONS } from "@/components/dashboard/sections";
+
+vi.mock("@/components/AppHeader", () => ({
+  useIsSuperAdmin: () => ({ data: true }),
+  usePendingModerationCount: () => ({ data: 3 }),
+}));
 
 function wrap(ui: React.ReactNode) {
   const qc = new QueryClient({ defaultOptions: { queries: { retry: false } } });
@@ -44,6 +49,27 @@ describe("Tema (claro/escuro)", () => {
       ),
     );
     expect(screen.getByTestId("theme").textContent).toBe("light");
+  });
+});
+
+describe("Badge da fila de moderação", () => {
+  it("mostra a contagem no Super Admin e também na seção Moderação", () => {
+    render(
+      wrap(
+        <ThemeProvider>
+          <DashboardLayout
+            variant="super"
+            title="Super Admin"
+            sections={SUPER_SECTIONS}
+            activeSection="leads"
+            onSectionChange={() => {}}
+          >
+            <span>Conteúdo</span>
+          </DashboardLayout>
+        </ThemeProvider>,
+      ),
+    );
+    expect(screen.getAllByLabelText("3 foto(s) aguardando moderação")).toHaveLength(2);
   });
 });
 

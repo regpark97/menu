@@ -478,7 +478,7 @@ function ProductsList({ tenantId }: { tenantId: string }) {
   );
 }
 
-function NewProductDialog({
+export function NewProductDialog({
   open,
   onOpenChange,
   tenantId,
@@ -579,8 +579,8 @@ function NewProductDialog({
             Depois de criar, você pode subir a foto e ajustar os detalhes na lista.
           </DialogDescription>
         </DialogHeader>
-        <div className="space-y-3">
-          <div>
+        <div className="flex flex-col gap-3">
+          <div className="order-2">
             <label className="text-xs text-muted-foreground">Nome do prato</label>
             <Input
               value={name}
@@ -591,8 +591,10 @@ function NewProductDialog({
             />
           </div>
 
-          <div>
-            <label className="text-xs text-muted-foreground">Categoria</label>
+          <div className="order-1">
+            <label htmlFor="new-product-category" className="text-xs text-muted-foreground">
+              Categoria
+            </label>
             {categories.length === 0 && !creatingCategory ? (
               <div className="mt-1 flex flex-wrap items-center gap-2 rounded-lg border border-warning/40 bg-warning/10 px-3 py-2">
                 <p className="flex-1 text-xs text-warning">
@@ -648,6 +650,7 @@ function NewProductDialog({
             ) : (
               <div className="mt-1 flex items-center gap-2">
                 <select
+                  id="new-product-category"
                   value={categoryId}
                   onChange={(e) => setCategoryId(e.target.value)}
                   className="h-11 w-full rounded-md border border-input bg-transparent px-3 text-sm outline-none"

@@ -15,7 +15,10 @@ const activeItem = "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm
 
 function NavBadge({ count }: { count: number }) {
   return (
-    <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-destructive px-1.5 text-[10px] font-bold text-destructive-foreground">
+    <span
+      aria-label={`${count} foto(s) aguardando moderação`}
+      className="flex h-5 min-w-5 items-center justify-center rounded-full bg-destructive px-1.5 text-[10px] font-bold text-destructive-foreground"
+    >
       {count > 99 ? "99+" : count}
     </span>
   );
@@ -96,6 +99,10 @@ export function DashboardSidebar({
                 >
                   <Icon className="h-4 w-4 shrink-0" />
                   <span className="flex-1 text-left">{s.label}</span>
+                  {variant === "super" &&
+                    s.key === "moderation" &&
+                    !!pendingCount &&
+                    pendingCount > 0 && <NavBadge count={pendingCount} />}
                 </button>
               );
             })}
