@@ -74,6 +74,7 @@ import { uploadMedia } from "@/lib/media";
 import { cropImage } from "@/lib/image-crop";
 import { PhotoCropDialog } from "@/components/PhotoCropDialog";
 import { WaiterCalls } from "@/components/WaiterCalls";
+import { MenuGateAdminCard } from "@/components/MenuGateAdminCard";
 import { filterTenantsByQuery, type TenantPickerItem } from "@/lib/tenant-picker";
 
 type AdminPageData = {
@@ -195,6 +196,7 @@ function AdminPage() {
           {section === "products" && <ProductsList tenantId={tenant.id} />}
           {section === "wifi" && <WifiCard tenant={tenant} />}
           {section === "branding" && <BrandingCard tenant={tenant} />}
+          {section === "captacao" && <MenuGateAdminCard tenant={tenant} />}
           {section === "metrics" && <Metrics tenantId={tenant.id} />}
         </>
       )}
@@ -404,8 +406,8 @@ function BrandingCard({ tenant }: { tenant: Tables<"tenants"> }) {
         </div>
       </div>
       <p className="text-xs text-muted-foreground">
-        Escolha uma imagem da galeria do seu celular e ajuste o enquadramento antes de salvar. Vídeos
-        de fundo são enviados normalmente.
+        Escolha uma imagem da galeria do seu celular e ajuste o enquadramento antes de salvar.
+        Vídeos de fundo são enviados normalmente.
       </p>
       {cropSource && (
         <PhotoCropDialog

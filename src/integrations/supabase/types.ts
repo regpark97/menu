@@ -216,6 +216,7 @@ export type Database = {
           google_review_url: string | null;
           id: string;
           logo_url: string | null;
+          menu_gate_enabled: boolean;
           name: string;
           owner_user_id: string | null;
           plan: string;
@@ -231,6 +232,7 @@ export type Database = {
           google_review_url?: string | null;
           id?: string;
           logo_url?: string | null;
+          menu_gate_enabled?: boolean;
           name: string;
           owner_user_id?: string | null;
           plan?: string;
@@ -246,6 +248,7 @@ export type Database = {
           google_review_url?: string | null;
           id?: string;
           logo_url?: string | null;
+          menu_gate_enabled?: boolean;
           name?: string;
           owner_user_id?: string | null;
           plan?: string;
@@ -312,6 +315,30 @@ export type Database = {
         };
         Relationships: [];
       };
+      menu_gate_leads: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          full_name: string;
+          whatsapp: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          full_name: string;
+          whatsapp: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          full_name?: string;
+          whatsapp?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       leads: {
         Row: {
           id: number;
@@ -357,6 +384,7 @@ export type Database = {
           bg_image_url: string | null;
           google_review_url: string | null;
           wifi_ssid: string | null;
+          menu_gate_enabled: boolean;
         };
         Relationships: [];
       };

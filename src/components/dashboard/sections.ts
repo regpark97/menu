@@ -5,6 +5,7 @@ import {
   Wifi,
   ImagePlus,
   BarChart3,
+  LockKeyhole,
   Users,
   Tags,
   ImageIcon,
@@ -25,6 +26,7 @@ export const ADMIN_SECTIONS: SectionItem[] = [
   { key: "products", label: "Pratos", icon: UtensilsCrossed, group: "Cardápio" },
   { key: "wifi", label: "Wi-Fi e Google", icon: Wifi, group: "Cardápio" },
   { key: "branding", label: "Aparência", icon: ImagePlus, group: "Cardápio" },
+  { key: "captacao", label: "Captação", icon: LockKeyhole, group: "Cardápio" },
   { key: "metrics", label: "Métricas", icon: BarChart3, group: "Análise" },
 ];
 

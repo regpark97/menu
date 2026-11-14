@@ -42,6 +42,9 @@ import { WaiterButton } from "@/components/WaiterButton";
 import { resolveMedia, parseGallery, productPhotos, type ModifierGroup } from "@/lib/format";
 import { initTelemetry, track } from "@/lib/telemetry";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { MenuGate } from "@/components/MenuGate";
+import { RestaurantBackdrop } from "@/components/RestaurantBackdrop";
+import { needsMenuGate } from "@/lib/menu-gate";
 import {
   MenuLanguageProvider,
   MenuContentProvider,
@@ -90,7 +93,7 @@ function CustomerContent() {
   const { locale, setLocale } = useMenuLanguage();
   const { slug } = Route.useParams();
   const { t } = Route.useSearch();
-  const [screen, setScreen] = useState<"hub" | "feed">("hub");
+  const [screen, setScreen] = useState<"hub" | "gate" | "feed">("hub");
 
   const { data, isLoading } = useQuery({
     queryKey: ["menu", slug],
@@ -135,7 +138,21 @@ function CustomerContent() {
     <MenuContentProvider categories={data.categories} products={data.products}>
       <LanguageSelector locale={locale} onChange={setLocale} />
       {screen === "hub" ? (
-        <Hub tenant={data.tenant} table={t} onExplore={() => setScreen("feed")} />
+        <Hub
+          tenant={data.tenant}
+          table={t}
+          onExplore={() =>
+            needsMenuGate(data.tenant.menu_gate_enabled, data.tenant.id)
+              ? setScreen("gate")
+              : setScreen("feed")
+          }
+        />
+      ) : screen === "gate" ? (
+        <MenuGate
+          tenant={data.tenant}
+          onBack={() => setScreen("hub")}
+          onUnlock={() => setScreen("feed")}
+        />
       ) : (
         <Feed
           categories={data.categories}
@@ -171,8 +188,6 @@ function Hub({
   const [copied, setCopied] = useState(false);
   // Senha buscada sob demanda (RPC tenant_wifi) — não vem mais no select inicial.
   const [wifiPwd, setWifiPwd] = useState<string | null>(null);
-  const bg = resolveMedia(tenant.bg_image_url);
-  const isVideo = /\.(mp4|webm|mov)(\?|$)/i.test(bg);
 
   async function openWifi() {
     setWifiOpen(true);
@@ -184,19 +199,7 @@ function Hub({
 
   return (
     <main className="relative h-dvh overflow-hidden">
-      {isVideo ? (
-        <video
-          src={bg}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      ) : (
-        <img src={bg} alt="" className="absolute inset-0 h-full w-full object-cover" />
-      )}
-      <div className="absolute inset-0 bg-hero-scrim" />
+      <RestaurantBackdrop tenant={tenant} />
       <div className="relative flex h-full flex-col px-6 pb-10 pt-6">
         {table && (
           <div className="mx-auto glass rounded-full px-4 py-1.5 text-xs uppercase tracking-[0.25em]">
